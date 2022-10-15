@@ -1,0 +1,128 @@
+body {
+    display: flex;
+    background-color: #CCF2F4;
+    justify-content: center;
+    font-family:'Times New Roman', Times, serif;
+
+    background-color: #f4f9f9;
+    background-image: url(http://www.transparenttextures.com/patterns/skulls.png);
+}
+
+svg {
+    cursor: pointer;
+}
+
+button {
+    cursor: pointer;
+}
+
+img {
+    height: 80px;
+    width: 160px;
+    border-radius: 30px;
+}
+
+button {
+    border-radius: 5px;
+    background-color: #F4F9F9;
+}
+
+/** HEADER **/
+
+.container.header {
+    width: 1000px;
+    height: 80px;
+
+    background-color: white;
+    border-style: solid;
+    border-radius: 30px;
+    border-color: #AAAAAA;
+    border-width: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.leftItems {
+    width: 300px;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.rightItems {
+    display: flex;
+    width: 220px;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 50px;
+}
+
+menuitem {
+    text-align: right;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/** MESSAGE INPUT **/
+
+.title-input-div {
+    display: flex;
+    justify-content: center;
+}   
+
+.title-input {
+    width: 326px;
+    height: 33px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-width: 5px 5px 0 5px;
+    outline: none;
+
+    font-size: 1.2em;
+
+    display: flex;
+    text-align: center;
+}
+
+.content-input-div {
+    display: flex;
+    justify-content: center;
+}
+
+.content-input {
+    width: 300px;
+    height: 150px;
+    border-bottom-left-radius: 20px;
+    border-width: 0 5px 5px 5px;
+
+    display: flex;
+    padding: 15px;
+}
+
+textarea {
+    resize: none;
+    font-size: 1.6em;
+    outline: none;
+}
+
+.add-button {
+    height: 40px;
+    width: 40px;
+
+    display: flex;
+    justify-content: center;
+
+    position: relative;
+    bottom: 30px;
+    left: 320px;
+    z-index: 1;
+
+    border-radius: 15px;
+    background-color: #38E54D;
+    cursor: pointer;
+}
