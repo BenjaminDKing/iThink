@@ -21,8 +21,6 @@ function MessageInput(props) {
 
     function handleClick(event) {
         event.preventDefault();
-        console.log(message);
-        console.log(props.user);
         
         if (props.user) {
             axios.post(process.env.REACT_APP_API_URL, {
@@ -34,7 +32,8 @@ function MessageInput(props) {
             })
             .catch(function (error) {
                 console.log(error);
-            });    
+            });
+            setMessage({title: "", content: ""});    
         }
     }
 

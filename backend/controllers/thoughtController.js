@@ -1,10 +1,18 @@
 const User = require("../models/user");
 const Thought = require("../models/thought");
-const {
-    body,
-    validationResult
-  } = require('express-validator');
+const { body, validationResult } = require('express-validator');
 const passport = require("passport");
+const mongoose = require("mongoose");
+
+exports.thought_board_get = (req, res, next) => {
+  Thought.find({ user: req.user._id })
+    .sort('-date')
+    .exec(function (err, thought_board) {
+      if (err) { return next(err) }
+      console.log(thought_board);
+      res.json(thought_board);
+    })
+}
 
 exports.create_thought_post = [
 
@@ -19,8 +27,8 @@ exports.create_thought_post = [
     .trim().escape(),
 
     (req, res, next) => {
-      console.log("req.body.user: " + JSON.stringify(req.body.user))
-      
+      const currentTime = new Date();
+
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -28,8 +36,12 @@ exports.create_thought_post = [
 
         const thought = new Thought(
           {
-          }
-        )
+            user: req.body.user._id,
+            title: req.body.title,
+            content: req.body.content,
+          //category: ...,
+            date: currentTime,
+          })
         .save(err => {
           if (err) {
             return next(err);

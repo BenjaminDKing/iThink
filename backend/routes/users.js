@@ -5,11 +5,9 @@ function isLoggedIn(req, res, next) {
     req.user ? next() : null
 }
 
-router.get("/", function (req, res, next) {
-    res.json({ app_name: "iThink" });
-})
+router.get("/", thoughtController.thought_board_get);
 
-router.post("/", isLoggedIn, thoughtController.create_thought_post)
+router.post("/", thoughtController.create_thought_post);
 
 router.get("/check_requser", (req, res) => { 
     res.json(req.user)

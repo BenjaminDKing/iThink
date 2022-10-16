@@ -17,6 +17,8 @@ app.use(express.json());
 
 const mongoDb = process.env.DB_URL;
 mongoose.connect(mongoDb, {useUnifiedTopology: true, useNewUrlParser: true});
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, "Mongo connection error!"))
 
 // PASSPORT
 app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));

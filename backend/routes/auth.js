@@ -3,6 +3,7 @@ const passport = require("passport");
 var thoughtController = require("../controllers/thoughtController");
 
 router.get("/login/success", (req, res) => {
+    console.log(req.user);
     if (req.user) {
         res.status(200).json({
             error: false,
@@ -29,7 +30,8 @@ router.get(
     })
 );
 
-router.get("/google", passport.authenticate("google", ["profile", "email"]));
+router.get("/google", 
+    passport.authenticate("google", { scope: ["profile", "email"] }));
 
 router.get("/logout", (req, res, next) => {
     req.logout(req.user, err => {
