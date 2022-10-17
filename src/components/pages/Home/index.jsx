@@ -4,7 +4,6 @@ import Thought from "./Thought";
 import MessageInput from "./MessageInput";
 import "./index.css";
 import axios from "axios";
-import { Title } from "@mui/icons-material";
 
 function Home(props) {
 
@@ -20,16 +19,17 @@ function Home(props) {
             <MessageInput 
                 user={user}
             />
+            <div className="thought-message-board">
             {thoughts.map( (thoughtItem, index) => {
                 return (
                     <Thought 
                         key={index}
                         id={index}
                         title={thoughtItem.title}
-                        content={thoughtItem.content}
-                    />
+                        content={thoughtItem.content}/>
                 )
             })}
+            </div>
         </div>
     );
 }

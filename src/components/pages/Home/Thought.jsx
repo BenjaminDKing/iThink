@@ -4,8 +4,12 @@ function Thought(props) {
 
     return (
         <div className="thought">
-            <p>{props.title}</p>
-            <p>{props.content}</p>
+            <div className="title-thought-div">
+                <p>{props.title}</p>
+            </div>
+            <div className="content-thought-div">
+                <p>{props.content}</p>
+            </div>
         </div>
     )
 }

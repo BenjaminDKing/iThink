@@ -126,3 +126,52 @@ textarea {
     background-color: #38E54D;
     cursor: pointer;
 }
+
+    /** Thought Message Board **/
+
+.thought-message-board {
+    width: 1000px;
+    
+    display: flex;
+    flex-wrap: wrap;
+    align-content: ;
+}
+
+.thought {
+    height: 250px;
+    width: fit-content;
+    max-width: 950px;
+    min-width: 220px;
+    background-color: white;
+
+    border-style: solid;
+    border-radius: 15px;
+    border-width: 3px;
+    border-color: #AAAAAA;
+    margin: 10px;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.title-thought-div {
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+}
+
+h4 {
+    display: flex;
+}
+
+.content-thought-div {
+    padding-left: 10px;
+    padding-right: 10px;
+
+    display: flex;
+    word-wrap: break-word;
+    white-space: pre-line;
+    overflow: hidden;
+}
