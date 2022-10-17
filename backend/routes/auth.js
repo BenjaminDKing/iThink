@@ -1,15 +1,26 @@
 const router = require("express").Router();
 const passport = require("passport");
 var thoughtController = require("../controllers/thoughtController");
+const Thought = require("../models/thought");
+
 
 router.get("/login/success", (req, res) => {
-    console.log(req.user);
+
     if (req.user) {
-        res.status(200).json({
-            error: false,
-            message: "Successfully Logged In",
-            user: req.user,
+        Thought.find()
+            .sort('-date')
+            .exec(function (err, thought_board) {
+                if (err) { return next(err) }
+            
+                res.status(200).json({
+                    error: false,
+                    message: "Successfully Logged In",
+                    user: req.user,
+                    // What if a query the db here upon login?
+                    thoughts: thought_board
+            })
         })
+    
     } else {
         res.status(403).json({error: true, message: "Not Authorized"});
     }

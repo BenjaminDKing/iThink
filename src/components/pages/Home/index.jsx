@@ -4,27 +4,12 @@ import Thought from "./Thought";
 import MessageInput from "./MessageInput";
 import "./index.css";
 import axios from "axios";
+import { Title } from "@mui/icons-material";
 
-function Home(userDetails) {
+function Home(props) {
 
-    const user = userDetails.user
-    const [thoughtData, setThoughtData] = useState([])
-
-    const getThoughts = async () => {
-        
-        try {
-            const url = process.env.REACT_APP_API_URL;
-            const { data } = await axios.get(url, {withCredentials: true});
-            setThoughtData( prevData => [...prevData, ...data ])
-            console.log(thoughtData)
-        } catch(err) {
-            console.log(err);
-        }
-    }
-
-    useEffect(() => {
-        getThoughts();
-    }, [])
+    const user = props.user
+    const thoughts = props.thoughts
 
     return (
         <div className="home">
@@ -35,16 +20,16 @@ function Home(userDetails) {
             <MessageInput 
                 user={user}
             />
-
-            { thoughtData.length ?
-                thoughtData.map((thoughtItem, index) => {
-                <Thought 
-                    key={index}
-                    id={index}
-                    title={thoughtItem.title}
-                    content={thoughtItem.content}
-                />
-            }) : null }
+            {thoughts.map( (thoughtItem, index) => {
+                return (
+                    <Thought 
+                        key={index}
+                        id={index}
+                        title={thoughtItem.title}
+                        content={thoughtItem.content}
+                    />
+                )
+            })}
         </div>
     );
 }

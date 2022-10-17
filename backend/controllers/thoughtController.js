@@ -5,11 +5,10 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 
 exports.thought_board_get = (req, res, next) => {
-  Thought.find({ user: req.user._id })
+  Thought.find()
     .sort('-date')
     .exec(function (err, thought_board) {
       if (err) { return next(err) }
-      console.log(thought_board);
       res.json(thought_board);
     })
 }

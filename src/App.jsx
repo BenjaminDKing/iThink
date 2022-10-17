@@ -9,13 +9,15 @@ import Signup from "./components/pages/Signup";
 // Color Palette: https://colorhunt.co/palette/f4f9f9ccf2f4a4ebf3aaaaaa
 
 function App() {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
+  const [thoughts, setThoughts] = useState(null);
 
   const getUser = async () => {
     try {
       const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
       const { data } = await axios.get(url, {withCredentials: true});
       setUser(data.user);
+      setThoughts(data.thoughts);
     } catch(err) {
       console.log(err);
     }
@@ -31,7 +33,7 @@ function App() {
         <Route 
           exact
           path="/"
-          element={ user ? <Home user={user}/> : <Navigate to="/login"/> }
+          element={ user ? <Home user={user} thoughts={thoughts}/> : <Navigate to="/login"/> }
         />
         <Route 
           exact
