@@ -33,7 +33,8 @@ function MessageInput(props) {
             .catch(function (error) {
                 console.log(error);
             });
-            setMessage({title: "", content: ""});    
+            setMessage({title: "", content: ""});
+            const getThoughts = () => { props.renderThoughts() };
         }
     }
 
@@ -47,7 +48,7 @@ function MessageInput(props) {
                     value={message.title}
                     placeholder="What's on your mind?"
                     className="title-input"
-                    maxLength="50"
+                    maxLength="40"
                     onChange={ handleChange }>
                 </input>
             </div>

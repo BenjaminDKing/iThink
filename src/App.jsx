@@ -9,15 +9,21 @@ import Signup from "./components/pages/Signup";
 // Color Palette: https://colorhunt.co/palette/f4f9f9ccf2f4a4ebf3aaaaaa
 
 function App() {
+  
   const [user, setUser] = useState(null);
   const [thoughts, setThoughts] = useState(null);
+  const [data, setData] = useState(null);
 
   const getUser = async () => {
     try {
       const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
-      const { data } = await axios.get(url, {withCredentials: true});
+      var { data } = await axios.get(url, {withCredentials: true});
+      // req.user works *from any route* if called at this stage from the main App.jsx
+      // *For some reason*, req.user is not defined on GET requests made from other components
+      console.log(data);
       setUser(data.user);
       setThoughts(data.thoughts);
+      setData(data);
     } catch(err) {
       console.log(err);
     }
@@ -33,7 +39,7 @@ function App() {
         <Route 
           exact
           path="/"
-          element={ user ? <Home user={user} thoughts={thoughts}/> : <Navigate to="/login"/> }
+          element={ user ? <Home data={data} user={user} thoughts={thoughts}/> : <Navigate to="/login"/> }
         />
         <Route 
           exact

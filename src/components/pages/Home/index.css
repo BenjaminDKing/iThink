@@ -1,3 +1,5 @@
+/** GENERAL **/
+
 body {
     display: flex;
     background-color: #CCF2F4;
@@ -127,21 +129,18 @@ textarea {
     cursor: pointer;
 }
 
-    /** Thought Message Board **/
+/** Thought Message Board **/
 
 .thought-message-board {
     width: 1000px;
     
     display: flex;
     flex-wrap: wrap;
-    align-content: ;
 }
 
 .thought {
-    height: 250px;
-    width: fit-content;
-    max-width: 950px;
-    min-width: 220px;
+    height: fit-content;
+    width: 950px;
     background-color: white;
 
     border-style: solid;
@@ -152,26 +151,40 @@ textarea {
 
     display: flex;
     flex-direction: column;
-
 }
 
-.title-thought-div {
+.top-div {
     height: 30px;
-
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 
-h4 {
+h3 {
     display: flex;
+    align-self: center;
 }
 
 .content-thought-div {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
 
     display: flex;
     word-wrap: break-word;
     white-space: pre-line;
     overflow: hidden;
+}
+
+.delete-button {
+    height: 40px;
+    width: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-self: flex-start;
+
+    z-index: 1;
+
+    border-radius: 15px;
+    background-color: red;
+    cursor: pointer;
 }
