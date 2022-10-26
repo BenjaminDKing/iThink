@@ -14,6 +14,11 @@ const port = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 const mongoDb = process.env.DB_URL;
 mongoose.connect(mongoDb, {useUnifiedTopology: true, useNewUrlParser: true});
@@ -28,14 +33,14 @@ app.use(passport.session());
 const initializePassport = require('./passport.js');
 initializePassport(passport);
 
+app.use(cookieParser());
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: process.env.CLIENT_URL,
         methods: "GET,POST,PUT,DELETE",
         credentials: true,
     })
 )
-app.use(cookieParser());
 
 // HANDLE ROUTES
 const usersRouter = require('./routes/users');

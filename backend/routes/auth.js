@@ -16,7 +16,6 @@ router.get("/login/success", (req, res) => {
                     error: false,
                     message: "Successfully Logged In",
                     user: req.user,
-                    // What if a query the db here upon login?
                     thoughts: thought_board
             })
         })
