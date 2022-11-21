@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import Axios from "axios";
 
 import CreateIcon from '@mui/icons-material/Create';
 import AddIcon from '@mui/icons-material/Add';
 import Zoom from '@mui/material/Zoom';
 import axios from "axios";
+
+import { postThought } from "../../../api";
 
 function MessageInput(props) {
     const [ message, setMessage ] = useState({title: "", content: ""})
@@ -23,16 +24,10 @@ function MessageInput(props) {
         event.preventDefault();
         
         if (props.user) {
-            axios.post(process.env.REACT_APP_API_URL, {
-                ...message,
-                user: props.user
+            postThought({
+                ...message, user: props.user
             })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+
             setMessage({title: "", content: ""});
             const getThoughts = () => { props.renderThoughts() };
         }

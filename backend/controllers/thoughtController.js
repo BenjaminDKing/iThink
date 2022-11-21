@@ -4,12 +4,12 @@ const { body, validationResult } = require('express-validator');
 const passport = require("passport");
 const mongoose = require("mongoose");
 
-exports.thought_board_get = (req, res, next) => {
-  Thought.find()
+exports.thoughts_get = (req, res, next) => {
+  Thought.find({user : req.user._id})
     .sort('-date')
-    .exec(function (err, thought_board) {
+    .exec(function (err, thoughts) {
       if (err) { return next(err) }
-      res.json(thought_board);
+      res.json(thoughts);
     })
 }
 
@@ -49,3 +49,7 @@ exports.create_thought_post = [
       }
     }
 ]
+
+exports.delete_thought_post = (req, res, next) => {
+  return null;
+}

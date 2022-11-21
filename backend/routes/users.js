@@ -9,13 +9,16 @@ function isLoggedIn(req, res, next) {
 }
 
 function reqUser(req, res, next) {
+    console.log(req.sessionID);
     console.log("req.user: " +  JSON.stringify(req.user));
     next();
 }
 
-router.get("/", reqUser, thoughtController.thought_board_get);
+router.get("/get_thoughts", thoughtController.thoughts_get);
 
-router.post("/", reqUser, thoughtController.create_thought_post);
+router.post("/create_thought", isLoggedIn, thoughtController.create_thought_post);
+
+router.post("/delete_thought", isLoggedIn, thoughtController.delete_thought_post);
 
 router.get("/check_requser", isLoggedIn, reqUser, (req, res) => { 
     res.json(req.user)

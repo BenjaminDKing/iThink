@@ -7,17 +7,10 @@ const Thought = require("../models/thought");
 router.get("/login/success", (req, res) => {
 
     if (req.user) {
-        Thought.find({user: req.user._id})
-            .sort('-date')
-            .exec(function (err, thought_board) {
-                if (err) { return next(err) }
-            
-                res.status(200).json({
-                    error: false,
-                    message: "Successfully Logged In",
-                    user: req.user,
-                    thoughts: thought_board
-            })
+        res.status(200).json({
+            error: false,
+            message: "Successfully Logged In",
+            user: req.user,
         })
     
     } else {

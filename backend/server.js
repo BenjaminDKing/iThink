@@ -12,7 +12,6 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.use(cors());
 app.use(express.json());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -26,14 +25,22 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, "Mongo connection error!"))
 
 // PASSPORT
-app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
+app.use(cookieParser());
+app.use(session({ 
+    secret: process.env.SESSION_SECRET, 
+    resave: false, 
+    saveUninitialized: false,
+    cookie: { 
+        maxAge: 60*60*1000,
+        httpOnly: true,
+    }, 
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
 const initializePassport = require('./passport.js');
 initializePassport(passport);
 
-app.use(cookieParser());
 app.use(
     cors({
         origin: process.env.CLIENT_URL,

@@ -1,14 +1,18 @@
+import axios from "axios";
 import React, {useEffect, useState} from "react";
+import "./index.css";
+import { getThoughts } from "../../../api";
+import { checkReqUserCall } from "../../../api";
+
+// Components:
 import Navbar from "./Navbar";
 import Thought from "./Thought";
 import MessageInput from "./MessageInput";
-import "./index.css";
-import axios from "axios";
 
 function Home(props) {
 
     const user = props.user
-    const thoughts = props.thoughts
+    const [thoughts, setThoughts] = useState([]);
 
     // Render thoughts on:
     // 1. Page load (Done)
@@ -17,17 +21,21 @@ function Home(props) {
 
     const renderThoughts = async () => {
         try {
-          const url = `${process.env.REACT_APP_API_URL}/auth/check_requser`;
-          const { data } = await axios.get(url, {withCredentials: true});
+          const data = await getThoughts();
+          setThoughts(data);
           console.log(data)
         } catch(err) {
           console.log(err);
         }
-      }
+    }
 
     function handleDelete() {
         console.log("Handle Delete");
     }
+
+    useEffect(() => {
+        renderThoughts();
+      }, []);    
 
     return (
         <div className="home">
@@ -40,17 +48,18 @@ function Home(props) {
                 renderThoughts={renderThoughts}
             />
             <div className="thought-message-board">
-            {thoughts.map( (thoughtItem, index) => {
-                return (
-                    <Thought 
-                        key={index}
-                        id={index}
-                        user={user}
-                        title={thoughtItem.title}
-                        content={thoughtItem.content}
-                        handleDelete={handleDelete}/>
-                )
-            })}
+                {thoughts.map( (thoughtItem, index) => {
+                    return (
+                        <Thought 
+                            key={index}
+                            id={thoughtItem._id}
+                            user={user}
+                            title={thoughtItem.title}
+                            content={thoughtItem.content}
+                            date={thoughtItem.date}
+                            handleDelete={handleDelete}/>
+                    )
+                })}
             </div>
         </div>
     );
