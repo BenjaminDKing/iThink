@@ -23,9 +23,9 @@ export async function getThoughts() {
     return data;
 }
 
-export async function deleteThought() {
+export async function deleteThought(id, user) {
     const url = `${BASE_URL}/delete_thought`;
-    await axios.post(url, {withCredentials: true});
+    await axios.delete(url, { data: { id: id, user: user } }, {withCredentials: true});
 }
 
 export async function postThought(thought) {

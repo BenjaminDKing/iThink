@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
 import "./index.css";
-import { getThoughts } from "../../../api";
-import { checkReqUserCall } from "../../../api";
+import { getThoughts, deleteThought, checkReqUserCall } from "../../../api";
 
 // Components:
 import Navbar from "./Navbar";
@@ -23,14 +22,20 @@ function Home(props) {
         try {
           const data = await getThoughts();
           setThoughts(data);
-          console.log(data)
         } catch(err) {
           console.log(err);
         }
     }
 
-    function handleDelete() {
-        console.log("Handle Delete");
+    // To make API request deleting thought by id
+    function handleDelete(id) {
+        try {
+            deleteThought(id, user);
+            renderThoughts();
+        } catch(err) {
+            console.log(err);
+            console.log("Error when deleting Thought.");
+        }
     }
 
     useEffect(() => {

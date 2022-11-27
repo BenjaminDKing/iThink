@@ -12,6 +12,7 @@ function Thought(props) {
 
                 <div className="title-div"> 
                     <h3>{props.title}</h3>
+                    <h3>{props.id}</h3>
                 </div>
 
                 <div className="delete-div">
@@ -19,7 +20,7 @@ function Thought(props) {
                         <DeleteIcon
                             sx={{fontSize: 30}}    
                             className="delete-icon"
-                            onClick={props.handleDelete}/>
+                            onClick={ () => props.handleDelete(props.id)}/>
                     </button>
                 </div>
             </div>

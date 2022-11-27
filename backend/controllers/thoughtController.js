@@ -50,6 +50,15 @@ exports.create_thought_post = [
     }
 ]
 
-exports.delete_thought_post = (req, res, next) => {
+exports.delete_thought_delete = (req, res, next) => {
+  
+  Thought.findById( req.body.id )
+  .exec(function (err, thought) {
+    if (err) { return next(err) }
+    if (thought.user == req.body.user._id) {
+      thought.delete();
+    }
+  })
+  
   return null;
 }
