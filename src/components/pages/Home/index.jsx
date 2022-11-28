@@ -13,15 +13,11 @@ function Home(props) {
     const user = props.user
     const [thoughts, setThoughts] = useState([]);
 
-    // Render thoughts on:
-    // 1. Page load (Done)
-    // 2. POST new Thought ()
-    // 3. DELETE Thought ()
-
     const renderThoughts = async () => {
         try {
           const data = await getThoughts();
           setThoughts(data);
+          console.log(data.length);
         } catch(err) {
           console.log(err);
         }
@@ -29,7 +25,7 @@ function Home(props) {
 
     function handleAdd(newThought) {
         setThoughts(prevThoughts => {
-            return [...prevThoughts, newThought]
+            return [newThought, ...prevThoughts]
         });
     }
 

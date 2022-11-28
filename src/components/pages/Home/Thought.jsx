@@ -12,7 +12,6 @@ function Thought(props) {
 
                 <div className="title-div"> 
                     <h3>{props.title}</h3>
-                    <h3>{props.id}</h3>
                 </div>
 
                 <div className="delete-div">
