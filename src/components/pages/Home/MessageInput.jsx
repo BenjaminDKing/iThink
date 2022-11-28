@@ -24,12 +24,18 @@ function MessageInput(props) {
         event.preventDefault();
         
         if (props.user) {
-            postThought({
-                ...message, user: props.user
-            })
+            try {
+                postThought({...message, user: props.user})
+                .then(response => {
+                    if(response.data.response == 'Success') {
+                        props.onAdd(message);
+                    }
+                })
+            } catch(err) {
+                console.log(err);
+            }
 
             setMessage({title: "", content: ""});
-            const getThoughts = () => { props.renderThoughts() };
         }
     }
 

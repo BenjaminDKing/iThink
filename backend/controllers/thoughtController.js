@@ -44,6 +44,8 @@ exports.create_thought_post = [
         .save(err => {
           if (err) {
             return next(err);
+          } else {
+            return res.status(200).json({ 'response': 'Success' });
           }
         })
       }
@@ -57,8 +59,7 @@ exports.delete_thought_delete = (req, res, next) => {
     if (err) { return next(err) }
     if (thought.user == req.body.user._id) {
       thought.delete();
+      return res.status(200).json({ 'response': 'Success'})
     }
   })
-  
-  return null;
 }

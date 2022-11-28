@@ -27,11 +27,24 @@ function Home(props) {
         }
     }
 
-    // To make API request deleting thought by id
+    function handleAdd(newThought) {
+        setThoughts(prevThoughts => {
+            return [...prevThoughts, newThought]
+        });
+    }
+
     function handleDelete(id) {
         try {
-            deleteThought(id, user);
-            renderThoughts();
+            deleteThought(id, user)
+            .then(response => {
+                console.log(response.data.response);
+                if(response.data.response == 'Success') {
+                    const updatedThoughts = thoughts.filter( thought => {
+                        return thought._id !== id;
+                    })
+                    setThoughts(updatedThoughts);
+                }
+            })
         } catch(err) {
             console.log(err);
             console.log("Error when deleting Thought.");
@@ -50,7 +63,9 @@ function Home(props) {
             <h1>Welcome back, {user.first_name}!</h1>
             <MessageInput 
                 user={user}
+                onAdd={handleAdd}
                 renderThoughts={renderThoughts}
+                
             />
             <div className="thought-message-board">
                 {thoughts.map( (thoughtItem, index) => {

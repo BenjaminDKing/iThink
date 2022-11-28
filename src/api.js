@@ -25,12 +25,14 @@ export async function getThoughts() {
 
 export async function deleteThought(id, user) {
     const url = `${BASE_URL}/delete_thought`;
-    await axios.delete(url, { data: { id: id, user: user } }, {withCredentials: true});
+    const response = await axios.delete(url, { data: { id: id, user: user } }, {withCredentials: true});
+    return response;
 }
 
 export async function postThought(thought) {
     const url = `${BASE_URL}/create_thought`;
-    await axios.post(url, thought, {withCredentials: true})
+    const response = await axios.post(url, thought, {withCredentials: true});
+    return response;
 }
 
 export async function checkReqUserCall() {
