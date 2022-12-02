@@ -7,6 +7,7 @@ import { getThoughts, deleteThought, checkReqUserCall } from "../../../api";
 import Navbar from "./Navbar";
 import Thought from "./Thought";
 import MessageInput from "./MessageInput";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function Home(props) {
 
@@ -47,6 +48,10 @@ function Home(props) {
         }
     }
 
+    loadMoreThoughts = () => {
+        null
+    }
+
     useEffect(() => {
         renderThoughts();
       }, []);    
@@ -64,18 +69,25 @@ function Home(props) {
                 
             />
             <div className="thought-message-board">
-                {thoughts.map( (thoughtItem, index) => {
-                    return (
-                        <Thought 
-                            key={index}
-                            id={thoughtItem._id}
-                            user={user}
-                            title={thoughtItem.title}
-                            content={thoughtItem.content}
-                            date={thoughtItem.date}
-                            handleDelete={handleDelete}/>
-                    )
-                })}
+                <InfiniteScroll
+                dataLength={thoughts.length}
+                next={loadMoreThoughts}
+                hasMore={true}
+                loader={<h4>Loading...</h4>}
+                endMessage={<p>Done!</p>}>
+                    {thoughts.map( (thoughtItem, index) => {
+                        return (
+                            <Thought 
+                                key={index}
+                                id={thoughtItem._id}
+                                user={user}
+                                title={thoughtItem.title}
+                                content={thoughtItem.content}
+                                date={thoughtItem.date}
+                                handleDelete={handleDelete}/>
+                        )
+                    })}
+                </InfiniteScroll>
             </div>
         </div>
     );
