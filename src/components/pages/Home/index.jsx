@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
 import "./index.css";
-import { getThoughts, deleteThought, checkReqUserCall } from "../../../api";
+import { getThoughts, getMoreThoughts, deleteThought, checkReqUserCall } from "../../../api";
 
 // Components:
 import Navbar from "./Navbar";
@@ -13,14 +13,28 @@ function Home(props) {
 
     const user = props.user
     const [thoughts, setThoughts] = useState([]);
+    const [totalThoughtCount, setTotalThoughtCount] = useState();
+    // thoughts.length will reflect the index at which to GET more thoughts
+    // totalThoughtCount will reflect the total number of thoughts available when scrolling
 
     const renderThoughts = async () => {
         try {
           const data = await getThoughts();
-          setThoughts(data);
-          console.log(data.length);
+          console.log(data);
+          setThoughts(data.thoughts);
+          setTotalThoughtCount(data.totalThoughtCount);
         } catch(err) {
           console.log(err);
+        }
+    }
+
+    const loadMoreThoughts = async () => {
+        try {
+            const data = getMoreThoughts(thoughts.length);
+            console.log(data);
+            setThoughts(...thoughts, data);
+        } catch(err) {
+            console.log(err);
         }
     }
 
@@ -34,7 +48,6 @@ function Home(props) {
         try {
             deleteThought(id, user)
             .then(response => {
-                console.log(response.data.response);
                 if(response.data.response == 'Success') {
                     const updatedThoughts = thoughts.filter( thought => {
                         return thought._id !== id;
@@ -46,10 +59,6 @@ function Home(props) {
             console.log(err);
             console.log("Error when deleting Thought.");
         }
-    }
-
-    loadMoreThoughts = () => {
-        null
     }
 
     useEffect(() => {
@@ -65,16 +74,16 @@ function Home(props) {
             <MessageInput 
                 user={user}
                 onAdd={handleAdd}
-                renderThoughts={renderThoughts}
-                
+                renderThoughts={renderThoughts}     
             />
             <div className="thought-message-board">
                 <InfiniteScroll
-                dataLength={thoughts.length}
-                next={loadMoreThoughts}
-                hasMore={true}
-                loader={<h4>Loading...</h4>}
-                endMessage={<p>Done!</p>}>
+                    dataLength={thoughts.length}
+                    next={loadMoreThoughts}
+                    hasMore={thoughts.length < totalThoughtCount}
+                    loader={<h4>Loading...</h4>}
+                    endMessage={<p>Done!</p>}
+                >
                     {thoughts.map( (thoughtItem, index) => {
                         return (
                             <Thought 

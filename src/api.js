@@ -23,6 +23,18 @@ export async function getThoughts() {
     return data;
 }
 
+export async function getMoreThoughts(index) {
+    const url = `${BASE_URL}/get_more_thoughts`;
+    const config = { 
+        withCredentials: true,
+        params: {
+            index: index
+        }
+     }
+    const { data } = await axios.get(url, config);
+    return data;
+}
+
 export async function deleteThought(id, user) {
     const url = `${BASE_URL}/delete_thought`;
     const response = await axios.delete(url, { data: { id: id, user: user } }, {withCredentials: true});

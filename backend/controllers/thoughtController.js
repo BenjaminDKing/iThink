@@ -9,7 +9,22 @@ exports.thoughts_get = (req, res, next) => {
     .sort('-date')
     .exec(function (err, thoughts) {
       if (err) { return next(err) }
-      res.json(thoughts);
+      res.json({
+        thoughts: thoughts.slice(0, 10),
+        totalThoughtCount: thoughts.length  
+      });
+    })
+}
+
+exports.more_thoughts_get = (req, res, next) => {
+  const index = req.query.index
+
+  Thought.find({user : req.user._id})
+    .sort('-date')
+    .exec(function (err, thoughts) {
+      if (err) { return next(err) }
+      console.log(thoughts.slice( index, index+10 ));
+      res.json( { thoughts: thoughts.slice( index, index+10 ) } )
     })
 }
 

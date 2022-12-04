@@ -16,6 +16,8 @@ function reqUser(req, res, next) {
 
 router.get("/get_thoughts", thoughtController.thoughts_get);
 
+router.get("/get_more_thoughts", thoughtController.more_thoughts_get);
+
 router.post("/create_thought", isLoggedIn, thoughtController.create_thought_post);
 
 router.delete("/delete_thought", thoughtController.delete_thought_delete);
