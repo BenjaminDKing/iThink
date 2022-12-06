@@ -30,9 +30,10 @@ function Home(props) {
 
     const loadMoreThoughts = async () => {
         try {
-            const data = getMoreThoughts(thoughts.length);
-            console.log(data);
-            setThoughts(...thoughts, data);
+            const data = await getMoreThoughts(thoughts.length);
+            // console.log(data);
+            setThoughts([...thoughts, ...data.thoughts]);
+            console.log(thoughts);
         } catch(err) {
             console.log(err);
         }
