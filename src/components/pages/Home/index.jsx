@@ -20,7 +20,6 @@ function Home(props) {
     const renderThoughts = async () => {
         try {
           const data = await getThoughts();
-          console.log(data);
           setThoughts(data.thoughts);
           setTotalThoughtCount(data.totalThoughtCount);
         } catch(err) {
@@ -31,9 +30,7 @@ function Home(props) {
     const loadMoreThoughts = async () => {
         try {
             const data = await getMoreThoughts(thoughts.length);
-            // console.log(data);
             setThoughts([...thoughts, ...data.thoughts]);
-            console.log(thoughts);
         } catch(err) {
             console.log(err);
         }
