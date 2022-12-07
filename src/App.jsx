@@ -35,9 +35,12 @@ function App() {
           element={ user ? <Home user={user} /> : <Navigate to="/login"/> }
         />
         <Route
-          exact
           path="/profile"
-          element={ user ? <Profile user={user} /> : <Navigate to="/login" /> }
+          element={ <Profile user={user} /> }
+        />
+        <Route
+          path="/profile/:id"
+          element={ <Profile user={user} /> }
         />
         <Route 
           exact

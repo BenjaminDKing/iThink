@@ -23,7 +23,7 @@ exports.more_thoughts_get = (req, res, next) => {
     .sort('-date')
     .exec(function (err, thoughts) {
       if (err) { return next(err) }
-      res.json( { thoughts: thoughts.slice( index, index+10 ) } )
+      res.json( { thoughts: thoughts.slice( index, index+5 ) } )
     })
 }
 

@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
+
 
 function Thought(props) {
 
@@ -7,7 +9,7 @@ function Thought(props) {
         <div className="thought"> 
             <div className="top-div">
                 <div className="author-div">
-                    <h5>{props.user.first_name} {props.user.last_name}</h5>
+                    <Link to="/profile"><h5>{props.user.first_name} {props.user.last_name}</h5></Link>
                 </div>  
 
                 <div className="title-div"> 

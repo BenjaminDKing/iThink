@@ -91,14 +91,15 @@ function Navbar() {
         onMouseOut={handleMouseOut}>
       </GroupIcon>
 
-      <PersonIcon
-        sx={{ fontSize: 50 }}
-        id="profile"
-        className="button"
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}>
-        onClick={ () => <Link to="/profile"> Profile </Link>}
-      </PersonIcon>
+      <Link to="/profile">
+        <PersonIcon
+          sx={{ fontSize: 50 }}
+          id="profile"
+          className="button"
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}>
+        </PersonIcon>
+      </Link>
 
       <SettingsIcon 
         sx={{ fontSize: 50 }}    
