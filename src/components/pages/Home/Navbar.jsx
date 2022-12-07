@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { Outlet, Link, Navigate, NavLink } from "react-router-dom";
 
 import {
   Button,
@@ -13,6 +14,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import GroupIcon from '@mui/icons-material/Group';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
+import PersonIcon from '@mui/icons-material/Person';
 
 const logo = require('../../../../src/images/iThink_logo.png')
 
@@ -88,6 +90,15 @@ function Navbar() {
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}>
       </GroupIcon>
+
+      <PersonIcon
+        sx={{ fontSize: 50 }}
+        id="profile"
+        className="button"
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}>
+        onClick={ () => <Link to="/profile"> Profile </Link>}
+      </PersonIcon>
 
       <SettingsIcon 
         sx={{ fontSize: 50 }}    

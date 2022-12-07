@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Home from "./components/pages/Home";
+import Profile from "./components/pages/Profile";
 import Login from "./components/pages/Login";
 import Signup from "./components/pages/Signup";
 import { getUser } from "./api.js";
@@ -14,9 +15,7 @@ function App() {
 
   const renderUser = async () => {
     try {
-      // Login GET request
       const data = await getUser();
-      console.log(data);
       setUser(data.user);
     } catch(err) {
       console.log(err);
@@ -34,6 +33,11 @@ function App() {
           exact
           path="/"
           element={ user ? <Home user={user} /> : <Navigate to="/login"/> }
+        />
+        <Route
+          exact
+          path="/profile"
+          element={ user ? <Profile user={user} /> : <Navigate to="/login" /> }
         />
         <Route 
           exact

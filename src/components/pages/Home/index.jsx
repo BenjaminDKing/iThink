@@ -80,7 +80,7 @@ function Home(props) {
                     next={loadMoreThoughts}
                     hasMore={thoughts.length < totalThoughtCount}
                     loader={<h4>Loading...</h4>}
-                    endMessage={<p>Done!</p>}
+                    endMessage={<p>All thoughts have been loaded.</p>}
                 >
                     {thoughts.map( (thoughtItem, index) => {
                         return (
