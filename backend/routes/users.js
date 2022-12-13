@@ -22,6 +22,9 @@ router.post("/create_thought", isLoggedIn, thoughtController.create_thought_post
 
 router.delete("/delete_thought", thoughtController.delete_thought_delete);
 
+router.get("/get_profile/:id", thoughtController.profile_get);
+
+// Used for development
 router.get("/check_requser", isLoggedIn, reqUser, (req, res) => { 
     res.json(req.user)
 })

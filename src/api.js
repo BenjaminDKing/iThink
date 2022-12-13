@@ -2,8 +2,6 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_API_URL
 
-// API calls: googleAuth, login, logout, get/post thought(s), check_requser (for debugging)
-
 export async function googleAuthCall() {
     window.open(
         `${BASE_URL}/auth/google/callback`,
@@ -45,6 +43,12 @@ export async function postThought(thought) {
     const url = `${BASE_URL}/create_thought`;
     const response = await axios.post(url, thought, {withCredentials: true});
     return response;
+}
+
+export async function getProfile(id) {
+    const url = `${BASE_URL}/get_profile/${id}`;
+    const { data } = await axios.get(url, { withCredentials: true });
+    return data;
 }
 
 export async function checkReqUserCall() {

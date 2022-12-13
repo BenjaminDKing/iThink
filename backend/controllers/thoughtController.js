@@ -3,6 +3,8 @@ const Thought = require("../models/thought");
 const { body, validationResult } = require('express-validator');
 const passport = require("passport");
 const mongoose = require("mongoose");
+const thought = require("../models/thought");
+const { Cast } = require("@mui/icons-material");
 
 exports.thoughts_get = (req, res, next) => {
   Thought.find({user : req.user._id})
@@ -76,4 +78,26 @@ exports.delete_thought_delete = (req, res, next) => {
       return res.status(200).json({ 'response': 'Success'})
     }
   })
+}
+
+exports.profile_get = (req, res, next) => {
+  const id = req.params.id;
+
+  try {
+    User.findOne({_id: id})
+    .exec(function (err, user) {
+      if (err) { return next(err) }
+      Thought.find({ user : user._id })
+      .exec(function (err, thoughts){
+        if (err) { return next(err) }
+        res.json({ 
+          user: user,
+          thoughts: thoughts
+        })
+      })
+    })
+  } catch(CastError) { 
+    console.log(CastError);
+  }
+
 }

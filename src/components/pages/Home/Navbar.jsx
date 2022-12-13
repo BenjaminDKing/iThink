@@ -18,10 +18,11 @@ import PersonIcon from '@mui/icons-material/Person';
 
 const logo = require('../../../../src/images/iThink_logo.png')
 
-function Navbar() {
+function Navbar(props) {
 
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
+  const user = props.user;
 
   const [isMouseHover, setMouseHover] = useState(
     {
@@ -91,7 +92,7 @@ function Navbar() {
         onMouseOut={handleMouseOut}>
       </GroupIcon>
 
-      <Link to="/profile">
+      <Link to={"/profile/" + user._id}>
         <PersonIcon
           sx={{ fontSize: 50 }}
           id="profile"

@@ -9,7 +9,7 @@ function Thought(props) {
         <div className="thought"> 
             <div className="top-div">
                 <div className="author-div">
-                    <Link to="/profile"><h5>{props.user.first_name} {props.user.last_name}</h5></Link>
+                    <Link to={"/profile/" + props.user._id}><h5>{props.user.first_name} {props.user.last_name}</h5></Link>
                 </div>  
 
                 <div className="title-div"> 
