@@ -117,7 +117,7 @@ function Navbar(props) {
       <Menu id='settings-menu' anchorEl={anchorEl} open={open} 
         MenuListProps={{ 'aria-labelledby': 'settings-button'}}
         onClose={handleClose}>
-        <MenuItem onClick={handleClose}> <AccountCircleIcon fontSize="small"/> Profile </MenuItem>
+        <MenuItem onClick={handleClose}> <AccountCircleIcon fontSize="small"/> Profile Settings</MenuItem>
         <MenuItem onClick={handleClose}> <SettingsApplicationsIcon fontSize="small"/> Account Settings</MenuItem>
         <MenuItem onClick={handleClose}><a href="http://localhost:3001/auth/logout"><LogoutIcon fontSize="small"/> Logout</a></MenuItem>
       </Menu>

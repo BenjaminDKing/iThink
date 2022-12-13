@@ -5,7 +5,7 @@ import { getThoughts, getMoreThoughts, deleteThought, checkReqUserCall } from ".
 
 // Components:
 import Navbar from "../../Navbar";
-import Thought from "./Thought";
+import Thought from "../../Thought";
 import MessageInput from "./MessageInput";
 import InfiniteScroll from "react-infinite-scroll-component";
 
