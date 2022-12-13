@@ -4,10 +4,9 @@ const { body, validationResult } = require('express-validator');
 const passport = require("passport");
 const mongoose = require("mongoose");
 const thought = require("../models/thought");
-const { Cast } = require("@mui/icons-material");
 
 exports.thoughts_get = (req, res, next) => {
-  Thought.find({user : req.user._id})
+  Thought.find({user : req.query.id})
     .sort('-date')
     .exec(function (err, thoughts) {
       if (err) { return next(err) }
@@ -21,7 +20,7 @@ exports.thoughts_get = (req, res, next) => {
 exports.more_thoughts_get = (req, res, next) => {
   const index = req.query.index
 
-  Thought.find({user : req.user._id})
+  Thought.find({user : req.query.id})
     .sort('-date')
     .exec(function (err, thoughts) {
       if (err) { return next(err) }
@@ -92,7 +91,6 @@ exports.profile_get = (req, res, next) => {
         if (err) { return next(err) }
         res.json({ 
           user: user,
-          thoughts: thoughts
         })
       })
     })

@@ -15,17 +15,24 @@ export async function getUser() {
     return data;
 }
 
-export async function getThoughts() {
+export async function getThoughts(id) {
     const url = `${BASE_URL}/get_thoughts`;
-    const { data } = await axios.get(url, {withCredentials: true});
+    const config = {
+        withCredentials: true,
+        params: {
+            id: id
+        }
+    }
+    const { data } = await axios.get(url, config);
     return data;
 }
 
-export async function getMoreThoughts(index) {
+export async function getMoreThoughts(id, index) {
     const url = `${BASE_URL}/get_more_thoughts`;
     const config = { 
         withCredentials: true,
         params: {
+            id: id,
             index: index
         }
      }
