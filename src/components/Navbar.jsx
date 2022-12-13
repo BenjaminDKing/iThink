@@ -16,7 +16,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 
-const logo = require('../../../../src/images/iThink_logo.png')
+const logo = require('../images/iThink_logo.png');
 
 function Navbar(props) {
 

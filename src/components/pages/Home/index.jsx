@@ -4,7 +4,7 @@ import "./index.css";
 import { getThoughts, getMoreThoughts, deleteThought, checkReqUserCall } from "../../../api";
 
 // Components:
-import Navbar from "./Navbar";
+import Navbar from "../../Navbar";
 import Thought from "./Thought";
 import MessageInput from "./MessageInput";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -14,8 +14,6 @@ function Home(props) {
     const user = props.user
     const [thoughts, setThoughts] = useState([]);
     const [totalThoughtCount, setTotalThoughtCount] = useState();
-    // thoughts.length will reflect the index at which to GET more thoughts
-    // totalThoughtCount will reflect the total number of thoughts available when scrolling
 
     const renderThoughts = async () => {
         try {
