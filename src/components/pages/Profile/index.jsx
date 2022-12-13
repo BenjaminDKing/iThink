@@ -29,7 +29,7 @@ function Profile(props) {
                 { <h1> { profile.user.first_name }'s Profile </h1> }
             </div>
         )
-    }
+    } 
 }
 
 
