@@ -5,13 +5,14 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 
 exports.thoughts_get = (req, res, next) => {
-  Thought.find({user : req.user._id})
+
+  Thought.find({user : req.query.id})
     .sort('-date')
     .exec(function (err, thoughts) {
       if (err) { return next(err) }
       res.json({
         thoughts: thoughts.slice(0, 10),
-        totalThoughtCount: thoughts.length  
+        totalThoughtCount: thoughts.length
       });
     })
 }
@@ -19,15 +20,17 @@ exports.thoughts_get = (req, res, next) => {
 exports.more_thoughts_get = (req, res, next) => {
   const index = req.query.index
 
-  Thought.find({user : req.user._id})
+  Thought.find({user : req.query.id})
     .sort('-date')
+    .skip(index)
+    .limit(5)
     .exec(function (err, thoughts) {
       if (err) { return next(err) }
-      res.json( { thoughts: thoughts.slice( index, index+10 ) } )
+      res.json( { thoughts: thoughts } )
     })
 }
 
-exports.create_thought_post = [
+exports.create_thought_post = [ 
 
     body("title")
     .isString().withMessage("Title must be a string.")
@@ -77,3 +80,26 @@ exports.delete_thought_delete = (req, res, next) => {
     }
   })
 }
+
+exports.profile_get = (req, res, next) => {
+  const id = req.params.id;
+
+  try {
+    User.findOne({_id: id})
+    .exec(function (err, user) {
+      if (err) { return next(err) }
+      Thought.find({ user : user._id })
+      .exec(function (err, thoughts){
+        if (err) { return next(err) }
+        res.json({ 
+          user: user,
+        })
+      })
+    })
+  } catch(CastError) { 
+    console.log(CastError);
+  }
+
+}
+
+exports.profile_pic_post = []

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Home from "./components/pages/Home";
+import Profile from "./components/pages/Profile";
 import Login from "./components/pages/Login";
 import Signup from "./components/pages/Signup";
+import FourOFour from "./components/pages/FourOFour/FourOFour";
 import { getUser } from "./api.js";
 
 // Color Palette: https://colorhunt.co/palette/f4f9f9ccf2f4a4ebf3aaaaaa
@@ -14,9 +16,7 @@ function App() {
 
   const renderUser = async () => {
     try {
-      // Login GET request
       const data = await getUser();
-      console.log(data);
       setUser(data.user);
     } catch(err) {
       console.log(err);
@@ -35,6 +35,14 @@ function App() {
           path="/"
           element={ user ? <Home user={user} /> : <Navigate to="/login"/> }
         />
+        <Route
+          path="/profile"
+          element={ <Profile user={user} /> }
+        />
+        <Route
+          path="/profile/:id"
+          element={ <Profile user={user} /> }
+        />
         <Route 
           exact
           path="/login"
@@ -43,6 +51,10 @@ function App() {
         <Route 
           path="/signup"
           element={ user ? <Navigate to="/"/> : <Signup />}
+        />
+        <Route 
+          path="*"
+          element={ <FourOFour /> }
         />
       </Routes>
     </div>

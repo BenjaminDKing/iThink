@@ -2,8 +2,6 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_API_URL
 
-// API calls: googleAuth, login, logout, get/post thought(s), check_requser (for debugging)
-
 export async function googleAuthCall() {
     window.open(
         `${BASE_URL}/auth/google/callback`,
@@ -17,17 +15,24 @@ export async function getUser() {
     return data;
 }
 
-export async function getThoughts() {
+export async function getThoughts(id) {
     const url = `${BASE_URL}/get_thoughts`;
-    const { data } = await axios.get(url, {withCredentials: true});
+    const config = {
+        withCredentials: true,
+        params: {
+            id: id
+        }
+    }
+    const { data } = await axios.get(url, config);
     return data;
 }
 
-export async function getMoreThoughts(index) {
+export async function getMoreThoughts(id, index) {
     const url = `${BASE_URL}/get_more_thoughts`;
     const config = { 
         withCredentials: true,
         params: {
+            id: id,
             index: index
         }
      }
@@ -45,6 +50,18 @@ export async function postThought(thought) {
     const url = `${BASE_URL}/create_thought`;
     const response = await axios.post(url, thought, {withCredentials: true});
     return response;
+}
+
+export async function getProfile(id) {
+    const url = `${BASE_URL}/get_profile/${id}`;
+    const { data } = await axios.get(url, { withCredentials: true });
+    return data;
+}
+
+export async function postProfilePicture(file) {
+    const url = `${BASE_URL}/upload_profile_pic`;
+    const response = await axios.post(url, file, { withCredentials: true });
+    return response;    
 }
 
 export async function checkReqUserCall() {

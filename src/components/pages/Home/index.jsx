@@ -4,8 +4,8 @@ import "./index.css";
 import { getThoughts, getMoreThoughts, deleteThought, checkReqUserCall } from "../../../api";
 
 // Components:
-import Navbar from "./Navbar";
-import Thought from "./Thought";
+import Navbar from "../../Navbar";
+import Thought from "../../Thought";
 import MessageInput from "./MessageInput";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -14,12 +14,10 @@ function Home(props) {
     const user = props.user
     const [thoughts, setThoughts] = useState([]);
     const [totalThoughtCount, setTotalThoughtCount] = useState();
-    // thoughts.length will reflect the index at which to GET more thoughts
-    // totalThoughtCount will reflect the total number of thoughts available when scrolling
 
     const renderThoughts = async () => {
         try {
-          const data = await getThoughts();
+          const data = await getThoughts(user._id);
           setThoughts(data.thoughts);
           setTotalThoughtCount(data.totalThoughtCount);
         } catch(err) {
@@ -29,7 +27,7 @@ function Home(props) {
 
     const loadMoreThoughts = async () => {
         try {
-            const data = await getMoreThoughts(thoughts.length);
+            const data = await getMoreThoughts(user._id, thoughts.length);
             setThoughts([...thoughts, ...data.thoughts]);
         } catch(err) {
             console.log(err);
@@ -80,7 +78,7 @@ function Home(props) {
                     next={loadMoreThoughts}
                     hasMore={thoughts.length < totalThoughtCount}
                     loader={<h4>Loading...</h4>}
-                    endMessage={<p>Done!</p>}
+                    endMessage={<p>All thoughts have been loaded.</p>}
                 >
                     {thoughts.map( (thoughtItem, index) => {
                         return (

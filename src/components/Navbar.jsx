@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { Outlet, Link, Navigate, NavLink } from "react-router-dom";
 
 import {
   Button,
@@ -13,13 +14,15 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import GroupIcon from '@mui/icons-material/Group';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
+import PersonIcon from '@mui/icons-material/Person';
 
-const logo = require('../../../../src/images/iThink_logo.png')
+const logo = require('../images/iThink_logo.png');
 
-function Navbar() {
+function Navbar(props) {
 
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
+  const user = props.user;
 
   const [isMouseHover, setMouseHover] = useState(
     {
@@ -89,6 +92,16 @@ function Navbar() {
         onMouseOut={handleMouseOut}>
       </GroupIcon>
 
+      <Link to={"/profile/" + user._id}>
+        <PersonIcon
+          sx={{ fontSize: 50 }}
+          id="profile"
+          className="button"
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}>
+        </PersonIcon>
+      </Link>
+
       <SettingsIcon 
         sx={{ fontSize: 50 }}    
         id="settings"
@@ -104,7 +117,7 @@ function Navbar() {
       <Menu id='settings-menu' anchorEl={anchorEl} open={open} 
         MenuListProps={{ 'aria-labelledby': 'settings-button'}}
         onClose={handleClose}>
-        <MenuItem onClick={handleClose}> <AccountCircleIcon fontSize="small"/> Profile </MenuItem>
+        <MenuItem onClick={handleClose}> <AccountCircleIcon fontSize="small"/> Profile Settings</MenuItem>
         <MenuItem onClick={handleClose}> <SettingsApplicationsIcon fontSize="small"/> Account Settings</MenuItem>
         <MenuItem onClick={handleClose}><a href="http://localhost:3001/auth/logout"><LogoutIcon fontSize="small"/> Logout</a></MenuItem>
       </Menu>
