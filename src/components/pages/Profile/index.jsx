@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Navigate } from "react-router-dom";
-import { getProfile } from "../../../api" 
+import { getProfile, getThoughts, getMoreThoughts } from "../../../api" 
 import "./index.css";
 
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -23,12 +23,21 @@ function Profile(props) {
     const renderProfile = async () => {
         const data = await getProfile(id);
         setProfile(data.user);
-        setThoughts(data.thoughts);
     }
+
+    const renderThoughts = async () => {
+        try {
+          const data = await getThoughts(id);
+          setThoughts(data.thoughts);
+          setTotalThoughtCount(data.totalThoughtCount);
+        } catch(err) {
+          console.log(err);
+        }
+    } 
 
     const loadMoreThoughts = async () => {
         try {
-            const data = await getMoreThoughts(thoughts.length);
+            const data = await getMoreThoughts(id, thoughts.length);
             setThoughts([...thoughts, ...data.thoughts]);
         } catch(err) {
             console.log(err);
@@ -39,11 +48,16 @@ function Profile(props) {
         renderProfile();
     }, [])
 
+    useEffect(() => {
+        renderThoughts();
+    }, [profile])
+
     if (profile) {
         return (
             <div className="profile">
                 <Navbar user={ user }/>
-                { <h1> { profile.first_name }'s Profile </h1> }
+                <ProfilePicture />
+                { <h1> { profile.first_name } { profile.last_name } </h1> }
                 <div className="thought-message-board">
                 <InfiniteScroll
                     dataLength={thoughts.length}
@@ -57,7 +71,7 @@ function Profile(props) {
                             <Thought 
                                 key={index}
                                 id={thoughtItem._id}
-                                user={user}
+                                user={profile}
                                 title={thoughtItem.title}
                                 content={thoughtItem.content}
                                 date={thoughtItem.date}/>

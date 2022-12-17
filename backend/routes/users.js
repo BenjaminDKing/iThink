@@ -24,9 +24,11 @@ router.delete("/delete_thought", thoughtController.delete_thought_delete);
 
 router.get("/get_profile/:id", thoughtController.profile_get);
 
+router.get("/upload_profile_pic", thoughtController.profile_pic_post);
+
 // Used for development
 router.get("/check_requser", isLoggedIn, reqUser, (req, res) => { 
-    res.json(req.user)
+    res.json(req.user);
 })
 
 module.exports = router;

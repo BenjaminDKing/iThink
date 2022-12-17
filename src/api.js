@@ -58,6 +58,12 @@ export async function getProfile(id) {
     return data;
 }
 
+export async function postProfilePicture(file) {
+    const url = `${BASE_URL}/upload_profile_pic`;
+    const response = await axios.post(url, file, { withCredentials: true });
+    return response;    
+}
+
 export async function checkReqUserCall() {
     const url = `${BASE_URL}/check_requser`;
     const { data } = await axios.get(url, {withCredentials: true});

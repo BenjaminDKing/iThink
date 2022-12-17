@@ -3,16 +3,16 @@ const Thought = require("../models/thought");
 const { body, validationResult } = require('express-validator');
 const passport = require("passport");
 const mongoose = require("mongoose");
-const thought = require("../models/thought");
 
 exports.thoughts_get = (req, res, next) => {
+
   Thought.find({user : req.query.id})
     .sort('-date')
     .exec(function (err, thoughts) {
       if (err) { return next(err) }
       res.json({
         thoughts: thoughts.slice(0, 10),
-        totalThoughtCount: thoughts.length  
+        totalThoughtCount: thoughts.length
       });
     })
 }
@@ -22,13 +22,15 @@ exports.more_thoughts_get = (req, res, next) => {
 
   Thought.find({user : req.query.id})
     .sort('-date')
+    .skip(index)
+    .limit(5)
     .exec(function (err, thoughts) {
       if (err) { return next(err) }
-      res.json( { thoughts: thoughts.slice( index, index+5 ) } )
+      res.json( { thoughts: thoughts } )
     })
 }
 
-exports.create_thought_post = [
+exports.create_thought_post = [ 
 
     body("title")
     .isString().withMessage("Title must be a string.")
@@ -99,3 +101,5 @@ exports.profile_get = (req, res, next) => {
   }
 
 }
+
+exports.profile_pic_post = []
