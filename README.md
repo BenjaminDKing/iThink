@@ -3,7 +3,7 @@ A full-stack application for externalizing thoughts and having conversations wit
 No online working version currently available. Work in-progress!
 
 Functions and Features:
-* Authentication through PassportJS
+* Authentication through PassportJS (Google OAuth 2.0)
 * REST API for back-end logic
 * CRUD operations through MongoDB (Mongoose)
 * User interface built with ReactJS
