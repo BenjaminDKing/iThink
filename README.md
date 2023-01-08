@@ -7,3 +7,4 @@ Functions and Features:
 * REST API for back-end logic
 * CRUD operations through MongoDB (Mongoose)
 * User interface built with ReactJS
+* Cloud Storage
