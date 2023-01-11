@@ -75,13 +75,15 @@ function Navbar(props) {
     </div>
     <div className="rightItems">
 
-      <HomeIcon 
-        sx={{ fontSize: 50 }}    
-        id="home"
-        className="button"
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}>
-      </HomeIcon>
+      <Link to={"/"}>
+        <HomeIcon 
+          sx={{ fontSize: 50 }}    
+          id="home"
+          className="button"
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}>
+        </HomeIcon>
+      </Link>
 
       <GroupIcon 
         sx={{ fontSize: 50 }}    

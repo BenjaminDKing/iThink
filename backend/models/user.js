@@ -8,6 +8,10 @@ const UserSchema = new Schema(
         email: {type: String, length: { max: 255 }},
         first_name: String,
         last_name: String,
+        profile_pic: {
+            url: String,
+            img_id: String
+        }
         // buddies: [
         //     {type: Schema.Types.ObjectId, ref: 'User', required: false}
         // ]

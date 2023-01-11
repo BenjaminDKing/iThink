@@ -1,6 +1,6 @@
 import axios from "axios";
-
 const BASE_URL = process.env.REACT_APP_API_URL
+const CLOUDNAME = process.env.REACT_APP_CLOUD_NAME
 
 export async function googleAuthCall() {
     window.open(
@@ -58,10 +58,38 @@ export async function getProfile(id) {
     return data;
 }
 
-export async function postProfilePicture(file) {
-    const url = `${BASE_URL}/upload_profile_pic`;
-    const response = await axios.post(url, file, { withCredentials: true });
-    return response;    
+export async function uploadImage(formData) {
+    
+    const imgData = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDNAME}/image/upload`, {
+      method:"POST",
+      body: formData
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data)
+        // Later, we should check that our response IS a valid response from Cloudinary (signature?)
+        { data.public_id ? putImage(data) : console.log("Invalid.") }
+        return data
+    }).catch((err) => {
+        console.log(err)
+    })
+    return imgData
+}
+
+export async function putImage(img) { 
+    const url = `${BASE_URL}/upload_profile_image`;
+    await axios.put(url, img, { withCredentials: true })
+    .then((data) => {
+        return data
+    }).catch( err => {
+        console.log(err);
+    } )
+}
+
+export async function getImage() {
+    const url = `${BASE_URL}/get_profile_image`
+    const { data } = await axios.get(url, { withCredentials: true })
+    return data
 }
 
 export async function checkReqUserCall() {
