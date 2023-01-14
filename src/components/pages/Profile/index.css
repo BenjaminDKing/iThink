@@ -1,0 +1,26 @@
+
+button {
+    cursor: pointer;
+}
+
+.image-div {
+    height: auto;
+    width: auto;
+}
+
+.profile-image {
+
+    cursor: pointer;
+    border-radius: 20px;
+    object-fit: fit;
+}
+
+.submit-button {
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1E90FF;
+    font-weight: bold;
+    color: white;
+}

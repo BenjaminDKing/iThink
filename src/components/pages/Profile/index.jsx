@@ -56,8 +56,10 @@ function Profile(props) {
         return (
             <div className="profile">
                 <Navbar user={ user }/>
-                <ProfilePicture user={ user }/>
-                { <h1> { profile.first_name } { profile.last_name } </h1> }
+                <div>
+                    <ProfilePicture user={ user }/>
+                    { <h1> { profile.first_name } { profile.last_name } </h1> }
+                </div>
                 <div className="thought-message-board">
                 <InfiniteScroll
                     dataLength={thoughts.length}
