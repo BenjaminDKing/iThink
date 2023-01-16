@@ -85,14 +85,15 @@ function Navbar(props) {
         </HomeIcon>
       </Link>
 
-      <GroupIcon 
-        sx={{ fontSize: 50 }}    
-        id="friends"
-        className="button"
-        onClick={ () => {console.log("Friends")}}
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}>
-      </GroupIcon>
+      <Link to={"/buddies/"}>
+        <GroupIcon 
+          sx={{ fontSize: 50 }}    
+          id="friends"
+          className="button"
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}>
+        </GroupIcon>
+      </Link>
 
       <Link to={"/profile/" + user._id}>
         <PersonIcon

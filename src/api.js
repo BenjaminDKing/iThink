@@ -92,6 +92,12 @@ export async function getImage() {
     return data
 }
 
+export async function getBuddies() {
+    const url = `${BASE_URL}/get_buddies`
+    const { data } = await axios.get(url, { withCredentials: true })
+    return data.buddies
+}
+
 export async function checkReqUserCall() {
     const url = `${BASE_URL}/check_requser`;
     const { data } = await axios.get(url, {withCredentials: true});

@@ -6,6 +6,7 @@ import Profile from "./components/pages/Profile";
 import Login from "./components/pages/Login";
 import Signup from "./components/pages/Signup";
 import FourOFour from "./components/pages/FourOFour/FourOFour";
+import BuddyList from "./components/pages/BuddyList";
 import { getUser } from "./api.js";
 
 // Color Palette: https://colorhunt.co/palette/f4f9f9ccf2f4a4ebf3aaaaaa
@@ -42,6 +43,10 @@ function App() {
         <Route
           path="/profile/:id"
           element={ <Profile user={user} /> }
+        />
+        <Route
+          path="/buddies"
+          element={ <BuddyList user={user} /> }
         />
         <Route 
           exact
