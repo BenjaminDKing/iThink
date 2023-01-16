@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useParams } from "react-router-dom";
+
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import "./index.css";
 import { uploadImage, getImage } from "../../../api";
@@ -16,6 +18,7 @@ function ProfilePicture(props) {
   const [myImage, setMyImage] = useState(new CloudinaryImage(imgId, {cloudName: CLOUDNAME}).resize(fill().width(150).height(150)))
 
   const inputRef = useRef()
+  const { id } = useParams();
 
   const submitImage = () => {
     const formData = new FormData()
@@ -29,12 +32,12 @@ function ProfilePicture(props) {
     })
   }
 
-  const renderProfilePic = () => {
+  const renderProfilePic = async () => {
     setMyImage(new CloudinaryImage(imgId, {cloudName: CLOUDNAME}).resize(fill().width(150).height(300)));
   }
 
-  const renderImage = () => {
-    const data = getImage().then(data => {
+  const renderImage = async () => {
+    const data = getImage(id).then(data => {
       setImgId(data.profile_pic.img_id)
     })
   }
@@ -49,7 +52,7 @@ function ProfilePicture(props) {
 
   useEffect(() => {
     renderImage()
-  }, [])
+  }, [id])
 
   return (
     <div className="banner">
@@ -57,7 +60,7 @@ function ProfilePicture(props) {
         <AdvancedImage 
           cldImg={myImage}
           className="profile-image"
-          onClick={onButtonClick}
+          onClick={ id == props.user._id ? onButtonClick : undefined }
         />
       </div>
       <input
@@ -70,7 +73,7 @@ function ProfilePicture(props) {
         className="file-input"
         onChange={(e) => setImage(e.target.files[0])}
       />
-      <button 
+      { id == props.user._id ? <button 
         onClick={submitImage}
         className="submit-button"
       >
@@ -78,7 +81,7 @@ function ProfilePicture(props) {
           sx={{ fontSize: 20 }}
         />
             Upload Profile Picture
-      </button>
+      </button> : null }
     </div>
   );
 }

@@ -24,7 +24,7 @@ router.delete("/delete_thought", thoughtController.delete_thought_delete);
 
 router.get("/get_profile/:id", thoughtController.profile_get);
 
-router.get("/get_profile_image", thoughtController.profile_image_get);
+router.get("/get_profile_image/:id", thoughtController.profile_image_get);
 
 router.put("/upload_profile_image", thoughtController.profile_image_put);
 

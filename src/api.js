@@ -86,8 +86,8 @@ export async function putImage(img) {
     } )
 }
 
-export async function getImage() {
-    const url = `${BASE_URL}/get_profile_image`
+export async function getImage(id) {
+    const url = `${BASE_URL}/get_profile_image/${id}`
     const { data } = await axios.get(url, { withCredentials: true })
     return data
 }

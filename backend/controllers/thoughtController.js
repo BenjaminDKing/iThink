@@ -104,7 +104,7 @@ exports.profile_get = (req, res, next) => {
 
 exports.profile_image_get = (req, res, next) => {
 
-  User.findById(req.user._id)
+  User.findOne({_id: req.params.id })
     .exec(function(err, user) {
       if (err) { return next(err) }
       return res.json( { profile_pic : user.profile_pic } )
