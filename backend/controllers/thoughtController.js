@@ -100,7 +100,6 @@ exports.profile_get = (req, res, next) => {
   } catch(CastError) { 
     console.log(CastError);
   }
-
 }
 
 exports.profile_image_get = (req, res, next) => {
@@ -138,3 +137,12 @@ exports.profile_image_put = (req, res, next) => {
   })
 }
 
+exports.get_buddies = (req, res, next) => {
+  
+  User.findById(req.user._id)
+    .populate('buddies')
+    .exec((err, user) => {
+      if (err) { return next(err) }
+      return res.json( { buddies: user.buddies } )
+    })
+}

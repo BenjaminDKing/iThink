@@ -28,6 +28,8 @@ router.get("/get_profile_image", thoughtController.profile_image_get);
 
 router.put("/upload_profile_image", thoughtController.profile_image_put);
 
+router.get("/get_buddies", thoughtController.get_buddies);
+
 // Used for development
 router.get("/check_requser", isLoggedIn, reqUser, (req, res) => { 
     res.json(req.user);
