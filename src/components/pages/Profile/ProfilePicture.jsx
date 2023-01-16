@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { FileUploadIcon, } from '@mui/icons-material/FileUpload';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import "./index.css";
 import { uploadImage, getImage } from "../../../api";
@@ -7,7 +6,6 @@ import { uploadImage, getImage } from "../../../api";
 import { AdvancedImage } from "@cloudinary/react";
 import {fill} from "@cloudinary/url-gen/actions/resize";
 import {CloudinaryImage} from '@cloudinary/url-gen';
-import { fontSize } from "@mui/system";
 
 const CLOUDNAME = process.env.REACT_APP_CLOUD_NAME
 const UPLOADPRESET = process.env.REACT_APP_UPLOAD_PRESET

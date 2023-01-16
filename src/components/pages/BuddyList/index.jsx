@@ -8,8 +8,6 @@ function BuddyList(props) {
 
     const renderBuddies = async () => {
       const data = await getBuddies(user)
-      console.log("renderBuddies return data type: " + typeof(data))
-      console.log(data)
       setBuddies(data)
     }
 
@@ -23,7 +21,9 @@ function BuddyList(props) {
 
     return ( 
       <div>
-        <p>BuddyList</p>
+        <div className="buddy-banner">
+          <h1>Your Buddies</h1>
+        </div>
         {buddies.map( (buddy, index) => {
           return (
             <BuddyCard 
