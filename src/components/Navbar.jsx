@@ -71,7 +71,7 @@ function Navbar(props) {
   return ( 
   <div className="header container">
     <div className="leftItems">
-      <img src={logo} />
+      <img className="logo-image" src={logo} />
     </div>
     <div className="rightItems">
 

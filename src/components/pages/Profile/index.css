@@ -4,12 +4,11 @@ button {
 }
 
 .image-div {
-    height: auto;
-    width: auto;
+    height: 200px;
+    width: 200px;
 }
 
 .profile-image {
-
     cursor: pointer;
     border-radius: 20px;
     object-fit: fit;

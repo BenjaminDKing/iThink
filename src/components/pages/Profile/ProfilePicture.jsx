@@ -15,7 +15,7 @@ const UPLOADPRESET = process.env.REACT_APP_UPLOAD_PRESET
 function ProfilePicture(props) {
   const [image, setImage] = useState("")
   const [imgId, setImgId] = useState("")
-  const [myImage, setMyImage] = useState(new CloudinaryImage(imgId, {cloudName: CLOUDNAME}).resize(fill().width(150).height(150)))
+  const [myImage, setMyImage] = useState(new CloudinaryImage(imgId, {cloudName: CLOUDNAME}).resize(fill().width(300).height(150)))
 
   const inputRef = useRef()
   const { id } = useParams();
@@ -33,7 +33,7 @@ function ProfilePicture(props) {
   }
 
   const renderProfilePic = async () => {
-    setMyImage(new CloudinaryImage(imgId, {cloudName: CLOUDNAME}).resize(fill().width(150).height(300)));
+    setMyImage(new CloudinaryImage(imgId, {cloudName: CLOUDNAME}).resize(fill().width(200).height(200)));
   }
 
   const renderImage = async () => {
