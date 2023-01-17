@@ -14,21 +14,21 @@ function reqUser(req, res, next) {
     next();
 }
 
-router.get("/get_thoughts", thoughtController.thoughts_get);
+router.get("/get_thoughts", isLoggedIn, thoughtController.thoughts_get);
 
-router.get("/get_more_thoughts", thoughtController.more_thoughts_get);
+router.get("/get_more_thoughts", isLoggedIn, thoughtController.more_thoughts_get);
 
 router.post("/create_thought", isLoggedIn, thoughtController.create_thought_post);
 
-router.delete("/delete_thought", thoughtController.delete_thought_delete);
+router.delete("/delete_thought", isLoggedIn, thoughtController.delete_thought_delete);
 
-router.get("/get_profile/:id", thoughtController.profile_get);
+router.get("/get_profile/:id", isLoggedIn, thoughtController.profile_get);
 
-router.get("/get_profile_image/:id", thoughtController.profile_image_get);
+router.get("/get_profile_image/:id", isLoggedIn, thoughtController.profile_image_get);
 
-router.put("/upload_profile_image", thoughtController.profile_image_put);
+router.put("/upload_profile_image", isLoggedIn, thoughtController.profile_image_put);
 
-router.get("/get_buddies", thoughtController.get_buddies);
+router.get("/get_buddies", isLoggedIn, thoughtController.get_buddies);
 
 // Used for development
 router.get("/check_requser", isLoggedIn, reqUser, (req, res) => { 

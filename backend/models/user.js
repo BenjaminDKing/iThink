@@ -14,7 +14,8 @@ const UserSchema = new Schema(
         },
         buddies: [
             {type: Schema.Types.ObjectId, ref: 'User', required: false}
-        ]
+        ],
+        personal_philosophy: {type: String, required: false, length: {max: 200}}
     }
 )
 

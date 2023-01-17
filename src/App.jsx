@@ -38,15 +38,15 @@ function App() {
         />
         <Route
           path="/profile"
-          element={ <Profile user={user} /> }
+          element={ user ? <Profile user={user}/> : <Navigate to="/login" /> }
         />
         <Route
           path="/profile/:id"
-          element={ <Profile user={user} /> }
+          element={ user ? <Profile user={user} /> : <Navigate to="/login"/> }
         />
         <Route
           path="/buddies"
-          element={ <BuddyList user={user} /> }
+          element={ user ? <BuddyList user={user} /> : <Navigate to="/login"/> }
         />
         <Route 
           exact
