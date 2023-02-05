@@ -4,6 +4,15 @@ const { body, validationResult } = require('express-validator');
 const passport = require("passport");
 const mongoose = require("mongoose");
 var path = require('path');
+var sha1 = require('sha1');
+const axios = require('axios')
+
+const API_SECRET = process.env.API_SECRET
+const API_KEY = process.env.API_KEY
+const UPLOADPRESET = process.env.UPLOAD_PRESET
+const CLOUDNAME = process.env.CLOUD_NAME
+
+// Authorization needs to be changed from req.user._id to something private
 
 exports.thoughts_get = (req, res, next) => {
 
@@ -113,36 +122,74 @@ exports.profile_image_get = (req, res, next) => {
 
 exports.profile_image_put = (req, res, next) => {
 
-  // BEFORE UPDATING (BUG PREVENTION):
-  // check that req.body.secure_url and req.body.public_id ARE DEFINED
-  
-  User.findByIdAndUpdate(req.user._id, 
-    { profile_pic: 
-      { 
-        url: req.body.secure_url,  
-        img_id: req.body.public_id 
-      } 
+  User.findById(req.user._id)
+    .select('profile_pic')
+    .select('img_id')
+    .then((data) => {
+      User.findByIdAndUpdate(req.user._id, 
+        { profile_pic: 
+          { 
+            url: req.body.secure_url,  
+            img_id: req.body.public_id 
+          } 
+        })
+      .exec(err => {
+        if (err) {
+          console.log(err);
+          return next(err);
+        } else {
+          deleteImage(data.profile_pic.img_id)
+          return res.json({
+            'url': req.body.secure_url,
+            "img_id": req.body.public_id,
+          });
+        }
+      })
     })
-  .exec(err => {
-    if (err) {
-      console.log(err);
-      return next(err);
-    } else {
-      return res.json({
-        'reponse': 'Success', 
-        'url': req.body.secure_url,
-        "img_id": req.body.public_id
-      });
-    }
-  })
+}
+
+async function deleteImage(public_id) {
+  
+
+  // const timestamp = Date.now();
+
+  // const data = {
+  //   "public_id": public_id,
+  //   "upload_preset": UPLOADPRESET,
+  //   "cloud_name": CLOUDNAME,
+  //   "timestamp": timestamp
+  // }
+  // var signature = sha1(data + API_SECRET);
+  // payload = {
+  //   request: data,
+  //   signature: signature
+  // }
+
+  // axios.post(`https://api.cloudinary.com/v1_1/${CLOUDNAME}/image/delete`, payload)
+  //   .then(res => console.log(res))
 }
 
 exports.get_buddies = (req, res, next) => {
   
   User.findById(req.user._id)
-    .populate('buddies')
-    .exec((err, user) => {
+    .populate('buddies', '_id first_name last_name buddies profile_pic')
+    .exec((err, user) => {  
       if (err) { return next(err) }
       return res.json( { buddies: user.buddies } )
+    })
+}
+
+exports.add_buddy_post = (req, res, next) => {
+  // req.body.buddy._id (for buddy being requested)
+  // req.user._id (current user id)
+  const user_id = req.session.passport.user._id;
+  const buddy = req.body.buddy_id
+
+  User.findByIdAndUpdate( user_id, { $addToSet: { buddies: buddy} } )
+    .then( (err, user) => {
+      if (err) { return next(err) }
+      else {
+        return res.status(200).json({ "response": "Success" })
+      }
     })
 }

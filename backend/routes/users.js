@@ -1,7 +1,7 @@
 const router = require("express").Router();
 var thoughtController = require("../controllers/thoughtController");
 
-function isLoggedIn(req, res, next) {
+function isLoggedIn(req, res, next) {    
     req.user ? next() : console.log("No req.user")
     // req.user is determined to be falsy when GET/POST req is made on localhost:3000 (react)
     // middleware isLoggedIn returns null, not next(). Application stops
@@ -29,6 +29,8 @@ router.get("/get_profile_image/:id", isLoggedIn, thoughtController.profile_image
 router.put("/upload_profile_image", isLoggedIn, thoughtController.profile_image_put);
 
 router.get("/get_buddies", isLoggedIn, thoughtController.get_buddies);
+
+router.post("/add_buddy", isLoggedIn, thoughtController.add_buddy_post);
 
 // Used for development
 router.get("/check_requser", isLoggedIn, reqUser, (req, res) => { 

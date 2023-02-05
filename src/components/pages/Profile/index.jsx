@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams, Navigate } from "react-router-dom";
-import { getProfile, getThoughts, getMoreThoughts } from "../../../api" 
+
+import { getProfile, getThoughts, getMoreThoughts, getBuddies } from "../../../api" 
 import "./index.css";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import Navbar from "../../Navbar";
 import Thought from "../../Thought";
-
+import AddBuddy from "../../AddBuddy";
 import ProfilePicture from "./ProfilePicture";
 import ProfileDetails from "./ProfileDetails";
 
@@ -58,6 +59,7 @@ function Profile(props) {
                 <Navbar user={ user }/>
                 <div>
                     <ProfilePicture user={ user }/>
+                    { profile._id != user._id && !user.buddies.includes(profile._id) && <AddBuddy user={ user } buddy={ profile } /> }
                     { <h1> { profile.first_name } { profile.last_name } </h1> }
                 </div>
                 <div className="thought-message-board">

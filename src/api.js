@@ -1,6 +1,7 @@
 import axios from "axios";
 const BASE_URL = process.env.REACT_APP_API_URL
 const CLOUDNAME = process.env.REACT_APP_CLOUD_NAME
+const UPLOADPRESET = process.env.REACT_APP_UPLOAD_PRESET
 
 export async function googleAuthCall() {
     window.open(
@@ -41,8 +42,15 @@ export async function getMoreThoughts(id, index) {
 }
 
 export async function deleteThought(id, user) {
-    const url = `${BASE_URL}/delete_thought`;
-    const response = await axios.delete(url, { data: { id: id, user: user } }, {withCredentials: true});
+    console.log(user)
+    const url = `${BASE_URL}/delete_thought`;  
+    const response = await axios.delete(url, {              
+        withCredentials: true,
+        data: {
+            id: id,
+            user: user
+        }
+    });
     return response;
 }
 
@@ -67,7 +75,6 @@ export async function uploadImage(formData) {
     .then((res) => res.json())
     .then((data) => {
         console.log(data)
-        // Later, we should check that our response IS a valid response from Cloudinary (signature?)
         { data.public_id ? putImage(data) : console.log("Invalid.") }
         return data
     }).catch((err) => {
@@ -79,8 +86,8 @@ export async function uploadImage(formData) {
 export async function putImage(img) { 
     const url = `${BASE_URL}/upload_profile_image`;
     await axios.put(url, img, { withCredentials: true })
-    .then((data) => {
-        return data
+    .then((res) => {
+        return res
     }).catch( err => {
         console.log(err);
     } )
@@ -96,6 +103,12 @@ export async function getBuddies() {
     const url = `${BASE_URL}/get_buddies`
     const { data } = await axios.get(url, { withCredentials: true })
     return data.buddies
+}
+
+export async function addBuddy(user, buddy) {
+    const url = `${BASE_URL}/add_buddy`
+    const { data } = await axios.post(url, buddy, { withCredentials: true })
+    return data
 }
 
 export async function checkReqUserCall() {
