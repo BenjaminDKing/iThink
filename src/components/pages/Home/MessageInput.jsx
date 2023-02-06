@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { useSelector } from "react-redux";
 
 import CreateIcon from '@mui/icons-material/Create';
 import AddIcon from '@mui/icons-material/Add';
@@ -8,6 +9,7 @@ import axios from "axios";
 import { postThought } from "../../../api";
 
 function MessageInput(props) {
+    const user = useSelector(state => state.user)
     const [ message, setMessage ] = useState({title: "", content: ""})
 
     function handleChange(event) {
@@ -23,9 +25,9 @@ function MessageInput(props) {
     function handleClick(event) {
         event.preventDefault();
         
-        if (props.user) {
+        if (user) {
             try {
-                postThought({...message, user: props.user})
+                postThought({...message, user: user})
                 .then(response => {
                     if(response.data.response == 'Success') {
                         props.onAdd(message);

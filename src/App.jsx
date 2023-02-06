@@ -15,14 +15,12 @@ import { storeUser } from "./actions";
 
 function App() {
   
-  const [user, setUser] = useState(null);
-  const store_user = useSelector(state => state.user)
+  const user = useSelector(state => state.user)
   const dispatch = useDispatch();
 
   const renderUser = async () => {
     try {
       const data = await getUser();
-      setUser(data.user);
       dispatch(storeUser(data.user)) 
     } catch(err) {
       console.log(err);
@@ -33,25 +31,21 @@ function App() {
     renderUser();
   }, []);
 
-  // useEffect(() => {
-  //   useDispatch
-  // }, [user])
-
   return (
     <div className="container">
       <Routes>
         <Route 
           exact
           path="/"
-          element={ user ? <Home user={user} /> : <Navigate to="/login"/> }
+          element={ user ? <Home /> : <Navigate to="/login"/> }
         />
         <Route
           path="/profile"
-          element={ user ? <Profile user={user}/> : <Navigate to="/login" /> }
+          element={ user ? <Profile /> : <Navigate to="/login" /> }
         />
         <Route
           path="/profile/:id"
-          element={ user ? <Profile user={user} /> : <Navigate to="/login"/> }
+          element={ user ? <Profile /> : <Navigate to="/login"/> }
         />
         <Route
           path="/buddies"

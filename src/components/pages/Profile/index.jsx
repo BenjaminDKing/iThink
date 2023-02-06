@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { getProfile, getThoughts, getMoreThoughts, getBuddies } from "../../../api" 
 import "./index.css";
@@ -18,7 +19,7 @@ function Profile(props) {
     const [thoughts, setThoughts] = useState([]);
     const [totalThoughtCount, setTotalThoughtCount] = useState();
 
-    const user = props.user;
+    const user = useSelector(state => state.user)
     const { id } = useParams();
 
     const renderProfile = async () => {
@@ -56,10 +57,10 @@ function Profile(props) {
     if (profile) {
         return (
             <div className="profile">
-                <Navbar user={ user }/>
+                <Navbar />
                 <div>
-                    <ProfilePicture user={ user }/>
-                    { profile._id != user._id && !user.buddies.includes(profile._id) && <AddBuddy user={ user } buddy={ profile } /> }
+                    <ProfilePicture />
+                    { profile._id != user._id && !user.buddies.includes(profile._id) && <AddBuddy buddy={ profile } /> }
                     { <h1> { profile.first_name } { profile.last_name } </h1> }
                 </div>
                 <div className="thought-message-board">

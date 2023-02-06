@@ -15,14 +15,15 @@ import GroupIcon from '@mui/icons-material/Group';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
+import { useSelector } from "react-redux";
 
 const logo = require('../images/iThink_logo.png');
 
 function Navbar(props) {
+  const user = useSelector(state => state.user)
 
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
-  const user = props.user;
 
   const [isMouseHover, setMouseHover] = useState(
     {

@@ -14,9 +14,10 @@ import InfiniteScroll from "react-infinite-scroll-component";
 function Home(props) {
 
     const counter = useSelector(state => state.counter)
+    const user = useSelector(state => state.user)
     const dispatch = useDispatch();
 
-    const user = props.user
+    // const user = props.user
     const [thoughts, setThoughts] = useState([]);
     const [totalThoughtCount, setTotalThoughtCount] = useState();
 
@@ -68,17 +69,14 @@ function Home(props) {
 
     return (
         <div className="home">
-            <Navbar 
-                user={user}
-            />
+            <Navbar />
             <h1>Welcome back, {user.first_name}!</h1>
             
-            <h1>Counter: {counter}</h1>
+            {/* <h1>Counter: {counter}</h1>
             <button onClick={() => dispatch(increment(5)) }>+</button>
-            <button onClick={() => dispatch(decrement())}>-</button>
+            <button onClick={() => dispatch(decrement())}>-</button> */}
 
             <MessageInput 
-                user={user}
                 onAdd={handleAdd}
                 renderThoughts={renderThoughts}     
             />
@@ -95,7 +93,6 @@ function Home(props) {
                             <Thought 
                                 key={index}
                                 id={thoughtItem._id}
-                                user={user}
                                 title={thoughtItem.title}
                                 content={thoughtItem.content}
                                 date={thoughtItem.date}

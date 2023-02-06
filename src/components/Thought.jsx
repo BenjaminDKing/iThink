@@ -1,15 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import { useSelector } from "react-redux";
 
 function Thought(props) {
+    const user = useSelector(state => state.user)
 
     return (
         <div className="thought"> 
             <div className="top-div">
                 <div className="author-div">
-                    <Link to={"/profile/" + props.user._id}><h5>{props.user.first_name} {props.user.last_name}</h5></Link>
+                    <Link to={"/profile/" + user._id}><h5>{user.first_name} {user.last_name}</h5></Link>
                 </div>  
 
                 <div className="title-div"> 

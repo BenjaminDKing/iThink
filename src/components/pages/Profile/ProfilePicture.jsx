@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import "./index.css";
@@ -17,6 +18,7 @@ function ProfilePicture(props) {
   const [imgId, setImgId] = useState("")
   const [myImage, setMyImage] = useState(new CloudinaryImage(imgId, {cloudName: CLOUDNAME}).resize(fill().width(300).height(150)))
 
+  const user = useSelector(state => state.user)
   const inputRef = useRef()
   const { id } = useParams();
 
@@ -60,7 +62,7 @@ function ProfilePicture(props) {
         <AdvancedImage 
           cldImg={myImage}
           className="profile-image"
-          onClick={ id == props.user._id ? onButtonClick : undefined }
+          onClick={ id == user._id ? onButtonClick : undefined }
         />
       </div>
       <input
@@ -73,7 +75,7 @@ function ProfilePicture(props) {
         className="file-input"
         onChange={(e) => setImage(e.target.files[0])}
       />
-      { id == props.user._id ? <button 
+      { id == user._id ? <button 
         onClick={submitImage}
         className="submit-button"
       >
