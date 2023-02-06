@@ -8,17 +8,22 @@ import Signup from "./components/pages/Signup";
 import FourOFour from "./components/pages/FourOFour/FourOFour";
 import BuddyList from "./components/pages/BuddyList";
 import { getUser } from "./api.js";
+import { useSelector, useDispatch } from "react-redux";
+import { storeUser } from "./actions";
 
 // Color Palette: https://colorhunt.co/palette/f4f9f9ccf2f4a4ebf3aaaaaa
 
 function App() {
   
   const [user, setUser] = useState(null);
+  const store_user = useSelector(state => state.user)
+  const dispatch = useDispatch();
 
   const renderUser = async () => {
     try {
       const data = await getUser();
       setUser(data.user);
+      dispatch(storeUser(data.user)) 
     } catch(err) {
       console.log(err);
     }
@@ -27,6 +32,10 @@ function App() {
   useEffect(() => {
     renderUser();
   }, []);
+
+  // useEffect(() => {
+  //   useDispatch
+  // }, [user])
 
   return (
     <div className="container">

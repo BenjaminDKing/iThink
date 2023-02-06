@@ -2,6 +2,8 @@ import axios from "axios";
 import React, {useEffect, useState} from "react";
 import "./index.css";
 import { getThoughts, getMoreThoughts, deleteThought, checkReqUserCall } from "../../../api";
+import { useSelector, useDispatch } from "react-redux";
+import { increment, decrement } from "../../../actions";
 
 // Components:
 import Navbar from "../../Navbar";
@@ -10,6 +12,9 @@ import MessageInput from "./MessageInput";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 function Home(props) {
+
+    const counter = useSelector(state => state.counter)
+    const dispatch = useDispatch();
 
     const user = props.user
     const [thoughts, setThoughts] = useState([]);
@@ -67,6 +72,11 @@ function Home(props) {
                 user={user}
             />
             <h1>Welcome back, {user.first_name}!</h1>
+            
+            <h1>Counter: {counter}</h1>
+            <button onClick={() => dispatch(increment(5)) }>+</button>
+            <button onClick={() => dispatch(decrement())}>-</button>
+
             <MessageInput 
                 user={user}
                 onAdd={handleAdd}

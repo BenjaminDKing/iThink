@@ -21,8 +21,10 @@
     "react-dom": "^18.2.0",
     "react-google-login": "^5.2.2",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
+    "redux": "^4.2.1",
     "sha1": "^1.1.1",
     "web-vitals": "^2.1.4"
   },
