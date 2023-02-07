@@ -111,6 +111,12 @@ export async function addBuddy(user, buddy) {
     return data
 }
 
+export async function getBrowseBuddies() {
+    const url = `${BASE_URL}/browse_buddies`
+    const { data } = await axios.get(url, { withCredentials: true })
+    return data
+}
+
 export async function checkReqUserCall() {
     const url = `${BASE_URL}/check_requser`;
     const { data } = await axios.get(url, {withCredentials: true});

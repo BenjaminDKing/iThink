@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import BuddyCard from "./BuddyCard";
+import BuddyBrowser from "./BuddyBrowser";
 import Navbar from "../../Navbar";
 
 import { getBuddies } from "../../../api";
@@ -42,6 +43,7 @@ function BuddyList(props) {
             )
           })}
         </div>
+        <BuddyBrowser />
       </div>
     )
 }

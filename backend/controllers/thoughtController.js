@@ -193,3 +193,26 @@ exports.add_buddy_post = (req, res, next) => {
       }
     })
 }
+
+exports.browse_buddies_get = (req, res, next) => {
+  // Get random () users who are NOT in req.user.buddies AND NOT req.user
+  // Limit to 6
+  // (Later this will be changed to get users algorithmically)
+  User.find({ $and : [{ _id: { $ne : req.user._id }}, { _id: { $nin : req.user.buddies }}] })
+  .limit(6)
+  .exec(function (err, users){
+    if (err) { return next(err) };
+    let response = users.map(
+      user => ({ 
+        _id: user._id, 
+        profile_pic: user.profile_pic,
+        email: user.email,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        buddies: user.buddies
+      })
+    )
+    res.json(response);
+    }
+  )
+}

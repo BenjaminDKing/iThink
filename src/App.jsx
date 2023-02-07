@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { storeUser } from "./actions";
+import { getUser } from "./api";
 
 import Home from "./components/pages/Home";
 import Profile from "./components/pages/Profile";
@@ -7,9 +10,6 @@ import Login from "./components/pages/Login";
 import Signup from "./components/pages/Signup";
 import FourOFour from "./components/pages/FourOFour/FourOFour";
 import BuddyList from "./components/pages/BuddyList";
-import { getUser } from "./api.js";
-import { useSelector, useDispatch } from "react-redux";
-import { storeUser } from "./actions";
 
 // Color Palette: https://colorhunt.co/palette/f4f9f9ccf2f4a4ebf3aaaaaa
 
@@ -41,15 +41,15 @@ function App() {
         />
         <Route
           path="/profile"
-          element={ user ? <Profile /> : <Navigate to="/login" /> }
+          element={ user ? <Profile /> : <Navigate to="login"/> }
         />
         <Route
           path="/profile/:id"
-          element={ user ? <Profile /> : <Navigate to="/login"/> }
+          element={ user ? <Profile /> : <Navigate to="login"/> }
         />
         <Route
           path="/buddies"
-          element={ user ? <BuddyList user={user} /> : <Navigate to="/login"/> }
+          element={ user ? <BuddyList /> : <Navigate to="/login"/> }
         />
         <Route 
           exact

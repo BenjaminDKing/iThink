@@ -32,6 +32,8 @@ router.get("/get_buddies", isLoggedIn, thoughtController.get_buddies);
 
 router.post("/add_buddy", isLoggedIn, thoughtController.add_buddy_post);
 
+router.get("/browse_buddies", isLoggedIn, thoughtController.browse_buddies_get)
+
 // Used for development
 router.get("/check_requser", isLoggedIn, reqUser, (req, res) => { 
     res.json(req.user);

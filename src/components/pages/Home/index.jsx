@@ -17,7 +17,6 @@ function Home(props) {
     const user = useSelector(state => state.user)
     const dispatch = useDispatch();
 
-    // const user = props.user
     const [thoughts, setThoughts] = useState([]);
     const [totalThoughtCount, setTotalThoughtCount] = useState();
 

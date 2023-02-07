@@ -7,12 +7,28 @@ h2 {
     margin: 5px;
 }
 
-.buddy-banner{
+.buddy-banner {
     display: flex;
     justify-content: center;
 }
 
+.browse-buddies-banner {
+    display: flex;
+    justify-content: center;
+}
+
+.buddy-browser {
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+}
+
 .buddy-card-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.user-card-container {
     display: flex;
     flex-wrap: wrap;
 }
