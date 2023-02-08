@@ -52,9 +52,11 @@ app.use(
 // HANDLE ROUTES
 const usersRouter = require('./routes/users');
 const authRouter = require("./routes/auth");
+const thoughtsRouter = require('./routes/thoughts');
 
 app.use('/', usersRouter);
 app.use('/auth', authRouter);
+app.use('/', thoughtsRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

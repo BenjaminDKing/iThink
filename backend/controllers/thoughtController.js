@@ -68,11 +68,11 @@ exports.create_thought_post = [
           //category: ...,
             date: currentTime,
           })
-        .save(err => {
+        .save((err, thought) => {
           if (err) {
             return next(err);
           } else {
-            return res.status(200).json({ 'response': 'Success' });
+            return res.status(200).json({ 'response': 'Success', 'thought': thought });
           }
         })
       }
@@ -80,7 +80,6 @@ exports.create_thought_post = [
 ]
 
 exports.delete_thought_delete = (req, res, next) => {
-  
   Thought.findById( req.body.id )
   .exec(function (err, thought) {
     if (err) { return next(err) }

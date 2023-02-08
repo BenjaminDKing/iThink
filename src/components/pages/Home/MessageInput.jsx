@@ -30,7 +30,7 @@ function MessageInput(props) {
                 postThought({...message, user: user})
                 .then(response => {
                     if(response.data.response == 'Success') {
-                        props.onAdd(message);
+                        props.onAdd(response.data.thought);
                     }
                 })
             } catch(err) {

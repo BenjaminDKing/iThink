@@ -47,6 +47,7 @@ function Home(props) {
 
     function handleDelete(id) {
         try {
+            console.log(user)
             deleteThought(id, user)
             .then(response => {
                 if(response.data.response == 'Success') {
