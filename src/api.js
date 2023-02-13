@@ -42,7 +42,6 @@ export async function getMoreThoughts(id, index) {
 }
 
 export async function deleteThought(id, user) {
-    console.log(user)
     const url = `${BASE_URL}/delete_thought`;  
     const response = await axios.delete(url, {              
         withCredentials: true,
@@ -105,10 +104,15 @@ export async function getBuddies() {
     return data.buddies
 }
 
-export async function addBuddy(user, buddy) {
+export async function addBuddy(buddy_id) {
+    const buddy = { buddy_id: buddy_id }
     const url = `${BASE_URL}/add_buddy`
-    const { data } = await axios.post(url, buddy, { withCredentials: true })
-    return data
+    const response = await axios.put(url, buddy, { withCredentials: true }).then( (res) => {
+        console.log(res.data);
+        return res.data
+    })
+    console.log(response);
+    return response
 }
 
 export async function getBrowseBuddies() {

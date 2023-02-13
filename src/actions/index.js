@@ -17,3 +17,10 @@ export const storeUser = (user) => {
         payload: user
     }
 }
+
+export const addBuddyRedux = (buddy) => {
+    return {
+        type: 'ADD_BUDDY',
+        payload: buddy
+    }
+}

@@ -4,11 +4,6 @@ const { body, validationResult } = require('express-validator');
 const passport = require("passport");
 const mongoose = require("mongoose");
 
-const API_SECRET = process.env.API_SECRET
-const API_KEY = process.env.API_KEY
-const UPLOADPRESET = process.env.UPLOAD_PRESET
-const CLOUDNAME = process.env.CLOUD_NAME
-
 exports.profile_get = (req, res, next) => {
     const id = req.params.id;
   
@@ -76,18 +71,15 @@ exports.profile_get = (req, res, next) => {
       })
   }
   
-  exports.add_buddy_post = (req, res, next) => {
-    // req.body.buddy._id (for buddy being requested)
-    // req.user._id (current user id)
-    const user_id = req.session.passport.user._id;
+  exports.add_buddy_put = (req, res, next) => {
+
+    const user_id = req.user._id;
     const buddy = req.body.buddy_id
-  
-    User.findByIdAndUpdate( user_id, { $addToSet: { buddies: buddy} } )
-      .then( (err, user) => {
-        if (err) { return next(err) }
-        else {
-          return res.status(200).json({ "response": "Success" })
-        }
+    
+    let user = User.findByIdAndUpdate( user_id, { $push: { buddies: buddy} }, { new: true } )
+      .exec( (err, user) => {
+        if (err) { return next(err);}
+        else { return res.status(200).json({ "response": "Success", "user" : user }) }
       })
   }
   

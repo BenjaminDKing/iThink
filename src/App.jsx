@@ -21,7 +21,7 @@ function App() {
   const renderUser = async () => {
     try {
       const data = await getUser();
-      dispatch(storeUser(data.user)) 
+      dispatch(storeUser(data.user))
     } catch(err) {
       console.log(err);
     }

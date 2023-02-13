@@ -1,5 +1,4 @@
 const router = require("express").Router();
-var thoughtController = require("../controllers/thoughtController");
 var userController = require("../controllers/userController");
 
 function isLoggedIn(req, res, next) {    
@@ -14,7 +13,7 @@ router.put("/upload_profile_image", isLoggedIn, userController.profile_image_put
 
 router.get("/get_buddies", isLoggedIn, userController.get_buddies);
 
-router.post("/add_buddy", isLoggedIn, userController.add_buddy_post);
+router.put("/add_buddy", isLoggedIn, userController.add_buddy_put);
 
 router.get("/browse_buddies", isLoggedIn, userController.browse_buddies_get)
 
