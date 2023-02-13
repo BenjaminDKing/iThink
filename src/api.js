@@ -115,6 +115,20 @@ export async function addBuddy(buddy_id) {
     return response
 }
 
+export async function removeBuddy(buddy_id) {
+    const url = `${BASE_URL}/remove_buddy`
+    const response = await axios.delete(url, {
+        withCredentials: true,
+        buddy_id 
+    })
+    .then( (res) => {
+        console.log(res.data);
+        return res.data
+    })
+    console.log(response);
+    return response
+}
+
 export async function getBrowseBuddies() {
     const url = `${BASE_URL}/browse_buddies`
     const { data } = await axios.get(url, { withCredentials: true })

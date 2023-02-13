@@ -83,6 +83,18 @@ exports.profile_get = (req, res, next) => {
       })
   }
   
+  exports.remove_buddy_delete = (req, res, next) => {
+   
+    const user_id = req.user._id;
+    const buddy = req.body.buddy_id
+    
+    let user = User.findByIdAndUpdate( user_id, { $pull: { buddies: buddy} }, { new: true } )
+      .exec( (err, user) => {
+        if (err) { return next(err);}
+        else { return res.status(200).json({ "response": "Success", "user" : user }) }
+    })
+  }
+
   exports.browse_buddies_get = (req, res, next) => {
     // Get random () users who are NOT in req.user.buddies AND NOT req.user
     // Limit to 6

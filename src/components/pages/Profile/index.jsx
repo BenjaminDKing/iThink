@@ -60,7 +60,7 @@ function Profile(props) {
                 <Navbar />
                 <div>
                     <ProfilePicture />
-                    { profile._id != user._id && !user.buddies.includes(profile._id) && <AddBuddy buddy={ profile } /> }
+                    <AddBuddy buddy={ profile } />
                     { <h1> { profile.first_name } { profile.last_name } </h1> }
                 </div>
                 <div className="thought-message-board">

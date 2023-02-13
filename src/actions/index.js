@@ -24,3 +24,10 @@ export const addBuddyRedux = (buddy) => {
         payload: buddy
     }
 }
+
+export const removeBuddyRedux = (buddy) => {
+    return {
+        type: 'REMOVE_BUDDY',
+        payload: buddy
+    }
+}
