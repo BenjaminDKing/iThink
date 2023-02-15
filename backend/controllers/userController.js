@@ -3,6 +3,12 @@ const Thought = require("../models/thought");
 const { body, validationResult } = require('express-validator');
 const passport = require("passport");
 const mongoose = require("mongoose");
+const sha1 = require("sha1");
+const axios = require('axios')
+
+const UPLOADPRESET = process.env.UPLOAD_PRESET
+const CLOUDNAME = process.env.CLOUD_NAME
+const API_SECRET = process.env.API_SECRET
 
 exports.profile_get = (req, res, next) => {
     const id = req.params.id;
@@ -59,6 +65,26 @@ exports.profile_get = (req, res, next) => {
           }
         })
       })
+  }
+
+  async function deleteImage(public_id) {
+
+    const timestamp = Date.now();
+  
+    const data = {
+      "public_id": public_id,
+      "upload_preset": UPLOADPRESET,
+      "cloud_name": CLOUDNAME,
+      "timestamp": timestamp
+    }
+    var signature = sha1(data + API_SECRET);
+    payload = {
+      request: data,
+      signature: signature
+    }
+  
+    axios.post(`https://api.cloudinary.com/v1_1/${CLOUDNAME}/image/delete`, payload)
+      .then(res => console.log(res))
   }
   
   exports.get_buddies = (req, res, next) => {
