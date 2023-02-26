@@ -13,7 +13,7 @@ import AddBuddy from "../../AddBuddy";
 import ProfilePicture from "./ProfilePicture";
 import ProfileDetails from "./ProfileDetails";
 
-function Profile(props) {
+function Profile() {
 
     const [profile, setProfile] = useState(null);
     const [thoughts, setThoughts] = useState([]);
@@ -48,7 +48,7 @@ function Profile(props) {
 
     useEffect(() => {
         renderProfile();
-    }, [])
+    }, [id])
 
     useEffect(() => {
         renderThoughts();
@@ -60,10 +60,12 @@ function Profile(props) {
                 <Navbar />
                 <div>
                     <ProfilePicture />
+                    {/* props.buddy == undefined since profile is null initially */}
                     <AddBuddy buddy={ profile } />
                     { <h1> { profile.first_name } { profile.last_name } </h1> }
                 </div>
                 <div className="thought-message-board">
+
                 <InfiniteScroll
                     dataLength={thoughts.length}
                     next={loadMoreThoughts}
@@ -77,6 +79,7 @@ function Profile(props) {
                                 key={index}
                                 id={thoughtItem._id}
                                 user={profile}
+                                isCurrentUser={profile._id == user._id}
                                 title={thoughtItem.title}
                                 content={thoughtItem.content}
                                 date={thoughtItem.date}/>

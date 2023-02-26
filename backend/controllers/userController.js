@@ -102,11 +102,13 @@ exports.profile_get = (req, res, next) => {
     const user_id = req.user._id;
     const buddy = req.body.buddy_id
     
-    let user = User.findByIdAndUpdate( user_id, { $push: { buddies: buddy} }, { new: true } )
-      .exec( (err, user) => {
-        if (err) { return next(err);}
-        else { return res.status(200).json({ "response": "Success", "user" : user }) }
-      })
+    if (!req.user.buddies.includes(buddy) ) {
+      let user = User.findByIdAndUpdate( user_id, { $push: { buddies: buddy} }, { new: true } )
+        .exec( (err, user) => {
+          if (err) { return next(err);}
+          else { return res.status(200).json({ "response": "Success", "user" : user }) }
+        })
+    }
   }
   
   exports.remove_buddy_delete = (req, res, next) => {
@@ -114,8 +116,9 @@ exports.profile_get = (req, res, next) => {
     const user_id = req.user._id;
     const buddy = req.body.buddy_id
     
-    let user = User.findByIdAndUpdate( user_id, { $pull: { buddies: buddy} }, { new: true } )
+    User.findByIdAndUpdate( user_id, { $pull: { buddies: buddy} }, { new: true } )
       .exec( (err, user) => {
+        console.log(user);
         if (err) { return next(err);}
         else { return res.status(200).json({ "response": "Success", "user" : user }) }
     })

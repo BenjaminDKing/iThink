@@ -24,7 +24,6 @@ function AddBuddy(props) {
     const removeRenderCondition = !addRenderCondition
     const dispatch = useDispatch();
 
-
     const handleClick = (event) => {
         setAnchorEl(event.target)
       }
@@ -50,12 +49,13 @@ function AddBuddy(props) {
     const handleDelete = () => {
         try {
             removeBuddy(buddy._id).then( (res) => {
+                // Change to reflect DB contents
                 console.log(res);
-                if(res.response == 'Success') {
+                if((res.response == 'Success') && (!res.user.buddies.includes(buddy._id))) {
                     console.log("Dispatch")
                     dispatch(removeBuddyRedux(buddy._id))
                 }
-            })
+            })  
         } catch(err) {
             console.log(err);
         }
