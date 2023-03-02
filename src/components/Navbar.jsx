@@ -15,14 +15,15 @@ import GroupIcon from '@mui/icons-material/Group';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
+import { useSelector } from "react-redux";
 
 const logo = require('../images/iThink_logo.png');
 
 function Navbar(props) {
+  const user = useSelector(state => state.user)
 
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
-  const user = props.user;
 
   const [isMouseHover, setMouseHover] = useState(
     {
@@ -71,7 +72,7 @@ function Navbar(props) {
   return ( 
   <div className="header container">
     <div className="leftItems">
-      <img src={logo} />
+      <img className="logo-image" src={logo} />
     </div>
     <div className="rightItems">
 
@@ -85,14 +86,15 @@ function Navbar(props) {
         </HomeIcon>
       </Link>
 
-      <GroupIcon 
-        sx={{ fontSize: 50 }}    
-        id="friends"
-        className="button"
-        onClick={ () => {console.log("Friends")}}
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}>
-      </GroupIcon>
+      <Link to={"/buddies/"}>
+        <GroupIcon 
+          sx={{ fontSize: 50 }}    
+          id="friends"
+          className="button"
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}>
+        </GroupIcon>
+      </Link>
 
       <Link to={"/profile/" + user._id}>
         <PersonIcon

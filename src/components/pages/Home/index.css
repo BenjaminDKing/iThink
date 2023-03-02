@@ -10,6 +10,10 @@ body {
     background-image: url(http://www.transparenttextures.com/patterns/skulls.png);
 }
 
+Menu {
+    cursor: pointer;
+}
+
 svg {
     cursor: pointer;
 }
@@ -18,7 +22,7 @@ button {
     cursor: pointer;
 }
 
-img {
+.logo-image {
     height: 80px;
     width: 160px;
     border-radius: 30px;

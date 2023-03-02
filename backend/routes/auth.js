@@ -3,7 +3,6 @@ const passport = require("passport");
 var thoughtController = require("../controllers/thoughtController");
 const Thought = require("../models/thought");
 
-
 router.get("/login/success", (req, res) => {
 
     if (req.user) {

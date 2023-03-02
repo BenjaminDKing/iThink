@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
 import { useParams, Navigate } from "react-router-dom";
-import { getProfile, getThoughts, getMoreThoughts } from "../../../api" 
+import { useSelector } from "react-redux";
+
+import { getProfile, getThoughts, getMoreThoughts, getBuddies } from "../../../api" 
 import "./index.css";
+import CreateIcon from '@mui/icons-material/Create';
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import Navbar from "../../Navbar";
 import Thought from "../../Thought";
-
+import AddBuddy from "../../AddBuddy";
 import ProfilePicture from "./ProfilePicture";
 import ProfileDetails from "./ProfileDetails";
+import PersonalPhilosophy from "../../PersonalPhilosophy";
 
-function Profile(props) {
+function Profile() {
 
     const [profile, setProfile] = useState(null);
     const [thoughts, setThoughts] = useState([]);
     const [totalThoughtCount, setTotalThoughtCount] = useState();
 
-    const user = props.user;
+    const user = useSelector(state => state.user)
     const { id } = useParams();
 
     const renderProfile = async () => {
@@ -44,9 +48,13 @@ function Profile(props) {
         }
     }
 
+    const handleClick = () => {
+        console.log("Doo doo")
+    }
+
     useEffect(() => {
         renderProfile();
-    }, [])
+    }, [id])
 
     useEffect(() => {
         renderThoughts();
@@ -55,10 +63,20 @@ function Profile(props) {
     if (profile) {
         return (
             <div className="profile">
-                <Navbar user={ user }/>
-                <ProfilePicture user={ user }/>
-                { <h1> { profile.first_name } { profile.last_name } </h1> }
+                <Navbar />
+                <div className="banner-top">
+                    <div className="profile-pic-div">
+                        <ProfilePicture profile={profile}/>
+                        <AddBuddy buddy={ profile } />
+                        { <h1> { profile.first_name } { profile.last_name } </h1> }
+                    </div>
+                    <div className="personal-philosophy-div">
+                        <PersonalPhilosophy profile={profile}/>
+                        { (profile._id == user._id) && <button className="edit-pp-btn"> <CreateIcon onClick={handleClick} sx={{ fontSize: 20 }} /> </button> }
+                    </div>
+                </div>
                 <div className="thought-message-board">
+
                 <InfiniteScroll
                     dataLength={thoughts.length}
                     next={loadMoreThoughts}
@@ -72,6 +90,7 @@ function Profile(props) {
                                 key={index}
                                 id={thoughtItem._id}
                                 user={profile}
+                                isCurrentUser={profile._id == user._id}
                                 title={thoughtItem.title}
                                 content={thoughtItem.content}
                                 date={thoughtItem.date}/>

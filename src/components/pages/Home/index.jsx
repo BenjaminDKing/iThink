@@ -2,6 +2,8 @@ import axios from "axios";
 import React, {useEffect, useState} from "react";
 import "./index.css";
 import { getThoughts, getMoreThoughts, deleteThought, checkReqUserCall } from "../../../api";
+import { useSelector, useDispatch } from "react-redux";
+import { increment, decrement } from "../../../actions";
 
 // Components:
 import Navbar from "../../Navbar";
@@ -11,7 +13,10 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 function Home(props) {
 
-    const user = props.user
+    const counter = useSelector(state => state.counter)
+    const user = useSelector(state => state.user)
+    const dispatch = useDispatch();
+
     const [thoughts, setThoughts] = useState([]);
     const [totalThoughtCount, setTotalThoughtCount] = useState();
 
@@ -42,6 +47,7 @@ function Home(props) {
 
     function handleDelete(id) {
         try {
+            console.log(user)
             deleteThought(id, user)
             .then(response => {
                 if(response.data.response == 'Success') {
@@ -63,12 +69,14 @@ function Home(props) {
 
     return (
         <div className="home">
-            <Navbar 
-                user={user}
-            />
+            <Navbar />
             <h1>Welcome back, {user.first_name}!</h1>
+            
+            {/* <h1>Counter: {counter}</h1>
+            <button onClick={() => dispatch(increment(5)) }>+</button>
+            <button onClick={() => dispatch(decrement())}>-</button> */}
+
             <MessageInput 
-                user={user}
                 onAdd={handleAdd}
                 renderThoughts={renderThoughts}     
             />
@@ -86,6 +94,7 @@ function Home(props) {
                                 key={index}
                                 id={thoughtItem._id}
                                 user={user}
+                                isCurrentUser={true}
                                 title={thoughtItem.title}
                                 content={thoughtItem.content}
                                 date={thoughtItem.date}

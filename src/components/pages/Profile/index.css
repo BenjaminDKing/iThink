@@ -1,0 +1,61 @@
+
+button {
+    cursor: pointer;
+}
+
+.image-div {
+    height: 200px;
+    width: 200px;
+}
+
+.profile-image {
+    cursor: pointer;
+    border-radius: 20px;
+    object-fit: fit;
+}
+
+.banner-top {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-pic-div {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.personal-philosophy-div {
+    display: flex;
+    height: 100px;
+    width: 650px;
+    background-color: white;
+    border-style: solid;
+    border-radius: 20px;
+    border-color: grey;
+    margin-top: 20px;
+    margin-left: 10px;
+    padding: 50px;
+    font-size: 1.2em;
+    font-family:'Times New Roman', Times, serif;
+    white-space: initial;
+}
+
+.edit-pp-btn {
+    height: 35px;
+    width: 40px;
+    position: relative;
+    top: 125px;
+    left: 60px;
+}
+
+
+.submit-button {
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1E90FF;
+    font-weight: bold;
+    color: white;
+}

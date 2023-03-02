@@ -1,29 +1,23 @@
 const router = require("express").Router();
-var thoughtController = require("../controllers/thoughtController");
+var userController = require("../controllers/userController");
 
-function isLoggedIn(req, res, next) {
+function isLoggedIn(req, res, next) {    
     req.user ? next() : console.log("No req.user")
-    // req.user is determined to be falsy when GET/POST req is made on localhost:3000 (react)
-    // middleware isLoggedIn returns null, not next(). Application stops
-    // How do I retrieve the passed req.user obj from the front end???
 }
 
-function reqUser(req, res, next) {
-    console.log(req.sessionID);
-    console.log("req.user: " +  JSON.stringify(req.user));
-    next();
-}
+router.get("/get_profile/:id", isLoggedIn, userController.profile_get);
 
-router.get("/get_thoughts", thoughtController.thoughts_get);
+router.get("/get_profile_image/:id", isLoggedIn, userController.profile_image_get);
 
-router.get("/get_more_thoughts", thoughtController.more_thoughts_get);
+router.put("/upload_profile_image", isLoggedIn, userController.profile_image_put);
 
-router.post("/create_thought", isLoggedIn, thoughtController.create_thought_post);
+router.get("/get_buddies", isLoggedIn, userController.get_buddies);
 
-router.delete("/delete_thought", thoughtController.delete_thought_delete);
+router.put("/add_buddy", isLoggedIn, userController.add_buddy_put);
 
-router.get("/get_profile/:id", thoughtController.profile_get);
+router.delete("/remove_buddy", isLoggedIn, userController.remove_buddy_delete);
 
+<<<<<<< HEAD
 router.get("/get_profile_image", thoughtController.profile_image_get);
 
 router.put("/upload_profile_image", thoughtController.profile_image_put);
@@ -32,5 +26,8 @@ router.put("/upload_profile_image", thoughtController.profile_image_put);
 router.get("/check_requser", isLoggedIn, reqUser, (req, res) => { 
     res.json(req.user);
 })
+=======
+router.get("/browse_buddies", isLoggedIn, userController.browse_buddies_get)
+>>>>>>> buddy-list
 
 module.exports = router;

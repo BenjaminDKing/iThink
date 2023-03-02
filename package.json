@@ -1,6 +1,9 @@
 {
   "name": "ithink",
   "version": "0.1.0",
+  "engines": {
+    "node": "16.14.0"
+  },
   "private": true,
   "dependencies": {
     "@cloudinary/react": "^1.8.0",
@@ -16,13 +19,17 @@
     "axios": "^1.0.0",
     "cloudinary": "^1.33.0",
     "gapi-script": "^1.2.0",
+    "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-google-login": "^5.2.2",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
+    "redux": "^4.2.1",
+    "sha1": "^1.1.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

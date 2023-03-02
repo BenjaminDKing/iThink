@@ -1,0 +1,78 @@
+body {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+h2 {
+    margin: 5px;
+}
+
+.buddy-banner {
+    display: flex;
+    justify-content: center;
+}
+
+.browse-buddies-banner {
+    display: flex;
+    justify-content: center;
+}
+
+.buddy-browser {
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+}
+
+.buddy-card-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.user-card-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.buddy-card {
+    height: 200px;
+    width: 400px;
+    border-style: solid;
+    border-width: 4px;
+    border-color: black;
+    border-radius: 40px;   
+    background-color: white;
+    
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: flex-start;
+
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+}
+
+.buddy-profile-image {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    margin: 3px;
+    border-style: solid;
+    border-color: black;
+}
+
+.buddy-image-div {
+    height: 200px;
+    width: 130px;
+}   
+
+.text-div {
+    height: 200px;
+    width: 270px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body-div {
+    padding-left: 10px;
+}

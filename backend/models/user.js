@@ -11,10 +11,11 @@ const UserSchema = new Schema(
         profile_pic: {
             url: String,
             img_id: String
-        }
-        // buddies: [
-        //     {type: Schema.Types.ObjectId, ref: 'User', required: false}
-        // ]
+        },
+        buddies: [
+            {type: Schema.Types.ObjectId, ref: 'User', required: false}
+        ],
+        personal_philosophy: {type: String, required: false, length: {max: 200}}
     }
 )
 

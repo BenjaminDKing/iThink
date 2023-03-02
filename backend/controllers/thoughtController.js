@@ -4,6 +4,13 @@ const { body, validationResult } = require('express-validator');
 const passport = require("passport");
 const mongoose = require("mongoose");
 var path = require('path');
+var sha1 = require('sha1');
+const axios = require('axios')
+
+// const API_SECRET = process.env.API_SECRET
+// const API_KEY = process.env.API_KEY
+// const UPLOADPRESET = process.env.UPLOAD_PRESET
+// const CLOUDNAME = process.env.CLOUD_NAME
 
 exports.thoughts_get = (req, res, next) => {
 
@@ -59,11 +66,11 @@ exports.create_thought_post = [
           //category: ...,
             date: currentTime,
           })
-        .save(err => {
+        .save((err, thought) => {
           if (err) {
             return next(err);
           } else {
-            return res.status(200).json({ 'response': 'Success' });
+            return res.status(200).json({ 'response': 'Success', 'thought': thought });
           }
         })
       }
@@ -71,7 +78,6 @@ exports.create_thought_post = [
 ]
 
 exports.delete_thought_delete = (req, res, next) => {
-  
   Thought.findById( req.body.id )
   .exec(function (err, thought) {
     if (err) { return next(err) }
@@ -81,60 +87,3 @@ exports.delete_thought_delete = (req, res, next) => {
     }
   })
 }
-
-exports.profile_get = (req, res, next) => {
-  const id = req.params.id;
-
-  try {
-    User.findOne({_id: id})
-    .exec(function (err, user) {
-      if (err) { return next(err) }
-      Thought.find({ user : user._id })
-      .exec(function (err, thoughts){
-        if (err) { return next(err) }
-        res.json({ 
-          user: user,
-        })
-      })
-    })
-  } catch(CastError) { 
-    console.log(CastError);
-  }
-
-}
-
-exports.profile_image_get = (req, res, next) => {
-
-  User.findById(req.user._id)
-    .exec(function(err, user) {
-      if (err) { return next(err) }
-      return res.json( { profile_pic : user.profile_pic } )
-    })
-}
-
-exports.profile_image_put = (req, res, next) => {
-
-  // BEFORE UPDATING (BUG PREVENTION):
-  // check that req.body.secure_url and req.body.public_id ARE DEFINED
-  
-  User.findByIdAndUpdate(req.user._id, 
-    { profile_pic: 
-      { 
-        url: req.body.secure_url,  
-        img_id: req.body.public_id 
-      } 
-    })
-  .exec(err => {
-    if (err) {
-      console.log(err);
-      return next(err);
-    } else {
-      return res.json({
-        'reponse': 'Success', 
-        'url': req.body.secure_url,
-        "img_id": req.body.public_id
-      });
-    }
-  })
-}
-
