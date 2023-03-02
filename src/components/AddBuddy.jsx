@@ -21,7 +21,7 @@ function AddBuddy(props) {
     const buddy = props.buddy
     const user = useSelector(state => state.user);
     const addRenderCondition = (buddy._id != user._id && !user.buddies.includes(buddy._id))
-    const removeRenderCondition = !addRenderCondition
+    const removeRenderCondition = (!addRenderCondition && buddy._id != user._id)
     const dispatch = useDispatch();
 
     const handleClick = (event) => {
@@ -49,10 +49,7 @@ function AddBuddy(props) {
     const handleDelete = () => {
         try {
             removeBuddy(buddy._id).then( (res) => {
-                // Change to reflect DB contents
-                console.log(res);
                 if((res.response == 'Success') && (!res.user.buddies.includes(buddy._id))) {
-                    console.log("Dispatch")
                     dispatch(removeBuddyRedux(buddy._id))
                 }
             })  

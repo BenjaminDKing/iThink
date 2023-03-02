@@ -10,8 +10,6 @@ import "./index.css";
 
 function BuddyList(props) {
     const user = useSelector(state => state.user)
-    // API call to get buddies NOT necessary with user saved in Redux store.
-    // Change buddies state to reflect Redux store.
     const [buddies, setBuddies] = useState([]);
 
     const renderBuddies = async () => {

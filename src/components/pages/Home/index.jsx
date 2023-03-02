@@ -94,6 +94,7 @@ function Home(props) {
                                 key={index}
                                 id={thoughtItem._id}
                                 user={user}
+                                isCurrentUser={true}
                                 title={thoughtItem.title}
                                 content={thoughtItem.content}
                                 date={thoughtItem.date}

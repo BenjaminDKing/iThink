@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import { getProfile, getThoughts, getMoreThoughts, getBuddies } from "../../../api" 
 import "./index.css";
+import CreateIcon from '@mui/icons-material/Create';
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -12,6 +13,7 @@ import Thought from "../../Thought";
 import AddBuddy from "../../AddBuddy";
 import ProfilePicture from "./ProfilePicture";
 import ProfileDetails from "./ProfileDetails";
+import PersonalPhilosophy from "../../PersonalPhilosophy";
 
 function Profile() {
 
@@ -46,6 +48,10 @@ function Profile() {
         }
     }
 
+    const handleClick = () => {
+        console.log("Doo doo")
+    }
+
     useEffect(() => {
         renderProfile();
     }, [id])
@@ -58,11 +64,16 @@ function Profile() {
         return (
             <div className="profile">
                 <Navbar />
-                <div>
-                    <ProfilePicture />
-                    {/* props.buddy == undefined since profile is null initially */}
-                    <AddBuddy buddy={ profile } />
-                    { <h1> { profile.first_name } { profile.last_name } </h1> }
+                <div className="banner-top">
+                    <div className="profile-pic-div">
+                        <ProfilePicture profile={profile}/>
+                        <AddBuddy buddy={ profile } />
+                        { <h1> { profile.first_name } { profile.last_name } </h1> }
+                    </div>
+                    <div className="personal-philosophy-div">
+                        <PersonalPhilosophy profile={profile}/>
+                        { (profile._id == user._id) && <button className="edit-pp-btn"> <CreateIcon onClick={handleClick} sx={{ fontSize: 20 }} /> </button> }
+                    </div>
                 </div>
                 <div className="thought-message-board">
 

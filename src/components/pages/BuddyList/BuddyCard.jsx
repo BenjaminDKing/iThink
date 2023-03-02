@@ -4,8 +4,11 @@ import { AdvancedImage } from "@cloudinary/react";
 import {fill} from "@cloudinary/url-gen/actions/resize";
 import { Link } from "react-router-dom";
 
+import PersonalPhilosophy from "../../PersonalPhilosophy";
+
 function BuddyCard(props) {
-  const CLOUDNAME = process.env.REACT_APP_CLOUD_NAME
+  const CLOUDNAME = process.env.REACT_APP_CLOUD_NAME;
+  const buddy = props.buddy;
 
   const image = new CloudinaryImage(props.buddy.profile_pic.img_id, {cloudName: CLOUDNAME}).resize(fill().width(300).height(300))
 
@@ -22,8 +25,7 @@ function BuddyCard(props) {
         <div className="text-div">
           <h2>{props.buddy.first_name} {props.buddy.last_name}</h2>
           <div className="card-body-div">
-            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-            incididunt ut labore et dolore magna aliqua.</p>
+            <PersonalPhilosophy profile={buddy}/>
           </div>
         </div>
       </div>

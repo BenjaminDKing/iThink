@@ -9,6 +9,7 @@ import { uploadImage, getImage } from "../../../api";
 import { AdvancedImage } from "@cloudinary/react";
 import {fill} from "@cloudinary/url-gen/actions/resize";
 import {CloudinaryImage} from '@cloudinary/url-gen';
+import PersonalPhilosophy from "../../PersonalPhilosophy";
 
 const CLOUDNAME = process.env.REACT_APP_CLOUD_NAME
 const UPLOADPRESET = process.env.REACT_APP_UPLOAD_PRESET
@@ -17,7 +18,8 @@ function ProfilePicture(props) {
   const [image, setImage] = useState("")
   const [imgId, setImgId] = useState("")
   const [myImage, setMyImage] = useState(new CloudinaryImage(imgId, {cloudName: CLOUDNAME}).resize(fill().width(300).height(150)))
-
+  
+  const profile = props.profile;
   const user = useSelector(state => state.user)
   const inputRef = useRef()
   const { id } = useParams();
@@ -31,6 +33,7 @@ function ProfilePicture(props) {
     let data = uploadImage(formData).then(data => {
       { data.public_id ? setImgId(data.public_id) : console.log("Failed to upload image.")}
       renderProfilePic();
+
     })
   }
 
@@ -57,7 +60,7 @@ function ProfilePicture(props) {
   }, [id])
 
   return (
-    <div className="banner">
+    <div>
       <div className="image-div">
         <AdvancedImage 
           cldImg={myImage}
@@ -73,7 +76,7 @@ function ProfilePicture(props) {
         id="file"
         name="file"
         className="file-input"
-        onChange={(e) => setImage(e.target.files[0])}
+        onChange={(e) => { setImage(e.target.files[0])}}
       />
       { id == user._id ? <button 
         onClick={submitImage}

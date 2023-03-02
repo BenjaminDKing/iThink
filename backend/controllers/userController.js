@@ -9,6 +9,7 @@ const axios = require('axios')
 const UPLOADPRESET = process.env.UPLOAD_PRESET
 const CLOUDNAME = process.env.CLOUD_NAME
 const API_SECRET = process.env.API_SECRET
+const API_KEY = process.env.API_KEY
 
 exports.profile_get = (req, res, next) => {
     const id = req.params.id;
@@ -41,56 +42,58 @@ exports.profile_get = (req, res, next) => {
   
   exports.profile_image_put = (req, res, next) => {
   
-    User.findById(req.user._id)
-      .select('profile_pic')
-      .select('img_id')
-      .then((data) => {
-        User.findByIdAndUpdate(req.user._id, 
-          { profile_pic: 
-            { 
-              url: req.body.secure_url,  
-              img_id: req.body.public_id 
-            } 
-          })
-        .exec(err => {
-          if (err) {
-            console.log(err);
-            return next(err);
-          } else {
-            deleteImage(data.profile_pic.img_id)
-            return res.json({
-              'url': req.body.secure_url,
-              "img_id": req.body.public_id,
-            });
-          }
-        })
+    User.findByIdAndUpdate(req.user._id, 
+      { profile_pic: 
+        { 
+          url: req.body.secure_url,  
+          img_id: req.body.public_id 
+        } 
       })
+    .exec((err, data)=> {
+      console.log(data.profile_pic.img_id);
+      if (err) {
+        console.log(err);
+        return next(err);
+      } else {
+        // deleteImage(data.profile_pic.img_id);
+        return res.json({
+          'url': req.body.secure_url,
+          "img_id": req.body.public_id,
+        });
+      }
+    })
   }
 
+  // DYSFUNCTIONAL
   async function deleteImage(public_id) {
 
     const timestamp = Date.now();
   
     const data = {
-      "public_id": public_id,
-      "upload_preset": UPLOADPRESET,
-      "cloud_name": CLOUDNAME,
-      "timestamp": timestamp
+      public_id: public_id,
+      timestamp: timestamp,
     }
+
     var signature = sha1(data + API_SECRET);
+    
     payload = {
-      request: data,
-      signature: signature
-    }
+      // request: data,
+      api_key: API_KEY,
+      public_id: public_id,
+      timestamp: timestamp,
+      upload_preset: UPLOADPRESET,
+      cloud_name: CLOUDNAME,
+      signature: signature,
+    } 
   
-    axios.post(`https://api.cloudinary.com/v1_1/${CLOUDNAME}/image/delete`, payload)
+    axios.post(`https://api.cloudinary.com/v1_1/${CLOUDNAME}/image/destroy`, payload)
       .then(res => console.log(res))
   }
   
   exports.get_buddies = (req, res, next) => {
     
     User.findById(req.user._id)
-      .populate('buddies', '_id first_name last_name buddies profile_pic')
+      .populate('buddies', '_id first_name last_name buddies profile_pic personal_philosophy')
       .exec((err, user) => {  
         if (err) { return next(err) }
         return res.json( { buddies: user.buddies } )
@@ -139,7 +142,8 @@ exports.profile_get = (req, res, next) => {
           email: user.email,
           first_name: user.first_name,
           last_name: user.last_name,
-          buddies: user.buddies
+          buddies: user.buddies,
+          personal_philosophy: user.personal_philosophy
         })
       )
       res.json(response);

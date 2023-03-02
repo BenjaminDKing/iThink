@@ -1,6 +1,9 @@
 {
   "name": "ithink",
   "version": "0.1.0",
+  "engines": {
+    "node": "16.14.0"
+  },
   "private": true,
   "dependencies": {
     "@cloudinary/react": "^1.8.0",
