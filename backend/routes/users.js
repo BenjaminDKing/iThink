@@ -17,17 +17,6 @@ router.put("/add_buddy", isLoggedIn, userController.add_buddy_put);
 
 router.delete("/remove_buddy", isLoggedIn, userController.remove_buddy_delete);
 
-<<<<<<< HEAD
-router.get("/get_profile_image", thoughtController.profile_image_get);
-
-router.put("/upload_profile_image", thoughtController.profile_image_put);
-
-// Used for development
-router.get("/check_requser", isLoggedIn, reqUser, (req, res) => { 
-    res.json(req.user);
-})
-=======
 router.get("/browse_buddies", isLoggedIn, userController.browse_buddies_get)
->>>>>>> buddy-list
 
 module.exports = router;

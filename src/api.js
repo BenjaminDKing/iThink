@@ -1,10 +1,7 @@
 import axios from "axios";
 const BASE_URL = process.env.REACT_APP_API_URL
 const CLOUDNAME = process.env.REACT_APP_CLOUD_NAME
-<<<<<<< HEAD
-=======
 const UPLOADPRESET = process.env.REACT_APP_UPLOAD_PRESET
->>>>>>> buddy-list
 
 export async function googleAuthCall() {
     window.open(
@@ -77,35 +74,12 @@ export async function uploadImage(formData) {
     .then((res) => res.json())
     .then((data) => {
         console.log(data)
-<<<<<<< HEAD
-        // Later, we should check that our response IS a valid response from Cloudinary (signature?)
-=======
->>>>>>> buddy-list
         { data.public_id ? putImage(data) : console.log("Invalid.") }
         return data
     }).catch((err) => {
         console.log(err)
     })
     return imgData
-<<<<<<< HEAD
-}
-
-export async function putImage(img) { 
-    const url = `${BASE_URL}/upload_profile_image`;
-    await axios.put(url, img, { withCredentials: true })
-    .then((data) => {
-        return data
-    }).catch( err => {
-        console.log(err);
-    } )
-}
-
-export async function getImage() {
-    const url = `${BASE_URL}/get_profile_image`
-    const { data } = await axios.get(url, { withCredentials: true })
-    return data
-=======
->>>>>>> buddy-list
 }
 
 export async function putImage(img) { 
