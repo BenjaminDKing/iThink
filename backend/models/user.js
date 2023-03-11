@@ -9,8 +9,8 @@ const UserSchema = new Schema(
         first_name: String,
         last_name: String,
         profile_pic: {
-            url: String,
-            img_id: String
+            url: {type: String, default: "https://res.cloudinary.com/dlhcvweaj/image/upload/v1678493207/dn10vry7gs5oinh3qh4r.webp" },
+            img_id: { type: String, default: "dn10vry7gs5oinh3qh4r" } 
         },
         buddies: [
             {type: Schema.Types.ObjectId, ref: 'User', required: false}
