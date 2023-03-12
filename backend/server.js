@@ -43,7 +43,7 @@ initializePassport(passport);
 
 app.use(
     cors({
-        origin: process.env.CLIENT_URL,
+        origin: `http://localhost:${port}`,
         methods: "GET,POST,PUT,DELETE",
         credentials: true,
     })
@@ -57,6 +57,10 @@ const thoughtsRouter = require('./routes/thoughts');
 app.use('/', usersRouter);
 app.use('/auth', authRouter);
 app.use('/', thoughtsRouter);
+
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static('build'))
+}
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
