@@ -7,10 +7,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client": "npm start --prefix ../",
-    "clientinstall": "npm install --prefix ../",
-    "server": "nodemon server.js",
-    "dev": "concurrently \"npm run server\" \"npm run client"
   },
   "author": "",
   "license": "ISC",

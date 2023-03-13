@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require('path');
 const cors = require("cors"); 
 require("dotenv").config();
 const passport = require("passport");
@@ -7,10 +8,9 @@ const mongoose = require("mongoose");
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser')
 
-require('dotenv').config();
-
 const app = express();
 const port = process.env.PORT || 3001;
+const CLIENT_PORT = process.env.CLIENT_PORT || 3000;
 
 app.use(express.json());
 // parse application/x-www-form-urlencoded
@@ -43,7 +43,7 @@ initializePassport(passport);
 
 app.use(
     cors({
-        origin: `http://localhost:${port}`,
+        origin: `http://localhost:${CLIENT_PORT}`,
         methods: "GET,POST,PUT,DELETE",
         credentials: true,
     })
@@ -59,7 +59,12 @@ app.use('/auth', authRouter);
 app.use('/', thoughtsRouter);
 
 if(process.env.NODE_ENV === 'production') {
-    app.use(express.static('build'))
+    app.use(express.static(path.join(__dirname + '/../public')))
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '/../public/index.html'));
+  });
+
 }
 
 app.listen(port, () => {
