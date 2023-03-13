@@ -7,6 +7,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon server"
   },
   "author": "",
   "license": "ISC",
