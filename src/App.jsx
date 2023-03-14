@@ -36,7 +36,7 @@ function App() {
       <Routes>
         <Route 
           exact
-          path="/"
+          path="/*"
           element={ user ? <Home /> : <Navigate to="/login"/> }
         />
         <Route
