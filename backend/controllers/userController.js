@@ -50,7 +50,6 @@ exports.profile_get = (req, res, next) => {
         } 
       })
     .exec((err, data)=> {
-      console.log(data.profile_pic.img_id);
       if (err) {
         console.log(err);
         return next(err);
@@ -121,7 +120,6 @@ exports.profile_get = (req, res, next) => {
     
     User.findByIdAndUpdate( user_id, { $pull: { buddies: buddy} }, { new: true } )
       .exec( (err, user) => {
-        console.log(user);
         if (err) { return next(err);}
         else { return res.status(200).json({ "response": "Success", "user" : user }) }
     })
