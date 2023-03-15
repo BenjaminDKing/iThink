@@ -1,6 +1,11 @@
 import axios from "axios";
 
-const BASE_URL = `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_SERVER_PORT}`
+if (process.env.NODE_ENV ==="production") {
+    const BASE_URL = process.env.REACT_APP_API_URL
+} else {
+    const BASE_URL = `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_SERVER_PORT}`
+}
+
 const CLOUDNAME = process.env.REACT_APP_CLOUD_NAME
 const UPLOADPRESET = process.env.REACT_APP_UPLOAD_PRESET
 
