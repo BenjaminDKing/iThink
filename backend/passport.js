@@ -6,7 +6,7 @@ function initialize(passport) {
         new GoogleStrategy({
             clientID: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,
-            callbackURL: "/auth/google/callback",
+            callbackURL: process.env.CLIENT_URL + "auth/google/callback",
             passReqToCallback: true,
             scope: ["profile", "email"],
         },
