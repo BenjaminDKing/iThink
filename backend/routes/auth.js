@@ -3,7 +3,7 @@ const passport = require("passport");
 var thoughtController = require("../controllers/thoughtController");
 const Thought = require("../models/thought");
 
-const CLIENT = `${process.env.CLIENT_URL}${process.env.CLIENT_PORT}`
+const CLIENT = process.env.CLIENT_URL
 
 router.get("/login/success", (req, res) => {
 
