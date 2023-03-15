@@ -3,6 +3,8 @@ const passport = require("passport");
 var thoughtController = require("../controllers/thoughtController");
 const Thought = require("../models/thought");
 
+const CLIENT = `${process.env.CLIENT_URL}${process.env.CLIENT_PORT}`
+
 router.get("/login/success", (req, res) => {
 
     if (req.user) {
@@ -27,7 +29,7 @@ router.get("/login/failed", (req, res) => {
 router.get(
     "/google/callback",
     passport.authenticate("google", {
-        successRedirect: process.env.CLIENT_URL,
+        successRedirect: CLIENT,
         failureRedirect: "/login/failed",
     })
 );
@@ -38,7 +40,7 @@ router.get("/google",
 router.get("/logout", (req, res, next) => {
     req.logout(req.user, err => {
         if(err) return next(err);
-    res.redirect(process.env.CLIENT_URL);
+    res.redirect(CLIENT);
     });
 })
 

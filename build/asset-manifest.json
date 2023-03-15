@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.9825a47c.css",
-    "main.js": "/static/js/main.07da5b0d.js",
+    "main.js": "/static/js/main.8b26469e.js",
     "static/media/google.png": "/static/media/google.f9552a3c904562bc2ae9.png",
     "static/media/iThink_logo.png": "/static/media/iThink_logo.b2b47876aabec3764edb.png",
     "index.html": "/index.html",
     "main.9825a47c.css.map": "/static/css/main.9825a47c.css.map",
-    "main.07da5b0d.js.map": "/static/js/main.07da5b0d.js.map"
+    "main.8b26469e.js.map": "/static/js/main.8b26469e.js.map"
   },
   "entrypoints": [
     "static/css/main.9825a47c.css",
-    "static/js/main.07da5b0d.js"
+    "static/js/main.8b26469e.js"
   ]
 }

@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser')
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5000;
 const CLIENT_PORT = process.env.CLIENT_PORT || 3000;
 
 app.use(express.json());
@@ -43,7 +43,7 @@ initializePassport(passport);
 
 app.use(
     cors({
-        origin: `http://localhost:${CLIENT_PORT}`,
+        origin: `${process.env.CLIENT_URL}${CLIENT_PORT}`,
         methods: "GET,POST,PUT,DELETE",
         credentials: true,
     })
