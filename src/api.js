@@ -6,6 +6,7 @@ if (process.env.NODE_ENV ==="production") {
     const BASE_URL = `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_SERVER_PORT}`
 }
 
+const BASE_URL = process.env.REACT_APP_API_URL
 const CLOUDNAME = process.env.REACT_APP_CLOUD_NAME
 const UPLOADPRESET = process.env.REACT_APP_UPLOAD_PRESET
 
