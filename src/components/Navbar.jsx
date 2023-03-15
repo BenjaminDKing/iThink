@@ -123,7 +123,7 @@ function Navbar(props) {
         onClose={handleClose}>
         <MenuItem onClick={handleClose}> <AccountCircleIcon fontSize="small"/> Profile Settings</MenuItem>
         <MenuItem onClick={handleClose}> <SettingsApplicationsIcon fontSize="small"/> Account Settings</MenuItem>
-        <MenuItem onClick={handleClose}><a href="http://localhost:3001/auth/logout"><LogoutIcon fontSize="small"/> Logout</a></MenuItem>
+        <MenuItem onClick={handleClose}><a href={`${process.env.REACT_APP_API_URL}/logout`}><LogoutIcon fontSize="small"/> Logout</a></MenuItem>
       </Menu>
 
     </div>
