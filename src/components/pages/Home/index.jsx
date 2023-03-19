@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
-import "./index.css";
+import styles from "./index.css";
 import { getThoughts, getMoreThoughts, deleteThought, checkReqUserCall } from "../../../api";
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "../../../actions";
@@ -10,6 +10,7 @@ import Navbar from "../../Navbar";
 import Thought from "../../Thought";
 import MessageInput from "./MessageInput";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Editor from "../../Editor/Editor";
 
 function Home(props) {
 
@@ -75,7 +76,7 @@ function Home(props) {
             {/* <h1>Counter: {counter}</h1>
             <button onClick={() => dispatch(increment(5)) }>+</button>
             <button onClick={() => dispatch(decrement())}>-</button> */}
-
+            <Editor />
             <MessageInput 
                 onAdd={handleAdd}
                 renderThoughts={renderThoughts}     

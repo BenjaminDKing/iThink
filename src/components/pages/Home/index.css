@@ -22,6 +22,11 @@ button {
     cursor: pointer;
 }
 
+.RichEditor-root {
+    width: 700px;
+    margin: 50px;
+}
+
 .logo-image {
     height: 80px;
     width: 160px;
@@ -192,3 +197,4 @@ h3 {
     background-color: red;
     cursor: pointer;
 }
+
