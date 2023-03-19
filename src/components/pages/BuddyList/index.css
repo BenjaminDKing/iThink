@@ -18,9 +18,9 @@ h2 {
 }
 
 .buddy-browser {
-    /* display: flex;
+    display: flex;
     flex-direction: column;
-    justify-content: center; */
+    justify-content: center;
 }
 
 .buddy-card-container {

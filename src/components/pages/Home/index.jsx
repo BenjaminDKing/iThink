@@ -8,7 +8,6 @@ import { increment, decrement } from "../../../actions";
 // Components:
 import Navbar from "../../Navbar";
 import Thought from "../../Thought";
-import MessageInput from "./MessageInput";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Editor from "../../Editor/Editor";
 
@@ -77,10 +76,6 @@ function Home(props) {
             <button onClick={() => dispatch(increment(5)) }>+</button>
             <button onClick={() => dispatch(decrement())}>-</button> */}
             <Editor />
-            <MessageInput 
-                onAdd={handleAdd}
-                renderThoughts={renderThoughts}     
-            />
             <div className="thought-message-board">
                 <InfiniteScroll
                     dataLength={thoughts.length}

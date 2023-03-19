@@ -1,3 +1,5 @@
+import React, {useRef} from "react";
+
 import ExampleTheme from "../themes/ExampleTheme";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
@@ -14,13 +16,15 @@ import { CodeHighlightNode, CodeNode } from "@lexical/code";
 import { AutoLinkNode, LinkNode } from "@lexical/link";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+import {OnChangePlugin} from '@lexical/react/LexicalOnChangePlugin';
 import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
 import { TRANSFORMERS } from "@lexical/markdown";
-
 import ListMaxIndentLevelPlugin from "../plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "../plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "../plugins/AutoLinkPlugin";
-import styles from "./EditorStyles.css";
+
+import "./EditorStyles.css";
+import { createEditor } from "lexical";
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
@@ -50,8 +54,29 @@ const editorConfig = {
 };
 
 export default function Editor() {
+
+  const editorStateRef = useRef();
+
+  // Get editor initial state (e.g. loaded from backend)
+  const loadContent = () => {
+    // 'empty' editor
+    const value = '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
+
+    return value;
+  }
+
+  const initialEditorState = loadContent();
+  const editor = createEditor();
+
+  const saveContent = (content) => {
+    console.log(content);
+  }
+
   return (
-    <LexicalComposer initialConfig={editorConfig}>
+    <LexicalComposer 
+      editorState={initialEditorState}
+      initialConfig={editorConfig}
+      >
       <div className="editor-container">
         <ToolbarPlugin />
         <div className="editor-inner">
@@ -60,6 +85,7 @@ export default function Editor() {
             placeholder={<Placeholder />}
             ErrorBoundary={LexicalErrorBoundary}
           />
+          <OnChangePlugin onChange={editorState => editorStateRef.current = editorState} />
           <HistoryPlugin />
           <TreeViewPlugin />
           <AutoFocusPlugin />
@@ -71,6 +97,18 @@ export default function Editor() {
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
         </div>
       </div>
+      <input type="button" value="Test" onClick={ () => {
+        if (editorStateRef.current) {
+          console.log(editorStateRef.current);
+          saveContent(JSON.stringify(editorStateRef.current))
+        }
+      }} />
+      {/* <Button label="Save" onPress={() => {
+        if (editorStateRef.current) {
+          console.log(editorStateRef.current);
+          saveContent(JSON.stringify(editorStateRef.current))
+        }
+      }} /> */}
     </LexicalComposer>
   );
 }
