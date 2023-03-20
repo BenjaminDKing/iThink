@@ -9,7 +9,9 @@ import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import TreeViewPlugin from "../plugins/TreeViewPlugin";
 import ToolbarPlugin from "../plugins/ToolbarPlugin";
 import YouTubePlugin from "../plugins/YouTubePlugin";
+import ImagePlugin from "../plugins/ImagePlugin";
 import { YouTubeNode } from "../nodes/YouTubeNode";
+import { ImageNode } from "../nodes/ImageNode";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { TableCellNode, TableNode, TableRowNode } from "@lexical/table";
 import { ListItemNode, ListNode } from "@lexical/list";
@@ -51,7 +53,8 @@ const editorConfig = {
     TableRowNode,
     AutoLinkNode,
     LinkNode,
-    YouTubeNode
+    YouTubeNode,
+    ImageNode
   ]
 };
 
@@ -88,6 +91,7 @@ export default function Editor() {
             ErrorBoundary={LexicalErrorBoundary}
           />
           <YouTubePlugin />
+          <ImagePlugin />
           <OnChangePlugin onChange={editorState => editorStateRef.current = editorState} />
           <HistoryPlugin />
           <TreeViewPlugin />

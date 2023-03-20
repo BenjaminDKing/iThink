@@ -41,8 +41,12 @@ import {
 } from "@lexical/code";
 
 import { INSERT_YOUTUBE_COMMAND } from "./YouTubePlugin";
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import { InsertImagePayload } from "./ImagePlugin";
+import { INSERT_IMAGE_COMMAND } from "./ImagePlugin";
+import ImageIcon from '@mui/icons-material/Image';
 
-export function FillURL() {
+export function FillURLVideo() {
   const url = prompt("Enter the URL of the YouTube video:", "");
 
   const match = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/.exec(
@@ -56,6 +60,12 @@ export function FillURL() {
   }
 
   return null;
+}
+
+export function FillURLImage() {
+  const srcfile = prompt("Enter the URL of the image:", "");
+
+  return srcfile;
 }
 
 const LowPriority = 1;
@@ -452,6 +462,10 @@ export default function ToolbarPlugin() {
   const [isStrikethrough, setIsStrikethrough] = useState(false);
   const [isCode, setIsCode] = useState(false);
 
+  const onClickImage = (InsertImagePayload) => {
+    editor.dispatchCommand(INSERT_IMAGE_COMMAND, InsertImagePayload);
+  };  
+
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
     if ($isRangeSelection(selection)) {
@@ -708,13 +722,25 @@ export default function ToolbarPlugin() {
           >
             <i className="format justify-align" />
           </button>{" "}
+          <Divider />
+          <button
+            onClick={() =>
+              onClickImage({
+                altText: "URL image",
+                src: FillURLImage()
+            })
+          }
+          className={"toolbar-item spaced "}
+          >
+            <i className="format"><ImageIcon /></i>
+          </button>
           <button
             onClick={() => {
-              editor.dispatchCommand(INSERT_YOUTUBE_COMMAND, FillURL());
+              editor.dispatchCommand(INSERT_YOUTUBE_COMMAND, FillURLVideo());
             }}
             className={"toolbar-item spaced "}
           >
-            <span className="text">Insert YouTube Video</span>
+            <i className="format"><YouTubeIcon /></i>
           </button>
         </>
       )}
