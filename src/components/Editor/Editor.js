@@ -1,5 +1,4 @@
 import React, {useRef} from "react";
-
 import ExampleTheme from "../themes/ExampleTheme";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
@@ -9,6 +8,8 @@ import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import TreeViewPlugin from "../plugins/TreeViewPlugin";
 import ToolbarPlugin from "../plugins/ToolbarPlugin";
+import YouTubePlugin from "../plugins/YouTubePlugin";
+import { YouTubeNode } from "../nodes/YouTubeNode";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { TableCellNode, TableNode, TableRowNode } from "@lexical/table";
 import { ListItemNode, ListNode } from "@lexical/list";
@@ -49,7 +50,8 @@ const editorConfig = {
     TableCellNode,
     TableRowNode,
     AutoLinkNode,
-    LinkNode
+    LinkNode,
+    YouTubeNode
   ]
 };
 
@@ -85,6 +87,7 @@ export default function Editor() {
             placeholder={<Placeholder />}
             ErrorBoundary={LexicalErrorBoundary}
           />
+          <YouTubePlugin />
           <OnChangePlugin onChange={editorState => editorStateRef.current = editorState} />
           <HistoryPlugin />
           <TreeViewPlugin />

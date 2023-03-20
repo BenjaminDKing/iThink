@@ -17,6 +17,10 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.15.3",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
     "axios": "^1.2.3",
     "body-parser": "^1.20.1",
     "cloudinary": "^1.33.0",
@@ -50,6 +54,7 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "sha1": "^1.1.1",
+    "typescript": "^5.0.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
