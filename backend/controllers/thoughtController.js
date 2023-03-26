@@ -7,11 +7,6 @@ var path = require('path');
 var sha1 = require('sha1');
 const axios = require('axios')
 
-// const API_SECRET = process.env.API_SECRET
-// const API_KEY = process.env.API_KEY
-// const UPLOADPRESET = process.env.UPLOAD_PRESET
-// const CLOUDNAME = process.env.CLOUD_NAME
-
 exports.thoughts_get = (req, res, next) => {
 
   Thought.find({user : req.query.id})
@@ -39,6 +34,8 @@ exports.more_thoughts_get = (req, res, next) => {
 }
 
 exports.create_thought_post = [ 
+
+  // DEPRECATED
 
     body("title")
     .isString().withMessage("Title must be a string.")
@@ -86,4 +83,42 @@ exports.delete_thought_delete = (req, res, next) => {
       return res.status(200).json({ 'response': 'Success'})
     }
   })
+}
+
+exports.thought_get = (req, res, next) => {
+  
+  Thought.find({ user: req.query.id })
+    .sort('-date')
+    .exec(function (err, thoughts) {
+      if (err) { return next(err) }
+      return res.status(200).json({
+        thought: thoughts[0]
+      })
+    })
+}
+
+exports.thought_post = (req, res, next) => {
+    const currentTime = new Date();
+
+    const thought = new Thought(
+      {
+        user: req.user._id,
+        title: req.body.title,
+        content: req.body.content,
+        category: req.body.category,
+        date: currentTime,
+      })
+      .save((err, thought) => {
+        if (err) {
+          return next(err);
+        } else {
+          return res.status(200).json({ 'thought': thought });
+        }
+      })
+  }
+
+exports.thought_put = []
+
+exports.thought_delete = (req, res, next) => {
+  console.log("Delete Thought")
 }
