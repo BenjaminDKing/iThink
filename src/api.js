@@ -17,6 +17,8 @@ export async function getUser() {
     return data;
 }
 
+// DEPRECATED THOUGHT METHODS
+
 export async function getThoughts(id) {
     const url = `${BASE_URL}/get_thoughts`;
     const config = {
@@ -54,11 +56,26 @@ export async function deleteThought(id, user) {
     return response;
 }
 
+// NEW THOUGHT METHODS
+
+export async function getThought(id) {
+    const url = `${BASE_URL}/get_thought`;
+    const config = {
+        withCredentials: true,
+        params: {
+            id: id
+        }
+    }
+    const { data } = await axios.get(url, config)
+    return data;
+}
+
 export async function postThought(thought) {
-    const url = `${BASE_URL}/create_thought`;
-    const response = await axios.post(url, thought, {withCredentials: true});
+    const url = `${BASE_URL}/post_thought`;
+    const response = await axios.post(url, thought, { withCredentials: true });
     return response;
 }
+
 
 export async function getProfile(id) {
     const url = `${BASE_URL}/get_profile/${id}`;

@@ -71,11 +71,6 @@ function Home(props) {
         <div className="home">
             <Navbar />
             <h1>Welcome back, {user.first_name}!</h1>
-            
-            {/* <h1>Counter: {counter}</h1>
-            <button onClick={() => dispatch(increment(5)) }>+</button>
-            <button onClick={() => dispatch(decrement())}>-</button> */}
-            <Editor />
             <div className="thought-message-board">
                 <InfiniteScroll
                     dataLength={thoughts.length}
@@ -84,19 +79,18 @@ function Home(props) {
                     loader={<h4>Loading...</h4>}
                     endMessage={<p>All thoughts have been loaded.</p>}
                 >
-                    {thoughts.map( (thoughtItem, index) => {
-                        return (
-                            <Thought 
-                                key={index}
-                                id={thoughtItem._id}
-                                user={user}
-                                isCurrentUser={true}
-                                title={thoughtItem.title}
-                                content={thoughtItem.content}
-                                date={thoughtItem.date}
-                                handleDelete={handleDelete}/>
-                        )
-                    })}
+                {thoughts.map( (thoughtItem, index) => {
+                    return (
+                        <Editor 
+                            key={index}
+                            id={thoughtItem._id}
+                            title={thoughtItem.title}
+                            content={thoughtItem.content}
+                            date={thoughtItem.date}
+                            isEditable={true}
+                        />
+                    )
+                })}
                 </InfiniteScroll>
             </div>
         </div>

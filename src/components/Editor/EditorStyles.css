@@ -8,6 +8,29 @@
     -moz-osx-font-smoothing: grayscale;
   } */
   
+  hr {
+    width: 600px;
+    border-top: 2px solid grey;
+    margin-top: 30px;
+  }
+
+  .text-editor-details {
+    display: flex;
+    justify-content: space-between;
+    color: #777;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+
+  .text-editor-date {
+    display: flex;
+    align-items: end;
+  }
+
+  .text-editor-title {
+    display: flex;
+    align-items: end;
+  }
+
   .other h2 {
     font-size: 18px;
     color: #444;
@@ -45,7 +68,7 @@
   }
   
   .editor-container {
-    margin: 20px auto 20px auto;
+    margin: 0px auto 20px auto;
     border-radius: 2px;
     max-width: 900px;
     color: #000;

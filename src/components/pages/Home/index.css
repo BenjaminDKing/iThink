@@ -140,12 +140,12 @@ textarea {
 
 /** Thought Message Board **/
 
-.thought-message-board {
+/* .thought-message-board {
     width: 1000px;
     
     display: flex;
     flex-wrap: wrap;
-}
+} */
 
 .thought {
     height: fit-content;
