@@ -87,7 +87,7 @@ function Home(props) {
                             title={thoughtItem.title}
                             content={thoughtItem.content}
                             date={thoughtItem.date}
-                            isEditable={true}
+                            isEditable={false}
                         />
                     )
                 })}

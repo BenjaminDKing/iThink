@@ -1,4 +1,5 @@
 import React, {useRef, useState} from "react";
+import { Link } from "react-router-dom";
 import ExampleTheme from "../themes/ExampleTheme";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
@@ -30,7 +31,12 @@ import { useSelector, useDispatch } from "react-redux";
 import "./EditorStyles.css";
 import { createEditor } from "lexical";
 import { postThought, getThought } from "../../api";
-
+import {
+  Menu,
+  MenuItem
+} from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 function Placeholder() {
   return <div className="editor-placeholder">What's on your mind?</div>;
@@ -41,11 +47,24 @@ export default function Editor(props) {
   const user = useSelector(state => state.user)
   const editorStateRef = useRef();
   const initialEditorState = props.content
+  const id = props.id;
   const title = props.title;
+  const content = props.content;
   // const date = props.date;
   const date = new Date(props.date)
   const dateString = date.toDateString();
+  
+  const thought = {
+    id,
+    title,
+    date,
+    content,
+  }
+
   const [isEditable, setIsEditable] = useState(props.isEditable);
+
+  const [anchorEl, setAnchorEl] = useState(null)
+  const open = Boolean(anchorEl)
 
   const saveContent = (content) => {
     const title = prompt("Title: ")
@@ -57,6 +76,14 @@ export default function Editor(props) {
     }
     const response = postThought(thought);
     // Update React State with successful response
+  }
+
+  const handleClick = (event) => {
+    setAnchorEl(event.target)
+  }
+
+  const handleClose = (event) => {
+    setAnchorEl(null)
   }
 
   const editorConfig = {
@@ -87,16 +114,36 @@ export default function Editor(props) {
   };
 
   return (
-    <div className="text-editor" onDoubleClick={() => { console.log("Render single-thought page") }}>
+    <div className="text-editor">
       <div className="text-editor-details">
-        <div className="text-editor-title"><h3><u>{ title }</u></h3></div>
+        <div className="text-editor-title"><h3>{ title }</h3></div>
         <div className="text-editor-date"><h3>{ dateString }</h3></div>
+
+        <MoreVertIcon 
+          sx={{ fontSize: 30 }}    
+          id="settings"
+          className="button"
+          // onMouseOver={handleMouseOver}
+          // onMouseOut={handleMouseOut}
+          onClick={handleClick}
+          aria-controls={ open ? 'settings-menu' : undefined }
+          aria-haspopup='true'
+          aria-expanded={ open ? 'true' : undefined }>
+        </MoreVertIcon>
+
+        <Menu id='settings-menu' anchorEl={anchorEl} open={open} 
+          MenuListProps={{ 'aria-labelledby': 'settings-button'}}
+          onClose={handleClose}>
+          { !isEditable && <Link to={`/thought/${ id }`} state={{ thought: thought }}><MenuItem onClick={handleClose}><EditIcon fontSize="small"/>Edit</MenuItem></Link>}
+        </Menu> 
+   
       </div>
+      
       <LexicalComposer 
         initialConfig={editorConfig}
         >
         <div className="editor-container">
-          <ToolbarPlugin />
+          { isEditable && <ToolbarPlugin /> }
           <div className="editor-inner">
             <RichTextPlugin
               contentEditable={<ContentEditable className="editor-input" />}

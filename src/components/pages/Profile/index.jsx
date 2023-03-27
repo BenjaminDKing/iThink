@@ -14,6 +14,7 @@ import AddBuddy from "../../AddBuddy";
 import ProfilePicture from "./ProfilePicture";
 import ProfileDetails from "./ProfileDetails";
 import PersonalPhilosophy from "../../PersonalPhilosophy";
+import Editor from "../../Editor/Editor";
 
 function Profile() {
 
@@ -76,7 +77,6 @@ function Profile() {
                     </div>
                 </div>
                 <div className="thought-message-board">
-
                 <InfiniteScroll
                     dataLength={thoughts.length}
                     next={loadMoreThoughts}
@@ -84,18 +84,18 @@ function Profile() {
                     loader={<h4>Loading...</h4>}
                     endMessage={<p>All thoughts have been loaded.</p>}
                 >
-                    {thoughts.map( (thoughtItem, index) => {
-                        return (
-                            <Thought 
-                                key={index}
-                                id={thoughtItem._id}
-                                user={profile}
-                                isCurrentUser={profile._id == user._id}
-                                title={thoughtItem.title}
-                                content={thoughtItem.content}
-                                date={thoughtItem.date}/>
-                        )
-                    })}
+                {thoughts.map( (thoughtItem, index) => {
+                    return (
+                        <Editor 
+                            key={index}
+                            id={thoughtItem._id}
+                            title={thoughtItem.title}
+                            content={thoughtItem.content}
+                            date={thoughtItem.date}
+                            isEditable={false}
+                        />
+                    )
+                })}
                 </InfiniteScroll>
             </div>
             </div>
