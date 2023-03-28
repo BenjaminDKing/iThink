@@ -41,23 +41,16 @@ function Placeholder() {
   return <div className="editor-placeholder">What's on your mind?</div>;
 }
 
-export default function Editor(props) {
+export default function CreateEditor(props) {
 
-  const user = useSelector(state => state.user)
+  const user = useSelector(state => state.user);
   const editorStateRef = useRef();
-  const [titleState, setTitleState] = useState(props.title);
-  const [categoryState, setCategoryState] = useState(props.category);
-  const initialEditorState = props.content
-  const date = new Date(props.date)
+  const [titleState, setTitleState] = useState();
+  const [categoryState, setCategoryState] = useState();
+  const initialEditorState = null;
+  const date = new Date();
   const dateString = date.toDateString();
-  const thought = {
-    id: props.id,
-    title: props.title,
-    date: props.date,
-    content: props.content,
-    category: props.category,
-  }
-
+  const newThought = props.newThought;
   const [isEditable, setIsEditable] = useState(props.isEditable);
 
   const [anchorEl, setAnchorEl] = useState(null)
@@ -70,20 +63,7 @@ export default function Editor(props) {
       content: content
     }
     const response = postThought(thought);
-    console.log(response);
     // Update React State with successful response
-  }
-
-  const putContent = (content) => {
-    const thought = {
-      _id: props.id,
-      title: titleState,
-      category: categoryState,
-      content: content
-    }
-    const response = putThought(thought);
-    console.log(response);
-    // Update react state with successful response
   }
 
   const handleClick = (event) => {
@@ -124,28 +104,16 @@ export default function Editor(props) {
   return (
     <div className="text-editor">
        
-        <div className="text-editor-details">
-        { !isEditable ?
-          <div className="category-title-div">
-            <div className="text-editor-category"><h3>{ props.category } :</h3></div>
-            <div className="text-editor-title"><u><h3>{ props.title }</h3></u></div>
-          </div>
-        : 
+        <div className="text-editor-details"> 
         <div className="category-title-div">
           <div className="text-editor-category">
-            <input 
-              value={ categoryState }
-              onChange={ (e) => { setCategoryState(e.target.value)  } }
-              ></input>
+            <input value={ categoryState } onChange={ (e) => { setCategoryState(e.target.value)  } } placeholder="Category"></input>
           </div>
           <div className="text-editor-title">
-            <u><input 
-              value={ titleState } 
-              onChange={ (e) => { setTitleState(e.target.value)  } } 
-            ></input></u>
+            <u><input value={ titleState } onChange={ (e) => { setTitleState(e.target.value) } } placeholder="Title" ></input></u>
           </div>
         </div>
-        }
+
         {/* If edit mode: */}
         {/* category-input + title-input */}
         <div className="text-editor-date">
@@ -168,7 +136,6 @@ export default function Editor(props) {
         <Menu id='settings-menu' anchorEl={anchorEl} open={open} 
           MenuListProps={{ 'aria-labelledby': 'settings-button'}}
           onClose={handleClose}>
-          { !isEditable && <Link to={`/thought/${ props.id }`} state={{ props: thought }}><MenuItem onClick={handleClose}><EditIcon fontSize="small"/>Edit</MenuItem></Link>}
         </Menu> 
    
       </div>
@@ -177,7 +144,7 @@ export default function Editor(props) {
         initialConfig={editorConfig}
         >
         <div className="editor-container">
-          { isEditable && <ToolbarPlugin /> }
+        <ToolbarPlugin />
           <div className="editor-inner">
             <RichTextPlugin
               contentEditable={<ContentEditable className="editor-input" />}
@@ -199,11 +166,12 @@ export default function Editor(props) {
           </div>
           <hr/>
         </div>
-        { isEditable ? <input type="button" value="Submit" onClick={ () => {
+        <input type="button" value="Submit" onClick={ () => {
           if (editorStateRef.current) {
-            { props.newThought ? postContent(JSON.stringify(editorStateRef.current)) : putContent(JSON.stringify(editorStateRef.current))}
+            postContent(JSON.stringify(editorStateRef.current))
+            }
           }
-        }} /> : null }
+        } />
       </LexicalComposer>
     </div>
   );

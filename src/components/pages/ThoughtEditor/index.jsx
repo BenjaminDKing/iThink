@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import { useSelector } from "react-redux";
 import Editor from "../../Editor/Editor";
+import CreateEditor from "../../Editor/CreateEditor";
 import { useLocation } from "react-router-dom";
 import Navbar from "../../Navbar";
 
-
-export default function ThoughtEditor(props) {
+export default function ThoughtEditor() {
     // ONLY RENDER IF thought.user === current_user._id
 
     // Will get passed a thought including:
@@ -18,27 +18,26 @@ export default function ThoughtEditor(props) {
 
     const user = useSelector(state => state.user)
     const location = useLocation();
-    const { state } = location;
 
-    const thought = location.state.thought || {}
+    const props = location.state.thought || {}
 
     return (
         <div className="thought-editor-page">
             <Navbar />
-            { location.state.thought ? 
+            { !props.newThought ? 
             <Editor 
-                id={thought.id}
-                title={thought.title}
-                content={thought.content}
-                category={thought.category}
-                date={thought.date}
+                id={props.id}
+                title={props.title}
+                content={props.content}
+                category={props.category}
+                date={props.date}
                 isEditable={true}
                 newThought={false}
             /> : 
-            <Editor 
+            <CreateEditor 
                 isEditable={true}
                 newThought={true}
-            />}
+            /> }
         </div>
     )
 }

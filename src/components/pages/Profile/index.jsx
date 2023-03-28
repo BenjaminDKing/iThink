@@ -77,7 +77,9 @@ function Profile() {
                     </div>
                 </div>
                 <div className="thought-message-board">
-                <Link to="/createthought"><input type="button" className="create-thought-btn" value="New Thought"></input></Link>
+                <Link to="/createthought" state={{ thought: null }}>
+                    <input type="button" className="create-thought-btn" value="New Thought"></input>
+                </Link>
                 <InfiniteScroll
                     dataLength={thoughts.length}
                     next={loadMoreThoughts}
