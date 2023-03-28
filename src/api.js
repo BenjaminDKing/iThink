@@ -76,6 +76,12 @@ export async function postThought(thought) {
     return response;
 }
 
+export async function putThought(thought) {
+    const url = `${BASE_URL}/put_thought`;
+    const response = await axios.put(url, thought, { withCredentials: true });
+    return response;
+}
+
 
 export async function getProfile(id) {
     const url = `${BASE_URL}/get_profile/${id}`;

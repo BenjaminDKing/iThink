@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { Link, useParams, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { getProfile, getThoughts, getMoreThoughts, getBuddies } from "../../../api" 
@@ -77,6 +77,7 @@ function Profile() {
                     </div>
                 </div>
                 <div className="thought-message-board">
+                <Link to="/createthought"><input type="button" className="create-thought-btn" value="New Thought"></input></Link>
                 <InfiniteScroll
                     dataLength={thoughts.length}
                     next={loadMoreThoughts}

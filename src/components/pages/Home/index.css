@@ -22,6 +22,11 @@ button {
     cursor: pointer;
 }
 
+.infinite-scroll-component {
+    display: flex;
+    flex-direction: column;
+}
+
 .RichEditor-root {
     width: 700px;
     margin: 50px;

@@ -22,4 +22,6 @@ router.get("/get_thought", isLoggedIn, thoughtController.thought_get);
 
 router.post("/post_thought", isLoggedIn, thoughtController.thought_post);
 
+router.put("/put_thought", isLoggedIn, thoughtController.thought_put);
+
 module.exports = router;

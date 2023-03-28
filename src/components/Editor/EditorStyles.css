@@ -8,6 +8,16 @@
     -moz-osx-font-smoothing: grayscale;
   } */
   
+  .text-editor {
+    margin-top: 20px;
+  }
+
+  input {
+    height: 30px;
+    margin-right: 20px;
+    border-radius: 5px;
+  }
+
   hr {
     width: 600px;
     border-top: 2px solid grey;
@@ -19,8 +29,18 @@
     justify-content: space-between;
     color: #777;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    width: 900px;
-    justify-self: center;
+    width: 897px;
+    margin: 0px auto 0px auto;
+    background-color: white;
+    border-radius: 10px 10px 0 0;
+    border-style: solid;
+    border-width: 2px 2px 0px 2px;
+  }
+
+  .category-title-div {
+    display: flex;
+    align-items: flex-end;
+    margin-left: 10px;
   }
 
   .text-editor-date {
@@ -29,8 +49,16 @@
   }
 
   .text-editor-title {
+  }
+
+  .text-editor-category {
+  }
+
+  .vert-icon-div {
     display: flex;
-    align-items: flex-end;
+    align-self: flex-start;
+    margin-top: 5px;
+    margin-right: 5px;
   }
 
   .other h2 {
@@ -85,7 +113,9 @@
   .editor-inner {
     background: #fff;
     position: relative;
-    border-radius: 10px;
+    border-radius: 0 0 10px 10px;
+    border-style: solid;
+    border-width: 2px;
   }
   
   .editor-input {
@@ -371,12 +401,13 @@
   
   .toolbar {
     display: flex;
-    margin-bottom: 1px;
     background: #fff;
     padding: 4px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    /* border-top-left-radius: 10px;
+    border-top-right-radius: 10px; */
     vertical-align: middle;
+    border-style: solid;
+    border-width: 0 2px 0 2px;
   }
   
   .toolbar button.toolbar-item {

@@ -29,8 +29,7 @@ import CodeHighlightPlugin from "../plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "../plugins/AutoLinkPlugin";
 import { useSelector, useDispatch } from "react-redux";
 import "./EditorStyles.css";
-import { createEditor } from "lexical";
-import { postThought, getThought } from "../../api";
+import { postThought, getThought, putThought } from "../../api";
 import {
   Menu,
   MenuItem
@@ -46,19 +45,18 @@ export default function Editor(props) {
 
   const user = useSelector(state => state.user)
   const editorStateRef = useRef();
+  const [titleState, setTitleState] = useState(props.title);
+  const [categoryState, setCategoryState] = useState(props.category);
   const initialEditorState = props.content
-  const id = props.id;
-  const title = props.title;
-  const content = props.content;
-  // const date = props.date;
   const date = new Date(props.date)
   const dateString = date.toDateString();
-  
   const thought = {
-    id,
-    title,
-    date,
-    content,
+    id: props.id,
+    title: props.title,
+    date: props.date,
+    content: props.content,
+    category: props.category,
+    newThought: props.newThought
   }
 
   const [isEditable, setIsEditable] = useState(props.isEditable);
@@ -66,16 +64,27 @@ export default function Editor(props) {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
-  const saveContent = (content) => {
-    const title = prompt("Title: ")
-    const category = prompt("Category: ")
+  const postContent = (content) => {
     const thought = {
-      title: title,
-      category: category,
+      title: titleState,
+      category: categoryState,
       content: content
     }
     const response = postThought(thought);
+    console.log(response);
     // Update React State with successful response
+  }
+
+  const putContent = (content) => {
+    const thought = {
+      _id: props.id,
+      title: titleState,
+      category: categoryState,
+      content: content
+    }
+    const response = putThought(thought);
+    console.log(response);
+    // Update react state with successful response
   }
 
   const handleClick = (event) => {
@@ -115,26 +124,52 @@ export default function Editor(props) {
 
   return (
     <div className="text-editor">
-      <div className="text-editor-details">
-        <div className="text-editor-title"><h3>{ title }</h3></div>
-        <div className="text-editor-date"><h3>{ dateString }</h3></div>
-
-        <MoreVertIcon 
-          sx={{ fontSize: 30 }}    
-          id="settings"
-          className="button"
-          // onMouseOver={handleMouseOver}
-          // onMouseOut={handleMouseOut}
-          onClick={handleClick}
-          aria-controls={ open ? 'settings-menu' : undefined }
-          aria-haspopup='true'
-          aria-expanded={ open ? 'true' : undefined }>
-        </MoreVertIcon>
+       
+        <div className="text-editor-details">
+        { !isEditable ?
+          <div className="category-title-div">
+            <div className="text-editor-category"><h3>{ props.category } :</h3></div>
+            <div className="text-editor-title"><u><h3>{ props.title }</h3></u></div>
+          </div>
+        : 
+        <div className="category-title-div">
+          <div className="text-editor-category">
+            <input 
+              value={ categoryState }
+              onChange={ (e) => { setCategoryState(e.target.value)  } }
+              ></input>
+          </div>
+          <div className="text-editor-title">
+            <u><input 
+              value={ titleState } 
+              onChange={ (e) => { setTitleState(e.target.value)  } } 
+            ></input></u>
+          </div>
+        </div>
+        }
+        {/* If edit mode: */}
+        {/* category-input + title-input */}
+        <div className="text-editor-date">
+          <h3>{ dateString }</h3>
+          <div className="vert-icon-div">
+            <MoreVertIcon 
+              sx={{ fontSize: 30 }}    
+              id="settings"
+              className="button"
+              // onMouseOver={handleMouseOver}
+              // onMouseOut={handleMouseOut}
+              onClick={handleClick}
+              aria-controls={ open ? 'settings-menu' : undefined }
+              aria-haspopup='true'
+              aria-expanded={ open ? 'true' : undefined }>
+            </MoreVertIcon>
+          </div>
+        </div> 
 
         <Menu id='settings-menu' anchorEl={anchorEl} open={open} 
           MenuListProps={{ 'aria-labelledby': 'settings-button'}}
           onClose={handleClose}>
-          { !isEditable && <Link to={`/thought/${ id }`} state={{ thought: thought }}><MenuItem onClick={handleClose}><EditIcon fontSize="small"/>Edit</MenuItem></Link>}
+          { !isEditable && <Link to={`/thought/${ props.id }`} state={{ thought: thought }}><MenuItem onClick={handleClose}><EditIcon fontSize="small"/>Edit</MenuItem></Link>}
         </Menu> 
    
       </div>
@@ -167,7 +202,7 @@ export default function Editor(props) {
         </div>
         { isEditable ? <input type="button" value="Submit" onClick={ () => {
           if (editorStateRef.current) {
-            saveContent(JSON.stringify(editorStateRef.current))
+            { props.newThought ? postContent(JSON.stringify(editorStateRef.current)) : putContent(JSON.stringify(editorStateRef.current))}
           }
         }} /> : null }
       </LexicalComposer>

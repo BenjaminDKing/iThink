@@ -47,7 +47,6 @@ function Home(props) {
 
     function handleDelete(id) {
         try {
-            console.log(user)
             deleteThought(id, user)
             .then(response => {
                 if(response.data.response == 'Success') {
@@ -85,6 +84,7 @@ function Home(props) {
                             key={index}
                             id={thoughtItem._id}
                             title={thoughtItem.title}
+                            category={thoughtItem.category}
                             content={thoughtItem.content}
                             date={thoughtItem.date}
                             isEditable={false}

@@ -1,6 +1,8 @@
 import React, {useState} from "react";
+import { useSelector } from "react-redux";
 import Editor from "../../Editor/Editor";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import Navbar from "../../Navbar";
 
 
 export default function ThoughtEditor(props) {
@@ -14,20 +16,29 @@ export default function ThoughtEditor(props) {
     // category
     // date
 
+    const user = useSelector(state => state.user)
     const location = useLocation();
     const { state } = location;
 
     const thought = location.state.thought || {}
 
     return (
-        <div className="thought-editor">
+        <div className="thought-editor-page">
+            <Navbar />
+            { location.state.thought ? 
             <Editor 
                 id={thought.id}
                 title={thought.title}
                 content={thought.content}
+                category={thought.category}
                 date={thought.date}
                 isEditable={true}
-            />
+                newThought={false}
+            /> : 
+            <Editor 
+                isEditable={true}
+                newThought={true}
+            />}
         </div>
     )
 }

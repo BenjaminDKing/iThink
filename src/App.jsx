@@ -49,6 +49,10 @@ function App() {
           element={ user ? <Profile /> : <Navigate to="/login"/> }
         />
         <Route 
+          path="/createthought"
+          element={ user ? <ThoughtEditor /> : <Navigate to="/login" /> }
+        />
+        <Route 
           path="/thought/:id"
           element={ user ? <ThoughtEditor /> : <Navigate to="/login" /> }
         />

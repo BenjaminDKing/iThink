@@ -14,7 +14,7 @@ exports.thoughts_get = (req, res, next) => {
     .exec(function (err, thoughts) {
       if (err) { return next(err) }
       res.json({
-        thoughts: thoughts.slice(0, 10),
+        thoughts: thoughts.slice(0, 5),
         totalThoughtCount: thoughts.length
       });
     })
@@ -34,8 +34,6 @@ exports.more_thoughts_get = (req, res, next) => {
 }
 
 exports.create_thought_post = [ 
-
-  // DEPRECATED
 
     body("title")
     .isString().withMessage("Title must be a string.")
@@ -117,7 +115,22 @@ exports.thought_post = (req, res, next) => {
       })
   }
 
-exports.thought_put = []
+exports.thought_put = (req, res, next) => {
+  Thought.findByIdAndUpdate( req.body._id, 
+    {
+      title: req.body.title,
+      content: req.body.content,
+      category: req.body.category,
+    })
+    .exec((err, thought) => {
+      if (err) { 
+        return next(err) 
+      } else {
+        res.status(200).json({"thought" : thought})
+      }
+    }
+  )
+}
 
 exports.thought_delete = (req, res, next) => {
   console.log("Delete Thought")
