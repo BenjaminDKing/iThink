@@ -36,6 +36,7 @@ import {
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { placeholder } from "@cloudinary/react";
 
 function Placeholder() {
   return <div className="editor-placeholder">What's on your mind?</div>;
@@ -50,6 +51,9 @@ export default function Editor(props) {
   const initialEditorState = props.content
   const date = new Date(props.date)
   const dateString = date.toDateString();
+  console.log(props.date);
+  console.log(dateString);
+
   const thought = {
     id: props.id,
     title: props.title,
@@ -135,13 +139,15 @@ export default function Editor(props) {
           <div className="text-editor-category">
             <input 
               value={ categoryState }
-              onChange={ (e) => { setCategoryState(e.target.value)  } }
-              ></input>
+              onChange={ (e) => { setCategoryState(e.target.value) } }
+              placeholder={props.category}
+            ></input>
           </div>
           <div className="text-editor-title">
             <u><input 
               value={ titleState } 
-              onChange={ (e) => { setTitleState(e.target.value)  } } 
+              onChange={ (e) => { setTitleState(e.target.value)  } }
+              placeholder={props.title} 
             ></input></u>
           </div>
         </div>

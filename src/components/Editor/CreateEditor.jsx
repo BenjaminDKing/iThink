@@ -41,14 +41,24 @@ function Placeholder() {
   return <div className="editor-placeholder">What's on your mind?</div>;
 }
 
+function CategoryPlaceholder() {
+  return <div className="category-placeholder">Category</div>
+}
+
+function TitlePlaceholder() {
+  return <div className="title-placeholder">Title</div>
+}
+
 export default function CreateEditor(props) {
 
   const user = useSelector(state => state.user);
   const editorStateRef = useRef();
-  const [titleState, setTitleState] = useState();
-  const [categoryState, setCategoryState] = useState();
+  const [titleState, setTitleState] = useState("");
+  const [categoryState, setCategoryState] = useState("");
+
   const initialEditorState = null;
   const date = new Date();
+  console.log(date);
   const dateString = date.toDateString();
   const newThought = props.newThought;
   const [isEditable, setIsEditable] = useState(props.isEditable);
@@ -72,6 +82,10 @@ export default function CreateEditor(props) {
 
   const handleClose = (event) => {
     setAnchorEl(null)
+  }
+
+  const handleChange = (event) => {
+    
   }
 
   const editorConfig = {
@@ -107,10 +121,10 @@ export default function CreateEditor(props) {
         <div className="text-editor-details"> 
         <div className="category-title-div">
           <div className="text-editor-category">
-            <input value={ categoryState } onChange={ (e) => { setCategoryState(e.target.value)  } } placeholder="Category"></input>
+            <input value={ categoryState } onChange={ (e) => { setCategoryState(e.target.value)  } } ></input>
           </div>
           <div className="text-editor-title">
-            <u><input value={ titleState } onChange={ (e) => { setTitleState(e.target.value) } } placeholder="Title" ></input></u>
+            <input value={ titleState } onChange={ (e) => { handleChange() } } ></input>
           </div>
         </div>
 

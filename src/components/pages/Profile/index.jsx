@@ -15,6 +15,7 @@ import ProfilePicture from "./ProfilePicture";
 import ProfileDetails from "./ProfileDetails";
 import PersonalPhilosophy from "../../PersonalPhilosophy";
 import Editor from "../../Editor/Editor";
+import { isEditable } from "@testing-library/user-event/dist/utils";
 
 function Profile() {
 
@@ -24,6 +25,11 @@ function Profile() {
 
     const user = useSelector(state => state.user)
     const { id } = useParams();
+
+    const newThoughtProps = {
+        newThought: true,
+        isEditable: true
+    }
 
     const renderProfile = async () => {
         const data = await getProfile(id);
@@ -77,7 +83,7 @@ function Profile() {
                     </div>
                 </div>
                 <div className="thought-message-board">
-                <Link to="/createthought" state={{ thought: null }}>
+                <Link to="/createthought" state={{ thought: newThoughtProps }}>
                     <input type="button" className="create-thought-btn" value="New Thought"></input>
                 </Link>
                 <InfiniteScroll

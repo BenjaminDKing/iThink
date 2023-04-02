@@ -24,7 +24,12 @@ export default function ThoughtEditor() {
     return (
         <div className="thought-editor-page">
             <Navbar />
-            { !props.newThought ? 
+            { props.newThought ?  
+            <CreateEditor 
+                isEditable={true}
+                newThought={true}
+            />
+            :
             <Editor 
                 id={props.id}
                 title={props.title}
@@ -33,10 +38,6 @@ export default function ThoughtEditor() {
                 date={props.date}
                 isEditable={true}
                 newThought={false}
-            /> : 
-            <CreateEditor 
-                isEditable={true}
-                newThought={true}
             /> }
         </div>
     )
