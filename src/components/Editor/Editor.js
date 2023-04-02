@@ -51,8 +51,6 @@ export default function Editor(props) {
   const initialEditorState = props.content
   const date = new Date(props.date)
   const dateString = date.toDateString();
-  console.log(props.date);
-  console.log(dateString);
 
   const thought = {
     id: props.id,
@@ -140,14 +138,14 @@ export default function Editor(props) {
             <input 
               value={ categoryState }
               onChange={ (e) => { setCategoryState(e.target.value) } }
-              placeholder={props.category}
+              placeholder="Category"
             ></input>
           </div>
           <div className="text-editor-title">
             <u><input 
               value={ titleState } 
               onChange={ (e) => { setTitleState(e.target.value)  } }
-              placeholder={props.title} 
+              placeholder="Title" 
             ></input></u>
           </div>
         </div>
@@ -174,7 +172,7 @@ export default function Editor(props) {
         <Menu id='settings-menu' anchorEl={anchorEl} open={open} 
           MenuListProps={{ 'aria-labelledby': 'settings-button'}}
           onClose={handleClose}>
-          { !isEditable && <Link to={`/thought/${ props.id }`} state={{ props: thought }}><MenuItem onClick={handleClose}><EditIcon fontSize="small"/>Edit</MenuItem></Link>}
+          { !isEditable && <Link to={`/thought/${ props.id }`} state={{ thought: thought }}><MenuItem onClick={handleClose}><EditIcon fontSize="small"/>Edit</MenuItem></Link>}
         </Menu> 
    
       </div>
@@ -205,7 +203,7 @@ export default function Editor(props) {
           </div>
           <hr/>
         </div>
-        { isEditable ? <input type="button" value="Submit" onClick={ () => {
+        { isEditable ? <input type="button" value="Save" onClick={ () => {
           if (editorStateRef.current) {
             { props.newThought ? postContent(JSON.stringify(editorStateRef.current)) : putContent(JSON.stringify(editorStateRef.current))}
           }

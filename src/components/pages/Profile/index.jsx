@@ -100,6 +100,7 @@ function Profile() {
                             id={thoughtItem._id}
                             title={thoughtItem.title}
                             content={thoughtItem.content}
+                            category={thoughtItem.category}
                             date={thoughtItem.date}
                             isEditable={false}
                         />
