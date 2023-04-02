@@ -29,12 +29,13 @@ import CodeHighlightPlugin from "../plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "../plugins/AutoLinkPlugin";
 import { useSelector, useDispatch } from "react-redux";
 import "./EditorStyles.css";
-import { postThought, getThought, putThought } from "../../api";
+import { postThought, getThought, putThought, deleteThought } from "../../api";
 import {
   Menu,
   MenuItem
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { placeholder } from "@cloudinary/react";
 
@@ -51,6 +52,7 @@ export default function Editor(props) {
   const initialEditorState = props.content
   const date = new Date(props.date)
   const dateString = date.toDateString();
+  const isCurrentUsers = (props.user === user._id);
 
   const thought = {
     id: props.id,
@@ -58,6 +60,7 @@ export default function Editor(props) {
     date: props.date,
     content: props.content,
     category: props.category,
+    user: props.user,
   }
 
   const [isEditable, setIsEditable] = useState(props.isEditable);
@@ -86,6 +89,19 @@ export default function Editor(props) {
     const response = putThought(thought);
     console.log(response);
     // Update react state with successful response
+  }
+
+  const delContent = () => {
+    handleClose();
+    if(window.confirm("Are you sure you want to delete?", "Delete")) {
+      try {
+        const response = deleteThought(props.id, props.user);
+        // Update React state depending on response
+        console.log(response);
+      } catch(err) {
+        console.log(err);
+      }
+    }
   }
 
   const handleClick = (event) => {
@@ -173,6 +189,7 @@ export default function Editor(props) {
           MenuListProps={{ 'aria-labelledby': 'settings-button'}}
           onClose={handleClose}>
           { !isEditable && <Link to={`/thought/${ props.id }`} state={{ thought: thought }}><MenuItem onClick={handleClose}><EditIcon fontSize="small"/>Edit</MenuItem></Link>}
+          { !isEditable && isCurrentUsers && <MenuItem onClick={ delContent }><DeleteIcon fontSize="small"/>Delete</MenuItem>}
         </Menu> 
    
       </div>

@@ -83,6 +83,7 @@ function Home(props) {
                         <Editor 
                             key={index}
                             id={thoughtItem._id}
+                            user={thoughtItem.user}
                             title={thoughtItem.title}
                             category={thoughtItem.category}
                             content={thoughtItem.content}

@@ -98,6 +98,7 @@ function Profile() {
                         <Editor 
                             key={index}
                             id={thoughtItem._id}
+                            user={thoughtItem.user}
                             title={thoughtItem.title}
                             content={thoughtItem.content}
                             category={thoughtItem.category}
