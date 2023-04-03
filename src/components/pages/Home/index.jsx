@@ -45,20 +45,20 @@ function Home(props) {
         });
     }
 
-    const handleDelete = async (id) => {
-        try {
-            deleteThought(id, user)
-            .then(response => {
-                if(response.data.response == 'Success') {
-                    const updatedThoughts = thoughts.filter( thought => {
-                        return thought._id !== id;
-                    })
-                    setThoughts(updatedThoughts);
-                }
-            })
-        } catch(err) {
-            console.log(err);
-            console.log("Error when deleting Thought.");
+    const handleDelete = async (id, user) => {
+        if(window.confirm("Are you sure you want to delete?", "Delete")) {
+            try {
+              const response = await deleteThought(id, user);
+              // Update React state depending on response
+              if(response.status == 200) {
+                const updatedThoughts = thoughts.filter( thought => {
+                    return thought._id !== id;
+                })
+                setThoughts(updatedThoughts);
+              }
+            } catch(err) {
+              console.log(err);
+            }
         }
     }
 

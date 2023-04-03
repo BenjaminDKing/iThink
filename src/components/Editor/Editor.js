@@ -91,19 +91,6 @@ export default function Editor(props) {
     // Update react state with successful response
   }
 
-  const delContent = () => {
-    handleClose();
-    if(window.confirm("Are you sure you want to delete?", "Delete")) {
-      try {
-        const response = deleteThought(props.id, props.user);
-        // Update React state depending on response
-        console.log(response);
-      } catch(err) {
-        console.log(err);
-      }
-    }
-  }
-
   const handleClick = (event) => {
     setAnchorEl(event.target)
   }
@@ -189,7 +176,11 @@ export default function Editor(props) {
           MenuListProps={{ 'aria-labelledby': 'settings-button'}}
           onClose={handleClose}>
           { !isEditable && <Link to={`/thought/${ props.id }`} state={{ thought: thought }}><MenuItem onClick={handleClose}><EditIcon fontSize="small"/>Edit</MenuItem></Link>}
-          { !isEditable && isCurrentUsers && <MenuItem onClick={ delContent }><DeleteIcon fontSize="small"/>Delete</MenuItem>}
+          { !isEditable && isCurrentUsers && <MenuItem onClick={ () => {
+             handleClose();
+             props.handleDelete(props.id, props.user) 
+            } 
+            }><DeleteIcon fontSize="small"/>Delete</MenuItem>}
         </Menu> 
    
       </div>
