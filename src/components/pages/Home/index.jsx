@@ -39,13 +39,13 @@ function Home(props) {
         }
     }
 
-    function handleAdd(newThought) {
+    const handleAdd = async (newThought) => {
         setThoughts(prevThoughts => {
             return [newThought, ...prevThoughts]
         });
     }
 
-    function handleDelete(id) {
+    const handleDelete = async (id) => {
         try {
             deleteThought(id, user)
             .then(response => {
@@ -89,6 +89,7 @@ function Home(props) {
                             content={thoughtItem.content}
                             date={thoughtItem.date}
                             isEditable={false}
+                            handleDelete={handleDelete}
                         />
                     )
                 })}
