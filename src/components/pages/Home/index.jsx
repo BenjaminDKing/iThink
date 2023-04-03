@@ -50,10 +50,11 @@ function Home(props) {
             try {
               const response = await deleteThought(id, user);
               // Update React state depending on response
-              if(response.status == 200) {
+              if (response.status == 200) {
                 const updatedThoughts = thoughts.filter( thought => {
-                    return thought._id !== id;
+                    return thought._id != id;
                 })
+                console.log(updatedThoughts);
                 setThoughts(updatedThoughts);
               }
             } catch(err) {
@@ -81,7 +82,7 @@ function Home(props) {
                 {thoughts.map( (thoughtItem, index) => {
                     return (
                         <Editor 
-                            key={index}
+                            key={thoughtItem._id}
                             id={thoughtItem._id}
                             user={thoughtItem.user}
                             title={thoughtItem.title}
