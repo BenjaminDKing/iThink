@@ -1,5 +1,5 @@
 import React, {useRef, useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ExampleTheme from "../themes/ExampleTheme";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
@@ -53,6 +53,7 @@ export default function Editor(props) {
   const date = new Date(props.date)
   const dateString = date.toDateString();
   const isCurrentUsers = (props.user === user._id);
+  const navigate = useNavigate();
 
   const thought = {
     id: props.id,
@@ -68,27 +69,21 @@ export default function Editor(props) {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
-  const postContent = (content) => {
-    const thought = {
-      title: titleState,
-      category: categoryState,
-      content: content
+  const putContent = async (content) => {
+    if (window.confirm("Save changes to thought?", "Confirm")) {
+      const thought = {
+        _id: props.id,
+        title: titleState,
+        category: categoryState,
+        content: content
+      }
+      try {
+        const response = await putThought(thought);
+        return response
+      } catch(err) {
+        console.log(err);
+      }
     }
-    const response = postThought(thought);
-    console.log(response);
-    // Update React State with successful response
-  }
-
-  const putContent = (content) => {
-    const thought = {
-      _id: props.id,
-      title: titleState,
-      category: categoryState,
-      content: content
-    }
-    const response = putThought(thought);
-    console.log(response);
-    // Update react state with successful response
   }
 
   const handleClick = (event) => {
@@ -97,6 +92,10 @@ export default function Editor(props) {
 
   const handleClose = (event) => {
     setAnchorEl(null)
+  }
+
+  const handleRedirect = () => {
+    navigate("/profile/" + user._id); 
   }
 
   const editorConfig = {
@@ -211,11 +210,15 @@ export default function Editor(props) {
           </div>
           <hr/>
         </div>
-        { isEditable ? <input type="button" value="Save" onClick={ () => {
+        { isEditable && <input type="button" value="Save" onClick={ () => {
           if (editorStateRef.current) {
-            { props.newThought ? postContent(JSON.stringify(editorStateRef.current)) : putContent(JSON.stringify(editorStateRef.current))}
-          }
-        }} /> : null }
+             putContent(JSON.stringify(editorStateRef.current)).then(response => {
+              if(response.status === 200) {
+                handleRedirect();
+              }
+             }) 
+            }
+        }} /> }
       </LexicalComposer>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, {useRef, useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import ExampleTheme from "../themes/ExampleTheme";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
@@ -47,6 +47,7 @@ export default function CreateEditor(props) {
   const editorStateRef = useRef();
   const [titleState, setTitleState] = useState("");
   const [categoryState, setCategoryState] = useState("");
+  const navigate = useNavigate(); 
 
   const initialEditorState = null;
   const date = new Date();
@@ -57,15 +58,22 @@ export default function CreateEditor(props) {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
-  const postContent = (content) => {
-    const thought = {
-      title: titleState,
-      category: categoryState,
-      content: content
+  const postContent = async (content) => {
+    if (window.confirm("Create new thought?", "Confirm")) {
+      const thought = {
+        title: titleState,
+        category: categoryState,
+        content: content
+      }
+      try {
+        const response = await postThought(thought);
+        return response
+      } catch(err) {
+        console.log(err);
+      }
     }
-    const response = postThought(thought);
-    // Update React State with successful response
   }
+
 
   const handleClick = (event) => {
     setAnchorEl(event.target)
@@ -73,6 +81,10 @@ export default function CreateEditor(props) {
 
   const handleClose = (event) => {
     setAnchorEl(null)
+  }
+
+  const handleRedirect = () => {
+    navigate("/profile/" + user._id);
   }
 
   const editorConfig = {
@@ -169,8 +181,13 @@ export default function CreateEditor(props) {
         </div>
         <input type="button" value="Submit" onClick={ () => {
           if (editorStateRef.current) {
-            postContent(JSON.stringify(editorStateRef.current))
-            }
+            postContent(JSON.stringify(editorStateRef.current)).then(response => {
+                console.log(response);
+                if(response.status == 200) {
+                  console.log("Redirect");
+                  handleRedirect();
+                }
+              })}
           }
         } />
       </LexicalComposer>
