@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function FormDialog(props) {
+export default function VideoFormDialog(props) {
     const open = props.open;
     const handleClose = props.handleClose;
     const handleClickOpen = props.handleClickOpen;
@@ -16,9 +16,6 @@ export default function FormDialog(props) {
 
   return (
     <div>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
-      </Button> */}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Attach Video</DialogTitle>
         <DialogContent>

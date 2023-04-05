@@ -1,6 +1,7 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import FormDialog from "../FormDialog";
+import VideoFormDialog from "../VideoFormDialog";
+import ImageFormDialog from "../ImageFormDialog";
 
 import {
   CAN_REDO_COMMAND,
@@ -463,19 +464,35 @@ export default function ToolbarPlugin() {
   const [isStrikethrough, setIsStrikethrough] = useState(false);
   const [isCode, setIsCode] = useState(false);
 
-  const [open, setOpen] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
+  const [imageOpen, setImageOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  // VIDEO FORM METHODS:
+  const handleVideoClickOpen = () => {
+    setVideoOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleVideoClose = () => {
+    setVideoOpen(false);
   };
 
-  const handleSubmit = (url) => {
-    handleClose();
+  const handleVideoSubmit = (url) => {
+    handleVideoClose();
     editor.dispatchCommand( INSERT_YOUTUBE_COMMAND, FillURLVideo(url));
+  }
+
+  // IMAGE FORM METHODS:
+  const handleImageClickOpen = () => {
+    setImageOpen(true);
+  };
+
+  const handleImageClose = () => {
+    setImageOpen(false);
+  };
+
+  const handleImageSubmit = (payload) => {
+    handleImageClose();
+    onClickImage(payload);
   }
 
   const onClickImage = (InsertImagePayload) => {
@@ -740,29 +757,36 @@ export default function ToolbarPlugin() {
           </button>{" "}
           <Divider />
           <button
-            onClick={() =>
-              onClickImage({
-                altText: "URL image",
-                src: FillURLImage()
-            })
+            onClick={() => {
+              setImageOpen(true);
+            }
+            //   onClickImage({
+            //     altText: "URL image",
+            //     src: FillURLImage()
+            // })
           }
           className={"toolbar-item spaced "}
           >
             <i className="format"><ImageIcon /></i>
           </button>
+          <ImageFormDialog 
+            open={imageOpen}
+            handleClickOpen={handleImageClickOpen}
+            handleClose={handleImageClose}
+            handleSubmit={handleImageSubmit}/>
           <button
             onClick={() => {
-              setOpen(true);
+              setVideoOpen(true);
             }}
             className={"toolbar-item spaced "}
           >
             <i className="format"><YouTubeIcon /></i>
           </button>
-          <FormDialog 
-            open={open}
-            handleClickOpen={handleClickOpen}
-            handleClose={handleClose}
-            handleSubmit={handleSubmit}/>
+          <VideoFormDialog 
+            open={videoOpen}
+            handleClickOpen={handleVideoClickOpen}
+            handleClose={handleVideoClose}
+            handleSubmit={handleVideoSubmit}/>
         </>
       )}
     </div>
