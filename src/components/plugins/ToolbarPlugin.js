@@ -1,5 +1,7 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import FormDialog from "../FormDialog";
+
 import {
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
@@ -46,8 +48,8 @@ import { InsertImagePayload } from "./ImagePlugin";
 import { INSERT_IMAGE_COMMAND } from "./ImagePlugin";
 import ImageIcon from '@mui/icons-material/Image';
 
-export function FillURLVideo() {
-  const url = prompt("Enter the URL of the YouTube video:", "");
+export function FillURLVideo(url) {
+  // const url = prompt("Enter the URL of the YouTube video:", "");
 
   const match = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/.exec(
     url
@@ -64,7 +66,6 @@ export function FillURLVideo() {
 
 export function FillURLImage() {
   const srcfile = prompt("Enter the URL of the image:", "");
-
   return srcfile;
 }
 
@@ -462,6 +463,21 @@ export default function ToolbarPlugin() {
   const [isStrikethrough, setIsStrikethrough] = useState(false);
   const [isCode, setIsCode] = useState(false);
 
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSubmit = (url) => {
+    handleClose();
+    editor.dispatchCommand( INSERT_YOUTUBE_COMMAND, FillURLVideo(url));
+  }
+
   const onClickImage = (InsertImagePayload) => {
     editor.dispatchCommand(INSERT_IMAGE_COMMAND, InsertImagePayload);
   };  
@@ -736,12 +752,17 @@ export default function ToolbarPlugin() {
           </button>
           <button
             onClick={() => {
-              editor.dispatchCommand(INSERT_YOUTUBE_COMMAND, FillURLVideo());
+              setOpen(true);
             }}
             className={"toolbar-item spaced "}
           >
             <i className="format"><YouTubeIcon /></i>
           </button>
+          <FormDialog 
+            open={open}
+            handleClickOpen={handleClickOpen}
+            handleClose={handleClose}
+            handleSubmit={handleSubmit}/>
         </>
       )}
     </div>

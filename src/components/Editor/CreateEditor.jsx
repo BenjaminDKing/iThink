@@ -183,7 +183,7 @@ export default function CreateEditor(props) {
           if (editorStateRef.current) {
             postContent(JSON.stringify(editorStateRef.current)).then(response => {
                 console.log(response);
-                if(response.status == 200) {
+                if(response.status === 200) {
                   console.log("Redirect");
                   handleRedirect();
                 }

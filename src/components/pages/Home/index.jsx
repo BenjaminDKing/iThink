@@ -54,7 +54,6 @@ function Home(props) {
                 const updatedThoughts = thoughts.filter( thought => {
                     return thought._id != id;
                 })
-                console.log(updatedThoughts);
                 setThoughts(updatedThoughts);
               }
             } catch(err) {
