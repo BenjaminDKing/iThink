@@ -57,7 +57,7 @@ export default function VideoFormDialog(props) {
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Attach Video</DialogTitle>
+        <DialogTitle>Attach Image</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Enter the URL of the image:
@@ -93,7 +93,7 @@ export default function VideoFormDialog(props) {
             onClick={onButtonClick}
             className="submit-button">
             <CloudUploadIcon sx={{ fontSize: 20 }} />
-            Upload Profile Picture
+            Upload Picture
           </button>
 
         </DialogContent>
