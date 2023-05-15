@@ -22,6 +22,16 @@ button {
     cursor: pointer;
 }
 
+.infinite-scroll-component {
+    display: flex;
+    flex-direction: column;
+}
+
+.RichEditor-root {
+    width: 700px;
+    margin: 50px;
+}
+
 .logo-image {
     height: 80px;
     width: 160px;
@@ -135,12 +145,12 @@ textarea {
 
 /** Thought Message Board **/
 
-.thought-message-board {
+/* .thought-message-board {
     width: 1000px;
     
     display: flex;
     flex-wrap: wrap;
-}
+} */
 
 .thought {
     height: fit-content;
@@ -192,3 +202,4 @@ h3 {
     background-color: red;
     cursor: pointer;
 }
+

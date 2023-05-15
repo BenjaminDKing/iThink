@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { Link, useParams, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { getProfile, getThoughts, getMoreThoughts, getBuddies } from "../../../api" 
@@ -14,6 +14,8 @@ import AddBuddy from "../../AddBuddy";
 import ProfilePicture from "./ProfilePicture";
 import ProfileDetails from "./ProfileDetails";
 import PersonalPhilosophy from "../../PersonalPhilosophy";
+import Editor from "../../Editor/Editor";
+import { isEditable } from "@testing-library/user-event/dist/utils";
 
 function Profile() {
 
@@ -23,6 +25,11 @@ function Profile() {
 
     const user = useSelector(state => state.user)
     const { id } = useParams();
+
+    const newThoughtProps = {
+        newThought: true,
+        isEditable: true
+    }
 
     const renderProfile = async () => {
         const data = await getProfile(id);
@@ -76,7 +83,9 @@ function Profile() {
                     </div>
                 </div>
                 <div className="thought-message-board">
-
+                <Link to="/createthought" state={{ thought: newThoughtProps }}>
+                    <input type="button" className="create-thought-btn" value="New Thought"></input>
+                </Link>
                 <InfiniteScroll
                     dataLength={thoughts.length}
                     next={loadMoreThoughts}
@@ -84,18 +93,20 @@ function Profile() {
                     loader={<h4>Loading...</h4>}
                     endMessage={<p>All thoughts have been loaded.</p>}
                 >
-                    {thoughts.map( (thoughtItem, index) => {
-                        return (
-                            <Thought 
-                                key={index}
-                                id={thoughtItem._id}
-                                user={profile}
-                                isCurrentUser={profile._id == user._id}
-                                title={thoughtItem.title}
-                                content={thoughtItem.content}
-                                date={thoughtItem.date}/>
-                        )
-                    })}
+                {thoughts.map( (thoughtItem, index) => {
+                    return (
+                        <Editor 
+                            key={index}
+                            id={thoughtItem._id}
+                            user={thoughtItem.user}
+                            title={thoughtItem.title}
+                            content={thoughtItem.content}
+                            category={thoughtItem.category}
+                            date={thoughtItem.date}
+                            isEditable={false}
+                        />
+                    )
+                })}
                 </InfiniteScroll>
             </div>
             </div>
