@@ -10,6 +10,7 @@ import Login from "./components/pages/Login";
 import Signup from "./components/pages/Signup";
 import FourOFour from "./components/pages/FourOFour/FourOFour";
 import BuddyList from "./components/pages/BuddyList";
+import ThoughtEditor from "./components/pages/ThoughtEditor";
 
 // Color Palette: https://colorhunt.co/palette/f4f9f9ccf2f4a4ebf3aaaaaa
 
@@ -41,11 +42,19 @@ function App() {
         />
         <Route
           path="/profile"
-          element={ user ? <Profile /> : <Navigate to="login"/> }
+          element={ user ? <Profile /> : <Navigate to="/login"/> }
         />
         <Route
           path="/profile/:id"
-          element={ user ? <Profile /> : <Navigate to="login"/> }
+          element={ user ? <Profile /> : <Navigate to="/login"/> }
+        />
+        <Route 
+          path="/createthought"
+          element={ user ? <ThoughtEditor /> : <Navigate to="/login" /> }
+        />
+        <Route 
+          path="/thought/:id"
+          element={ user ? <ThoughtEditor /> : <Navigate to="/login" /> }
         />
         <Route
           path="/buddies"

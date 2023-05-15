@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
-import "./index.css";
+import styles from "./index.css";
 import { getThoughts, getMoreThoughts, deleteThought, checkReqUserCall } from "../../../api";
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "../../../actions";
@@ -8,8 +8,8 @@ import { increment, decrement } from "../../../actions";
 // Components:
 import Navbar from "../../Navbar";
 import Thought from "../../Thought";
-import MessageInput from "./MessageInput";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Editor from "../../Editor/Editor";
 
 function Home(props) {
 
@@ -39,27 +39,27 @@ function Home(props) {
         }
     }
 
-    function handleAdd(newThought) {
+    const handleAdd = async (newThought) => {
         setThoughts(prevThoughts => {
             return [newThought, ...prevThoughts]
         });
     }
 
-    function handleDelete(id) {
-        try {
-            console.log(user)
-            deleteThought(id, user)
-            .then(response => {
-                if(response.data.response == 'Success') {
-                    const updatedThoughts = thoughts.filter( thought => {
-                        return thought._id !== id;
-                    })
-                    setThoughts(updatedThoughts);
-                }
-            })
-        } catch(err) {
-            console.log(err);
-            console.log("Error when deleting Thought.");
+    const handleDelete = async (id, user) => {
+        if(window.confirm("Are you sure you want to delete?", "Delete")) {
+            try {
+              const response = await deleteThought(id, user);
+              // Update React state depending on response
+              if (response.status == 200) {
+                const updatedThoughts = thoughts.filter( thought => {
+                    return thought._id != id;
+                })
+                console.log(updatedThoughts);
+                setThoughts(updatedThoughts);
+              }
+            } catch(err) {
+              console.log(err);
+            }
         }
     }
 
@@ -71,15 +71,6 @@ function Home(props) {
         <div className="home">
             <Navbar />
             <h1>Welcome back, {user.first_name}!</h1>
-            
-            {/* <h1>Counter: {counter}</h1>
-            <button onClick={() => dispatch(increment(5)) }>+</button>
-            <button onClick={() => dispatch(decrement())}>-</button> */}
-
-            <MessageInput 
-                onAdd={handleAdd}
-                renderThoughts={renderThoughts}     
-            />
             <div className="thought-message-board">
                 <InfiniteScroll
                     dataLength={thoughts.length}
@@ -88,19 +79,21 @@ function Home(props) {
                     loader={<h4>Loading...</h4>}
                     endMessage={<p>All thoughts have been loaded.</p>}
                 >
-                    {thoughts.map( (thoughtItem, index) => {
-                        return (
-                            <Thought 
-                                key={index}
-                                id={thoughtItem._id}
-                                user={user}
-                                isCurrentUser={true}
-                                title={thoughtItem.title}
-                                content={thoughtItem.content}
-                                date={thoughtItem.date}
-                                handleDelete={handleDelete}/>
-                        )
-                    })}
+                {thoughts.map( (thoughtItem, index) => {
+                    return (
+                        <Editor 
+                            key={thoughtItem._id}
+                            id={thoughtItem._id}
+                            user={thoughtItem.user}
+                            title={thoughtItem.title}
+                            category={thoughtItem.category}
+                            content={thoughtItem.content}
+                            date={thoughtItem.date}
+                            isEditable={false}
+                            handleDelete={handleDelete}
+                        />
+                    )
+                })}
                 </InfiniteScroll>
             </div>
         </div>

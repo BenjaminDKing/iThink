@@ -23,12 +23,6 @@ function Navbar(props) {
   const user = useSelector(state => state.user)
   const url = process.env.REACT_APP_API_URL
 
-  if(process.env.NODE_ENV === "production"){
-    const url = process.env.REACT_APP_API_URL
-  } else {
-    const url = `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_SERVER_PORT}`
-  }
-
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 

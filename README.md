@@ -1,6 +1,6 @@
 # iThink
-A full-stack application for externalizing thoughts and having conversations with friends. Technologies/concepts: React, NodeJS, Express, Passport, Mongoose, MVC.
-No online working version currently available. Work in-progress!
+A full-stack application for taking notes and expressing thoughts. Technologies/concepts: React, NodeJS, Express, Passport, Mongoose, MVC.
+https://ithink.herokuapp.com/
 
 Functions and Features:
 * Authentication through PassportJS (Google OAuth 2.0)
