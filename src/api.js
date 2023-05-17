@@ -135,6 +135,22 @@ export async function uploadImage(formData) {
     .then((res) => res.json())
     .then((data) => {
         console.log(data)
+        return data
+    }).catch((err) => {
+        console.log(err)
+    })
+    return imgData
+}
+
+export async function uploadProfileImage(formData) {
+    
+    const imgData = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDNAME}/image/upload`, {
+      method:"POST",
+      body: formData
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data)
         { data.public_id ? putImage(data) : console.log("Invalid.") }
         return data
     }).catch((err) => {

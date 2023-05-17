@@ -34,6 +34,7 @@
     "express-session": "^1.17.3",
     "express-validator": "^6.14.2",
     "fetch": "^1.1.0",
+    "fork-ts-checker-webpack-plugin": "^6.5.3",
     "gapi-script": "^1.2.0",
     "ithink": "file:",
     "lexical": "^0.9.0",
@@ -54,16 +55,18 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "sha1": "^1.1.1",
+    "tslib": "^1.13.0",
     "typescript": "^5.0.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "web3": "^1.7.4"
   },
   "scripts": {
     "client": "npm run start",
     "server": "node ./backend/server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "start": "react-scripts start",
-    "heroku-start": "cd backend && node server.js",
     "build": "react-scripts build",
+    "heroku-start": "cd backend && node server.js",
     "install-client": "npm install",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

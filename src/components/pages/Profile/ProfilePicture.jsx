@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import "./index.css";
-import { uploadImage, getImage } from "../../../api";
+import { uploadProfileImage, getImage } from "../../../api";
 
 import { AdvancedImage } from "@cloudinary/react";
 import {fill} from "@cloudinary/url-gen/actions/resize";
@@ -30,10 +30,9 @@ function ProfilePicture(props) {
     formData.append("upload_preset", UPLOADPRESET)
     formData.append("cloud_name", CLOUDNAME)
 
-    let data = uploadImage(formData).then(data => {
+    let data = uploadProfileImage(formData).then(data => {
       { data.public_id ? setImgId(data.public_id) : console.log("Failed to upload image.")}
       renderProfilePic();
-
     })
   }
 
@@ -78,7 +77,8 @@ function ProfilePicture(props) {
         className="file-input"
         onChange={(e) => { setImage(e.target.files[0])}}
       />
-      { id == user._id ? <button 
+      { id == user._id ? 
+      <button 
         onClick={submitImage}
         className="submit-button"
       >

@@ -1,5 +1,8 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import VideoFormDialog from "../VideoFormDialog";
+import ImageFormDialog from "../ImageFormDialog";
+
 import {
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
@@ -46,8 +49,8 @@ import { InsertImagePayload } from "./ImagePlugin";
 import { INSERT_IMAGE_COMMAND } from "./ImagePlugin";
 import ImageIcon from '@mui/icons-material/Image';
 
-export function FillURLVideo() {
-  const url = prompt("Enter the URL of the YouTube video:", "");
+export function FillURLVideo(url) {
+  // const url = prompt("Enter the URL of the YouTube video:", "");
 
   const match = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/.exec(
     url
@@ -64,7 +67,6 @@ export function FillURLVideo() {
 
 export function FillURLImage() {
   const srcfile = prompt("Enter the URL of the image:", "");
-
   return srcfile;
 }
 
@@ -462,6 +464,37 @@ export default function ToolbarPlugin() {
   const [isStrikethrough, setIsStrikethrough] = useState(false);
   const [isCode, setIsCode] = useState(false);
 
+  const [videoOpen, setVideoOpen] = useState(false);
+  const [imageOpen, setImageOpen] = useState(false);
+
+  // VIDEO FORM METHODS:
+  const handleVideoClickOpen = () => {
+    setVideoOpen(true);
+  };
+
+  const handleVideoClose = () => {
+    setVideoOpen(false);
+  };
+
+  const handleVideoSubmit = (url) => {
+    handleVideoClose();
+    editor.dispatchCommand( INSERT_YOUTUBE_COMMAND, FillURLVideo(url));
+  }
+
+  // IMAGE FORM METHODS:
+  const handleImageClickOpen = () => {
+    setImageOpen(true);
+  };
+
+  const handleImageClose = () => {
+    setImageOpen(false);
+  };
+
+  const handleImageSubmit = (payload) => {
+    handleImageClose();
+    onClickImage(payload);
+  }
+
   const onClickImage = (InsertImagePayload) => {
     editor.dispatchCommand(INSERT_IMAGE_COMMAND, InsertImagePayload);
   };  
@@ -724,24 +757,36 @@ export default function ToolbarPlugin() {
           </button>{" "}
           <Divider />
           <button
-            onClick={() =>
-              onClickImage({
-                altText: "URL image",
-                src: FillURLImage()
-            })
+            onClick={() => {
+              setImageOpen(true);
+            }
+            //   onClickImage({
+            //     altText: "URL image",
+            //     src: FillURLImage()
+            // })
           }
           className={"toolbar-item spaced "}
           >
             <i className="format"><ImageIcon /></i>
           </button>
+          <ImageFormDialog 
+            open={imageOpen}
+            handleClickOpen={handleImageClickOpen}
+            handleClose={handleImageClose}
+            handleSubmit={handleImageSubmit}/>
           <button
             onClick={() => {
-              editor.dispatchCommand(INSERT_YOUTUBE_COMMAND, FillURLVideo());
+              setVideoOpen(true);
             }}
             className={"toolbar-item spaced "}
           >
             <i className="format"><YouTubeIcon /></i>
           </button>
+          <VideoFormDialog 
+            open={videoOpen}
+            handleClickOpen={handleVideoClickOpen}
+            handleClose={handleVideoClose}
+            handleSubmit={handleVideoSubmit}/>
         </>
       )}
     </div>

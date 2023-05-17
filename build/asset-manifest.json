@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8333b07a.css",
+    "main.js": "/static/js/main.b74c3ba2.js",
+    "static/js/104.a7b4f0ae.chunk.js": "/static/js/104.a7b4f0ae.chunk.js",
+    "static/media/google.png": "/static/media/google.f9552a3c904562bc2ae9.png",
+    "static/media/iThink_logo.png": "/static/media/iThink_logo.b2b47876aabec3764edb.png",
+    "static/media/list-ol.svg": "/static/media/list-ol.14fef2e6f0e79b263d06.svg",
+    "static/media/chat-square-quote.svg": "/static/media/chat-square-quote.33be1f551faf7cf853b0.svg",
+    "static/media/pencil-fill.svg": "/static/media/pencil-fill.4c640d95a61cb0764a83.svg",
+    "static/media/type-strikethrough.svg": "/static/media/type-strikethrough.5d23c9047ed5de3d800c.svg",
+    "static/media/type-h2.svg": "/static/media/type-h2.79f13fc5b4bd5009079a.svg",
+    "static/media/type-bold.svg": "/static/media/type-bold.b3bec3f33045771f9484.svg",
+    "static/media/list-ul.svg": "/static/media/list-ul.06392a7729ef11b23ab1.svg",
+    "static/media/text-paragraph.svg": "/static/media/text-paragraph.f4fabf6b2832a9910918.svg",
+    "static/media/text-center.svg": "/static/media/text-center.03faef7b924b1d56f352.svg",
+    "static/media/text-right.svg": "/static/media/text-right.9dc4cc6ef249d5da6f4e.svg",
+    "static/media/justify.svg": "/static/media/justify.8c8fc219361a1fd76759.svg",
+    "static/media/text-left.svg": "/static/media/text-left.bd29ab081ee9f6f7c26d.svg",
+    "static/media/link.svg": "/static/media/link.7d2df934bfb1a5cbb4fb.svg",
+    "static/media/code.svg": "/static/media/code.617835135fe5b8cd2640.svg",
+    "static/media/arrow-counterclockwise.svg": "/static/media/arrow-counterclockwise.48745dc8e6d9b1a2f8ec.svg",
+    "static/media/arrow-clockwise.svg": "/static/media/arrow-clockwise.2ba775456dd603357519.svg",
+    "static/media/type-italic.svg": "/static/media/type-italic.d3971b39b0fe39a09b1b.svg",
+    "index.html": "/index.html",
+    "static/media/type-underline.svg": "/static/media/type-underline.b41f84ace38d530f30b9.svg",
+    "static/media/chevron-down.svg": "/static/media/chevron-down.8624f04faf16b2d07c00.svg",
+    "static/media/type-h1.svg": "/static/media/type-h1.4c6eb94d40e1ad820dda.svg",
+    "main.8333b07a.css.map": "/static/css/main.8333b07a.css.map",
+    "main.b74c3ba2.js.map": "/static/js/main.b74c3ba2.js.map",
+    "104.a7b4f0ae.chunk.js.map": "/static/js/104.a7b4f0ae.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8333b07a.css",
+    "static/js/main.b74c3ba2.js"
+  ]
+}
